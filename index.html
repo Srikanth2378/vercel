@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0b1020">
-<title>Byte Club · Networking, DSA, System Design & LLD, visually</title>
+<title>Byte Club · DSA & System Design, visually</title>
 <meta name="description" content="Data structures, algorithms, Big O and system design explained with animations, everyday analogies and real case studies.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🥊</text></svg>">
 <style>:root{
@@ -289,6 +289,47 @@ body.drawer-open #scrim{opacity:1;pointer-events:auto}
 .cdhint{display:none;text-align:center;font-size:12px;color:var(--muted);margin-top:6px}
 @media(max-width:600px){.stage:has(.cd){overflow-x:auto}.cd{min-width:560px}.cdhint{display:block}}
 @media(max-width:600px){th,td{min-width:92px}th:first-child,td:first-child{min-width:70px}}
+/* ===== v4: sections, TOC, panels ===== */
+@media(max-width:900px){.contbtn{margin-left:auto}}
+.sect{margin:10px 0 4px}
+.secthead{display:block;text-decoration:none;font-weight:900;font-size:15px;color:#fff;background:var(--c);padding:9px 12px;border-radius:10px;margin:6px 0}
+.secthead.cur{outline:3px solid #bfdbfe}
+.tochero{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px 22px;box-shadow:var(--shadow);border-top:6px solid var(--c);margin-bottom:8px}
+.tochero h1{margin:.15em 0 .25em}
+.tochero p{color:var(--ink2);margin:0 0 14px}
+.toc{list-style:none;padding:0;margin:18px 0;counter-reset:none}
+.chap{display:flex;gap:16px;padding:20px 0;border-bottom:1px solid var(--line)}
+.chap:last-child{border-bottom:none}
+.chap-num{flex:none;width:44px;height:44px;border-radius:14px;background:var(--c);color:#fff;font-weight:900;font-size:19px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(15,23,42,.12)}
+.chap-body{flex:1;min-width:0}
+.chap-body h2{margin:4px 0 2px;font-size:1.3rem}
+.chap-body>p{margin:0 0 10px;color:var(--muted);font-size:15px}
+.chap-topics{display:grid;gap:6px}
+@media(min-width:640px){.chap-topics.two{grid-template-columns:1fr 1fr}}
+.tlink{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;transition:border-color .15s,transform .15s,box-shadow .15s}
+.tlink:hover{border-color:var(--c);transform:translateX(3px);box-shadow:var(--shadow)}
+.tlink .tn{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--c);min-width:32px}
+.tlink .ti{font-size:18px}
+.tlink .tt{flex:1;font-weight:600;font-size:15px;line-height:1.3}
+.tlink .ta{color:var(--line2);font-weight:800}
+.tlink:hover .ta{color:var(--c)}
+.siblings{display:flex;gap:6px;overflow-x:auto;padding:2px 0 12px;margin-bottom:6px;scrollbar-width:thin}
+.siblings a{flex:none;font-size:13px;text-decoration:none;color:var(--ink2);background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 11px;white-space:nowrap}
+.siblings a.on{background:var(--navy);color:#fff;border-color:var(--navy);font-weight:700}
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:30px 0}
+@media(max-width:760px){.panels{grid-template-columns:1fr}}
+.panel{display:block;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s}
+.panel:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(15,23,42,.12)}
+.panel .ptop{background:var(--c);color:#fff;padding:18px 20px}
+.panel .ptop h2{color:#fff;margin:.15em 0 0;font-size:1.45rem}
+.panel .ptop .kicker{color:rgba(255,255,255,.85)}
+.plist2{list-style:none;margin:0;padding:10px 20px 4px}
+.plist2 li{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:15px}
+.plist2 li:last-child{border-bottom:none}
+.plist2 .pn{flex:none;width:24px;height:24px;border-radius:50%;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.plist2 .pc{margin-left:auto;font-size:12px;color:var(--muted);font-weight:700;background:#f1f5f9;border-radius:99px;padding:1px 8px}
+.panel .go{display:inline-block;margin:10px 20px 20px;font-weight:800;padding:10px 18px;border-radius:12px;background:var(--c);color:#fff}
+button.on:hover{background:#334155;color:#fff}
 </style>
 </head>
 <body>
@@ -296,7 +337,6 @@ body.drawer-open #scrim{opacity:1;pointer-events:auto}
   <button id="burger" aria-label="Open menu">☰</button>
   <a class="logo" href="#/">🥊 Byte<span>Club</span></a>
   <nav class="toplinks" id="toplinks"></nav>
-  <button id="progBtn" class="pill" title="Your progress">✓ 0</button>
   <a id="contBtn" class="contbtn" href="#/">▶ <span>Continue</span></a>
 </div></header>
 <div id="scrim"></div><aside id="drawer" aria-label="Site menu"></aside>
@@ -484,7 +524,8 @@ const PAGES = {};
 function route(){
   cleanups.forEach(f => f()); cleanups = []; routeGen++;
   const h = location.hash.replace(/^#\/?/, '');
-  const [p, arg] = h.split('/');
+  let [p, arg] = h.split('/');
+  if (window.routeAlias) [p, arg] = window.routeAlias(p, arg);
   const page = PAGES[p] || PAGES[''];
   $('#app').innerHTML = page.render(arg);
   window.scrollTo(0, 0);
@@ -1563,6 +1604,491 @@ SET hold:show42:A5 user7 NX EX 600</pre>`,
   }
 };
 
+/* ================= MORE USE CASES (HLD + LLD) ================= */
+CASE_LIST.push(
+  {id:'ratelimiter', icon:'🛑', name:'Rate Limiter', blurb:'Throttle abusive clients across a whole fleet of servers.'},
+  {id:'kvstore', icon:'🗝️', name:'Key-Value Store', blurb:'A Dynamo-style distributed database: partitioning, replication, quorums.'},
+  {id:'idgen', icon:'🆔', name:'Unique ID Generator', blurb:'Billions of unique, time-sortable IDs with no central bottleneck.'},
+  {id:'crawler', icon:'🕷️', name:'Web Crawler', blurb:'Download a billion pages politely, without duplicates or traps.'},
+  {id:'notify', icon:'🔔', name:'Notification System', blurb:'Push, SMS and email at scale, with preferences and retries.'},
+  {id:'newsfeed', icon:'📰', name:'News Feed', blurb:'Fan-out on write vs read, and the celebrity problem.'},
+  {id:'autocomplete', icon:'🔤', name:'Search Autocomplete', blurb:'Top-5 suggestions in under 100 ms as you type.'},
+  {id:'gdrive', icon:'📁', name:'Google Drive', blurb:'File upload, block-level sync, versions and conflicts.'},
+);
+
+/* ---------------- RATE LIMITER ---------------- */
+CASES.ratelimiter = {icon:'🛑', name:'Rate Limiter', tagline:'Protect every API from abuse and overload, with less than a millisecond of extra latency, across hundreds of servers.',
+  func:['Limit requests per client by rule (e.g. 5 logins/min, 100 API calls/min)','Return 429 with Retry-After and remaining-quota headers','Rules are configurable without redeploying','Works the same on every server in the fleet'],
+  nonfunc:['Very low latency (under 1 ms per check)','Accurate across distributed servers','Fault tolerant: if the limiter is down, fail open (let traffic through)','Memory efficient'],
+  est:[['Traffic','~1M requests/s at peak','Big public API'],['Keys','10M clients × 2 rules','≈ 20M counters'],['Memory','~1–2 GB in Redis','~50–100 bytes per counter'],['Extra latency','< 1 ms','One Redis round trip in the same data centre']],
+  api:`<span class="c"># Rules (config file, reloaded live)</span>
+- domain: login,  key: ip,      limit: <span class="n">5</span>,   per: minute
+- domain: api,    key: api_key, limit: <span class="n">100</span>, per: minute
+
+<span class="c"># Response headers on every request</span>
+X-RateLimit-Limit: <span class="n">100</span>
+X-RateLimit-Remaining: <span class="n">37</span>
+Retry-After: <span class="n">23</span>              <span class="c"># only on 429</span>`,
+  data:`<pre class="code"><span class="c">-- Redis: one counter per (rule, client, window), auto-expiring</span>
+rate:api:key_7:2026-11-10T17:42  →  37    TTL 60s
+<span class="c">-- or a token bucket stored as a hash</span>
+bucket:api:key_7  →  { tokens: 12, last_refill_ms: 1731282120000 }</pre>`,
+  db:[['Counters / buckets','Redis','Atomic INCR + TTL, in-memory speed; Lua scripts for multi-step logic'],['Rules','Config file / DB, cached in memory','Read on every request, so never hit the DB'],['Dropped-request logs','Kafka → analytics','Spot abuse and tune limits']],
+  flow:{w:420,h:300,nodes:[{id:'c',x:55,y:60,icon:'🤖',label:'Client',color:'#2563eb'},{id:'g',x:210,y:60,icon:'🚪',label:'Gateway',sub:'limiter middleware',w:96,color:'#d97706'},{id:'r',x:365,y:60,icon:'⚡',label:'Redis',sub:'counters',color:'#db2777'},
+    {id:'rules',x:55,y:180,icon:'📜',label:'Rules cache',w:92,color:'#7c3aed'},{id:'api',x:210,y:180,icon:'🖥️',label:'API servers',w:92,color:'#0891b2'},{id:'k',x:365,y:180,icon:'📬',label:'Kafka',sub:'429 logs',color:'#d97706'}],
+    scenarios:[
+      {name:'✅ Allowed', intro:'Request #37 this minute for API key 7.', steps:[
+        {from:'c',to:'g',pkt:'GET /v1/items',title:'Request arrives with an API key'},
+        {from:'g',to:'rules',pkt:'rule for /v1/*?',title:'Which rule applies? (an in-memory lookup)',data:{domain:'api',key:'api_key',limit:100,per:'minute'}},
+        {from:'rules',to:'g',pkt:'100/min',t:'res',title:'Rule found'},
+        {from:'g',to:'r',pkt:'EVAL token_bucket.lua',t:'db',title:'Atomically check and decrement (a Lua script)',desc:'Read, refill and decrement happen in one atomic step, so two servers can\'t both spend the last token.'},
+        {from:'r',to:'g',pkt:'allowed, 63 left',t:'res',title:'Allowed'},
+        {from:'g',to:'api',pkt:'forward',title:'Pass the request through'},
+        {from:'api',to:'g',pkt:'200',t:'res',title:'Normal response'},
+        {from:'g',to:'c',pkt:'200 + headers',t:'res',title:'Client sees its remaining quota',data:'X-RateLimit-Limit: 100\nX-RateLimit-Remaining: 63'}]},
+      {name:'🛑 Throttled', intro:'A script hammers the API.', steps:[
+        {from:'c',to:'g',pkt:'request #101',title:'Over the limit'},
+        {from:'g',to:'r',pkt:'EVAL …',t:'db',title:'Check the bucket'},
+        {from:'r',to:'g',pkt:'denied, 0 left',t:'err',title:'Bucket empty'},
+        {from:'g',to:'k',pkt:'throttled event',t:'evt',title:'Log it for abuse analytics (async)'},
+        {from:'g',to:'c',pkt:'429 Retry-After: 23',t:'err',title:'Rejected before touching any API server'}]},
+      {name:'💥 Redis down', intro:'What if the limiter\'s own store fails?', steps:[
+        {from:'c',to:'g',pkt:'request',title:'Request arrives'},
+        {from:'g',to:'r',pkt:'EVAL …',t:'db',title:'Try Redis'},
+        {from:'r',to:'g',pkt:'timeout 💥',t:'err',title:'Redis is unreachable'},
+        {from:'g',to:'api',pkt:'fail OPEN → forward',title:'Let it through (a local in-memory limiter as backup)',desc:'Blocking everyone because the limiter broke would be worse than letting a few extra requests in. Alert the on-call engineer.'}]}]},
+  lld:{cd:{w:420,classes:[{id:'f',x:4,y:4,w:130,name:'RateLimitFilter',m:['+doFilter(req, chain)']},{id:'rp',x:142,y:4,w:132,name:'RuleProvider',m:['+ruleFor(req): Rule']},{id:'ru',x:282,y:4,w:134,name:'Rule',f:['domain, keyType','limit, window']},
+      {id:'fac',x:4,y:120,w:130,name:'LimiterFactory',m:['+forRule(rule)']},{id:'rl',x:142,y:120,w:132,name:'RateLimiter',kind:IF,m:['+tryAcquire(key): Decision']},{id:'dc',x:282,y:120,w:134,name:'Decision',f:['allowed: bool','remaining, retryAfter']},
+      {id:'tb',x:4,y:240,w:130,name:'TokenBucketLimiter',f:['-capacity, -refillRate']},{id:'sw',x:142,y:240,w:132,name:'SlidingWindowLimiter',f:['-window']},{id:'ck',x:282,y:240,w:134,name:'Clock',kind:IF,m:['+nowMillis()']}],
+      rels:[['f','rp','assoc'],['rp','ru','assoc'],['f','fac','assoc'],['fac','rl','depend','creates'],['tb','rl','implement'],['sw','rl','implement'],['rl','dc','depend','returns'],['tb','ck','assoc']]},
+    pat:[['Strategy','Token bucket, sliding window and fixed window all implement RateLimiter'],['Factory','LimiterFactory picks the algorithm from the rule'],['Chain of Responsibility','RateLimitFilter is one link in the HTTP filter chain'],['Dependency injection','A Clock interface makes the time logic unit-testable']],
+    code:`<span class="k">public final class</span> TokenBucketLimiter <span class="k">implements</span> RateLimiter {
+  <span class="k">private final long</span> capacity; <span class="k">private final double</span> refillPerMs; <span class="k">private final</span> Clock clock;
+  <span class="k">private double</span> tokens; <span class="k">private long</span> last;
+
+  <span class="k">public synchronized</span> Decision tryAcquire(String key) {   <span class="c">// single-node version</span>
+    <span class="k">long</span> now = clock.nowMillis();
+    tokens = Math.min(capacity, tokens + (now - last) * refillPerMs);   <span class="c">// refill</span>
+    last = now;
+    <span class="k">if</span> (tokens >= <span class="n">1</span>) { tokens -= <span class="n">1</span>; <span class="k">return</span> Decision.allow((<span class="k">long</span>) tokens); }
+    <span class="k">return</span> Decision.deny((<span class="k">long</span>) Math.ceil((<span class="n">1</span> - tokens) / refillPerMs));
+  }
+}
+<span class="c">// Distributed: the same maths inside a Redis Lua script, so it's atomic across servers.</span>`},
+  deep:[{t:'🧮 Pick an algorithm', h:`<div class="tblwrap"><table><tr><th>Algorithm</th><th>👍</th><th>👎</th></tr><tr><td><b>Token bucket</b></td><td>Allows bursts, memory-light, the most popular</td><td>Two parameters to tune</td></tr><tr><td><b>Leaking bucket</b></td><td>Perfectly smooth output rate</td><td>Bursts wait in a queue</td></tr><tr><td><b>Fixed window</b></td><td>Simplest (INCR + TTL)</td><td>2× burst at window edges</td></tr><tr><td><b>Sliding log</b></td><td>Exact</td><td>Stores every timestamp (memory hungry)</td></tr><tr><td><b>Sliding window counter</b></td><td>Accurate and cheap (weights the previous window)</td><td>An approximation</td></tr></table></div><p>See the live token bucket on the <a href="#/design/ratelimit">Rate Limiting fundamentals</a> page.</p>`},
+    {t:'🏁 Race conditions', h:`<p>"Read counter → check → write counter" from two servers at once can let both through. The fix is to make it <b>atomic</b>: <code>INCR</code> (atomic in Redis), a Lua script, or a sorted set in a <code>MULTI</code> transaction.</p>`},
+    {t:'📍 Where to put it', h:li(['<b>API gateway / edge</b> (most common): rejects early and protects everything behind it','<b>Middleware</b> in each service: more context (user tier, endpoint cost)','<b>Client-side</b>: be a good citizen, cache responses and back off on 429'])}],
+  trade:['<b>Fail open vs fail closed</b>: availability over strictness for most APIs; fail closed for login brute-force protection.','<b>Exact vs approximate</b>: a sliding window counter is "good enough" and far cheaper than a log.'],
+  tips:['Clarify: per user, per IP or per API key? Client- or server-side? Hard or soft limits?','Name 2–3 algorithms and pick one with a reason.','Mention the headers and the 429 response.']};
+
+/* ---------------- KEY-VALUE STORE ---------------- */
+CASES.kvstore = {icon:'🗝️', name:'Key-Value Store', tagline:'Build your own DynamoDB / Cassandra: put(key, value) and get(key) on thousands of machines that are always on.',
+  func:['put(key, value) and get(key)','Small values (under 10 KB), huge total data','Tunable consistency per request'],
+  nonfunc:['Highly available, even during node failures','Scales by just adding nodes','Low latency','Survives data-centre outages'],
+  est:[['Keys','~1 billion','Our assumption'],['Data','~10 TB (×3 replicas = 30 TB)','1B × 10 KB'],['Throughput','~100k ops/s','Read-heavy mix'],['Nodes','~50+','~600 GB each, with headroom']],
+  api:`put(key: <span class="k">String</span>, value: <span class="k">byte</span>[], consistency = QUORUM) → OK
+get(key: <span class="k">String</span>, consistency = QUORUM) → value (+ version context)
+
+<span class="c"># N = replicas, W = acks needed for a write, R = replies needed for a read</span>
+N=<span class="n">3</span>, W=<span class="n">2</span>, R=<span class="n">2</span>   →  W + R > N  →  reads see the latest write`,
+  data:`<pre class="code"><span class="c">Each node stores (an LSM tree, like Cassandra / RocksDB):</span>
+commit log (append-only, on disk)  →  memtable (sorted, in RAM)  →  SSTables (sorted files)
++ a Bloom filter per SSTable ("is the key maybe in this file?")
+<span class="c">Each value carries a vector clock: [(A,3), (B,1)]</span></pre>`,
+  db:[['Partitioning','Consistent hashing ring + virtual nodes','Even spread; adding a node moves little data'],['Replication','The next N=3 distinct nodes clockwise, across racks / DCs','Survives failures'],['Failure detection','Gossip protocol','No central heartbeat server'],['Repairs','Hinted handoff + Merkle-tree anti-entropy','Temporary and permanent failures']],
+  flow:{w:420,h:320,nodes:[{id:'c',x:55,y:55,icon:'💻',label:'Client',color:'#2563eb'},{id:'a',x:210,y:55,icon:'🅰️',label:'Node A',sub:'coordinator',color:'#d97706'},{id:'b',x:365,y:55,icon:'🅱️',label:'Node B',sub:'replica',color:'#7c3aed'},
+    {id:'d',x:210,y:165,icon:'🇩',label:'Node D',sub:'hint holder',color:'#64748b'},{id:'cc',x:365,y:165,icon:'©️',label:'Node C',sub:'replica',color:'#7c3aed'},
+    {id:'log',x:55,y:275,icon:'📝',label:'Commit log',w:90,color:'#059669'},{id:'mem',x:210,y:275,icon:'🧠',label:'MemTable',color:'#059669'},{id:'sst',x:365,y:275,icon:'💾',label:'SSTable',sub:'on disk',color:'#059669'}],
+    scenarios:[
+      {name:'✍️ Write (W=2)', intro:'put("user:42", {...}) with N=3, W=2.', steps:[
+        {from:'c',to:'a',pkt:'put user:42',title:'The client talks to any node, which becomes the coordinator'},
+        {from:'a',to:'a',pkt:'hash → A,B,C',t:'evt',title:'Consistent hashing: the key belongs to A, B and C (the next 3 on the ring)'},
+        {from:'a',to:'log',pkt:'append',t:'db',title:'A writes locally: commit log first (durability)'},
+        {from:'a',to:'mem',pkt:'insert',t:'db',title:'…then the in-memory MemTable'},
+        {from:'a',to:'b',pkt:'replicate',title:'Send to replica B'},
+        {from:'a',to:'cc',pkt:'replicate',title:'Send to replica C'},
+        {from:'b',to:'a',pkt:'ack ✅',t:'res',title:'B acks: that\'s 2 acks (A + B) = W'},
+        {from:'a',to:'c',pkt:'OK',t:'res',title:'Respond without waiting for C',desc:'C finishes moments later. Lower W = faster writes, but weaker guarantees.'},
+        {from:'mem',to:'sst',pkt:'flush when full',t:'db',title:'Later: a full MemTable is flushed to an immutable SSTable file'}]},
+      {name:'📖 Read (R=2) + repair', intro:'C missed the latest write and has an old version.', steps:[
+        {from:'c',to:'a',pkt:'get user:42',title:'Read request'},
+        {from:'a',to:'b',pkt:'read',title:'Ask B'},
+        {from:'a',to:'cc',pkt:'read',title:'Ask C'},
+        {from:'b',to:'a',pkt:'v2 [(A,2)]',t:'res',title:'B has version 2'},
+        {from:'cc',to:'a',pkt:'v1 [(A,1)]',t:'err',title:'C has stale version 1'},
+        {from:'a',to:'a',pkt:'compare clocks',t:'evt',title:'The vector clock shows v2 descends from v1, so v2 wins'},
+        {from:'a',to:'c',pkt:'v2',t:'res',title:'The client gets the newest value'},
+        {from:'a',to:'cc',pkt:'read-repair v2',t:'db',title:'Fix C in the background ("read repair")'}]},
+      {name:'💥 Node down', intro:'Replica C is unreachable during a write.', steps:[
+        {from:'c',to:'a',pkt:'put',title:'Write'},
+        {from:'a',to:'cc',pkt:'replicate',t:'err',title:'C doesn\'t answer (gossip already suspects it\'s down)'},
+        {from:'a',to:'d',pkt:'write + hint "for C"',t:'db',title:'Sloppy quorum: D temporarily stores C\'s copy with a hint'},
+        {from:'a',to:'c',pkt:'OK',t:'res',title:'The write still succeeds (still available!)'},
+        {from:'d',to:'cc',pkt:'handoff when back',t:'db',title:'When C recovers, D hands the data back ("hinted handoff")'}]}]},
+  lld:{cd:{w:420,classes:[{id:'kv',x:142,y:4,w:132,name:'KeyValueStore',kind:IF,m:['+put(k, v, level)','+get(k, level)']},{id:'co',x:142,y:110,w:132,name:'Coordinator',f:['-ring, -n, -w, -r'],m:['+put(k, v, level)','+get(k, level)']},
+      {id:'ring',x:4,y:110,w:130,name:'HashRing',m:['+nodesFor(key, n)','+add(node)']},{id:'nd',x:282,y:110,w:134,name:'StorageNode',m:['+write(k, VV)','+read(k)']},
+      {id:'se',x:282,y:235,w:134,name:'StorageEngine',kind:IF,m:['+put(k, VV)','+get(k)']},{id:'lsm',x:282,y:345,w:134,name:'LsmEngine',f:['-wal, -memtable','-sstables, -bloom']},
+      {id:'vv',x:142,y:250,w:132,name:'VersionedValue',f:['value: byte[]','clock: VectorClock']},{id:'vc',x:4,y:250,w:130,name:'VectorClock',m:['+increment(node)','+compare(o): Order']}],
+      rels:[['co','kv','implement'],['co','ring','assoc'],['co','nd','assoc','N replicas'],['nd','se','assoc'],['lsm','se','implement'],['nd','vv','depend'],['vv','vc','compose']]},
+    pat:[['Strategy','StorageEngine: LSM tree vs B-tree vs in-memory'],['Coordinator / proxy','Any node can coordinate a request'],['Composition','A VersionedValue owns its VectorClock'],['Gossip (distributed pattern)','Nodes share membership info with random peers']],
+    code:`<span class="k">public</span> Value get(String key, <span class="k">int</span> r) {
+  List&lt;StorageNode&gt; replicas = ring.nodesFor(key, n);
+  List&lt;VersionedValue&gt; replies = askInParallel(replicas, node -> node.read(key))
+                                     .waitFor(r, timeout);       <span class="c">// quorum R</span>
+  VersionedValue newest = VectorClock.newest(replies);           <span class="c">// conflict check</span>
+  replicas.stream().filter(stale(newest))
+          .forEach(node -> node.writeAsync(key, newest));        <span class="c">// read repair</span>
+  <span class="k">return</span> newest.value();
+}`},
+  deep:[{t:'🎚️ Try it: tune N, W, R', h:`<div class="stage"><div class="ctrls" style="margin:0" id="qW">W = ${[1,2,3].map(v=>`<button data-w="${v}" class="${v===2?'on':''}">${v}</button>`).join('')}</div><div class="ctrls" id="qR">R = ${[1,2,3].map(v=>`<button data-r="${v}" class="${v===2?'on':''}">${v}</button>`).join('')}</div><div class="status" id="qSt"></div></div>`},
+    {t:'🕰️ Vector clocks in one example', h:`<p>Ana writes via A → <code>[(A,1)]</code>. Ben edits via A → <code>[(A,2)]</code>, which clearly replaces it. But if Cara edits the old version via B → <code>[(A,1),(B,1)]</code>, neither <code>[(A,2)]</code> nor <code>[(A,1),(B,1)]</code> descends from the other: that's a <b>conflict</b>. Return both and let the app merge them (like a shopping cart union).</p>`},
+    {t:'🌳 Merkle trees', h:`<p>To compare millions of keys between replicas cheaply, hash buckets of keys into a tree. Equal root hashes mean the data is identical. Otherwise walk down only the branches whose hashes differ, and sync just those keys.</p>`}],
+  trade:['<b>AP by default</b> (sloppy quorum, hinted handoff) with <b>tunable</b> consistency per request.','<b>LSM trees</b>: very fast writes, with reads helped by Bloom filters and compaction.','Conflict resolution is pushed to clients (vector clocks), or last-write-wins for simplicity.'],
+  tips:['Walk through: partitioning → replication → consistency (quorum) → conflicts → failures → storage engine.','Write W + R > N on the board, and explain it.']};
+
+/* ---------------- UNIQUE ID GENERATOR ---------------- */
+CASES.idgen = {icon:'🆔', name:'Unique ID Generator', tagline:'Database auto-increment doesn\'t work across 100 shards. How do you hand out billions of unique IDs with no single point of failure?',
+  func:['IDs are unique across all machines and data centres','64-bit numeric','Roughly sortable by time','10,000+ IDs per second per machine'],
+  nonfunc:['No coordination per ID (no central bottleneck)','Highly available','Very low latency (generated in memory)'],
+  est:[['Per machine','4,096 IDs per millisecond','12-bit sequence'],['Lifetime','~69 years','41 bits of milliseconds from a custom epoch'],['Machines','1,024','5 bits data centre + 5 bits machine']],
+  api:`<span class="k">long</span> nextId()
+IdParts parse(<span class="k">long</span> id)   <span class="c">// → timestamp, datacenter, machine, sequence</span>`,
+  data:`<pre class="code">| 1 bit | 41 bits: ms since epoch | 5 bits: DC | 5 bits: machine | 12 bits: sequence |
+   0      ~69 years of timestamps    32 DCs       32 per DC         4096 per ms</pre>`,
+  db:[['Machine IDs','ZooKeeper / etcd / config','Assigned once at startup, so no two nodes share one'],['IDs themselves','None! Generated in memory','That\'s the point']],
+  flow:{w:420,h:230,nodes:[{id:'s',x:55,y:60,icon:'🧾',label:'Order service',w:96,color:'#2563eb'},{id:'g',x:210,y:60,icon:'🆔',label:'ID generator',sub:'DC1 · machine 7',w:96,color:'#d97706'},{id:'z',x:365,y:60,icon:'🦓',label:'ZooKeeper',color:'#7c3aed'},{id:'db',x:55,y:175,icon:'🗄️',label:'Orders DB',sub:'sharded',color:'#7c3aed'},{id:'ck',x:210,y:175,icon:'⏰',label:'System clock',w:96,color:'#059669'}],
+    scenarios:[
+      {name:'🚀 Startup', intro:'A new generator node boots.', steps:[
+        {from:'g',to:'z',pkt:'register',title:'Ask ZooKeeper for a unique machine ID'},
+        {from:'z',to:'g',pkt:'machine 7',t:'res',title:'Got machine 7 in DC 1 (an ephemeral node, released if we die)'}]},
+      {name:'🔢 Generate', intro:'The order service needs an ID.', steps:[
+        {from:'s',to:'g',pkt:'nextId()',title:'Ask for an ID (often an in-process library, not a network call)'},
+        {from:'g',to:'ck',pkt:'now()',title:'Read the clock'},
+        {from:'ck',to:'g',pkt:'1731282120123',t:'res',title:'Current time in ms'},
+        {from:'g',to:'g',pkt:'pack bits',t:'evt',title:'(ts − epoch) << 22 | dc << 17 | machine << 12 | seq',data:{timestamp:'1731282120123 − epoch',dc:1,machine:7,sequence:0}},
+        {from:'g',to:'s',pkt:'id 18552…',t:'res',title:'A 64-bit unique, time-sortable ID'},
+        {from:'s',to:'db',pkt:'INSERT id=…',t:'db',title:'Use it as the primary key on any shard'}]},
+      {name:'⏪ Clock went back', intro:'NTP corrected the clock backwards by 5 ms.', steps:[
+        {from:'s',to:'g',pkt:'nextId()',title:'Ask for an ID'},
+        {from:'g',to:'ck',pkt:'now()',title:'Read the clock'},
+        {from:'ck',to:'g',pkt:'earlier than last!',t:'err',title:'Time moved backwards!'},
+        {from:'g',to:'g',pkt:'wait 5 ms',t:'evt',title:'Wait until the clock passes the last timestamp (or throw if the gap is big)',desc:'Otherwise we could re-issue an ID we already gave out.'}]}]},
+  lld:{cd:{w:420,classes:[{id:'i',x:142,y:4,w:132,name:'IdGenerator',kind:IF,m:['+nextId(): long']},{id:'sf',x:142,y:110,w:132,name:'SnowflakeIdGenerator',f:['-epoch, -dc, -machine','-sequence, -lastTs'],m:['+nextId(): long']},
+      {id:'ck',x:4,y:110,w:130,name:'Clock',kind:IF,m:['+millis()']},{id:'mp',x:282,y:110,w:134,name:'MachineIdProvider',kind:IF,m:['+machineId()']},
+      {id:'zk',x:282,y:230,w:134,name:'ZkMachineIdProvider'},{id:'ip',x:142,y:230,w:132,name:'IdParts',kind:'record',f:['ts, dc, machine, seq']},{id:'uu',x:4,y:230,w:130,name:'UuidGenerator',m:['+nextId()']}],
+      rels:[['sf','i','implement'],['uu','i','implement'],['sf','ck','assoc'],['sf','mp','assoc'],['zk','mp','implement'],['sf','ip','depend','parse()']]},
+    pat:[['Strategy','IdGenerator: Snowflake vs UUID vs ticket server'],['Singleton','One generator per process (the sequence must not be shared!)'],['Dependency injection','Inject the Clock so tests can simulate it going backwards']],
+    code:`<span class="k">public synchronized long</span> nextId() {
+  <span class="k">long</span> ts = clock.millis();
+  <span class="k">if</span> (ts &lt; lastTs) ts = waitUntil(lastTs);             <span class="c">// clock went backwards</span>
+  <span class="k">if</span> (ts == lastTs) {
+    sequence = (sequence + <span class="n">1</span>) &amp; <span class="n">0xFFF</span>;                 <span class="c">// 12 bits</span>
+    <span class="k">if</span> (sequence == <span class="n">0</span>) ts = waitUntil(lastTs + <span class="n">1</span>);    <span class="c">// 4096 used this ms</span>
+  } <span class="k">else</span> sequence = <span class="n">0</span>;
+  lastTs = ts;
+  <span class="k">return</span> ((ts - EPOCH) &lt;&lt; <span class="n">22</span>) | (dc &lt;&lt; <span class="n">17</span>) | (machine &lt;&lt; <span class="n">12</span>) | sequence;
+}`},
+  deep:[{t:'🧪 Try it: generate Snowflake IDs', h:`<div class="stage"><div id="sfBar" style="display:flex;height:34px;border-radius:8px;overflow:hidden;font-size:10.5px;font-weight:800;color:#fff;text-align:center"></div><div class="ctrls"><button id="sfGo" class="pri">🆔 nextId()</button><button id="sfBurst">⚡ 5 in the same ms</button></div><pre class="code" id="sfOut" style="white-space:pre-wrap"></pre></div>`},
+    {t:'⚖️ The four classic options', h:`<div class="tblwrap"><table><tr><th>Option</th><th>👍</th><th>👎</th></tr><tr><td><b>Multi-master auto-increment</b> (step by k)</td><td>Simple, numeric</td><td>Hard to add servers; not time-ordered across servers</td></tr><tr><td><b>UUID</b> (128-bit random)</td><td>Zero coordination</td><td>128 bits, not numeric, not sortable, bad for index locality</td></tr><tr><td><b>Ticket server</b> (one DB hands out IDs)</td><td>Numeric, easy</td><td>A single point of failure</td></tr><tr><td><b>Snowflake</b> ✅</td><td>64-bit, sortable, no coordination per ID</td><td>Depends on clocks; machine IDs must be unique</td></tr></table></div>`}],
+  trade:['Roughly sortable, not strictly (different machines\' clocks differ by a few ms).','The bit layout trades lifetime vs machines vs throughput. Adjust it to your needs.'],
+  tips:['Ask: numeric? Sortable? How many per second? Multi-DC?','Draw the 64-bit layout, and handle clock rollback and sequence overflow.'],
+  mount(){ const segs = [['0',1,'#64748b','sign'],['timestamp',41,'#2563eb','41 bits · ms'],['DC',5,'#7c3aed','5'],['machine',5,'#db2777','5'],['seq',12,'#059669','12 bits']];
+    $('#sfBar').innerHTML = segs.map(s => `<div style="flex:${Math.max(s[1],3)};background:${s[2]};display:flex;align-items:center;justify-content:center;flex-direction:column;line-height:1.1">${s[0]}<span style="font-weight:600;opacity:.85">${s[3]}</span></div>`).join('');
+    const EP = 1288834974657n; let last = 0n, seq = 0n;
+    const gen = (forceSame) => { let ts = BigInt(Date.now()); if (forceSame && last) ts = last; if (ts === last) seq = (seq + 1n) & 4095n; else seq = 0n; last = ts;
+      const id = ((ts - EP) << 22n) | (1n << 17n) | (7n << 12n) | seq; return `${id}  →  ts=${ts} · dc=1 · machine=7 · seq=${seq}`; };
+    $('#sfGo').onclick = () => { $('#sfOut').textContent = gen(false); };
+    $('#sfBurst').onclick = () => { const out = [gen(false)]; for (let i = 0; i < 4; i++) out.push(gen(true)); $('#sfOut').textContent = out.join('\n') + '\n\n✅ Same millisecond, so only the sequence changes. IDs stay unique and increasing.'; };
+    $('#sfGo').click(); }
+};
+
+/* ---------------- WEB CRAWLER ---------------- */
+CASES.crawler = {icon:'🕷️', name:'Web Crawler', tagline:'Download a billion pages a month for a search engine, politely, without getting stuck in traps or storing the same page twice.',
+  func:['Start from seed URLs, download pages, extract new links, repeat','Store the HTML for indexing','Skip duplicate content and already-seen URLs','Obey robots.txt and be polite to each site'],
+  nonfunc:['Scale: 1B pages/month','Robust to bad HTML, slow servers and spider traps','Polite: don\'t hammer a single host','Extensible: images, PDFs and more later'],
+  est:[['Pages','~400 / sec (peak ~800)','1B ÷ 30 days ÷ 86,400 s'],['Storage','~500 TB / month','~500 KB average page'],['5 years','~30 PB','Hence compression + cold storage'],['URL-seen set','Billions of entries','So use a Bloom filter in front of a disk store']],
+  api:`<span class="c"># Internal components, not a public API</span>
+frontier.add(url, priority)        frontier.next() → url (polite per host)
+downloader.fetch(url) → html       parser.parse(html) → doc
+deduper.seen(contentHash) → bool   extractor.links(doc) → [url]`,
+  data:`<pre class="code">url_frontier : priority queues → per-host FIFO queues (Kafka / disk-backed)
+url_seen     : Bloom filter (RAM) + RocksDB / Cassandra (exact check)
+content_seen : set of 64-bit page fingerprints (simhash for near-duplicates)
+pages        : S3 / HDFS, compressed: s3://crawl/2026/11/10/&lt;hash&gt;.html.gz</pre>`,
+  db:[['Frontier','Kafka / disk-backed queues','Billions of URLs won\'t fit in memory'],['Seen URLs','Bloom filter + key-value store','A fast "definitely not seen" check'],['Pages','Object storage','Petabytes, cheap'],['DNS cache','In-memory','DNS lookups are a hidden bottleneck']],
+  flow:{w:420,h:330,nodes:[{id:'seed',x:50,y:55,icon:'🌱',label:'Seed URLs',w:84,color:'#059669'},{id:'fr',x:155,y:55,icon:'🗂️',label:'URL frontier',w:92,color:'#d97706'},{id:'dl',x:260,y:55,icon:'⬇️',label:'Downloader',w:92,color:'#2563eb'},{id:'dns',x:365,y:55,icon:'📖',label:'DNS cache',w:84,color:'#7c3aed'},
+    {id:'seen',x:155,y:170,icon:'🧮',label:'URL seen?',sub:'Bloom filter',w:92,color:'#7c3aed'},{id:'dd',x:260,y:170,icon:'🪞',label:'Content seen?',w:96,color:'#db2777'},{id:'pa',x:365,y:170,icon:'🧩',label:'Parser',w:84,color:'#0891b2'},
+    {id:'st',x:50,y:285,icon:'🪣',label:'Storage',w:84,color:'#64748b'},{id:'uf',x:155,y:285,icon:'🧹',label:'URL filter',w:92,color:'#0891b2'},{id:'ex',x:260,y:285,icon:'🔗',label:'Link extractor',w:96,color:'#0891b2'}],
+    scenarios:[
+      {name:'🔁 Crawl one page', intro:'One trip around the crawl loop.', steps:[
+        {from:'seed',to:'fr',pkt:'https://news.example',title:'Seeds go into the frontier'},
+        {from:'fr',to:'dl',pkt:'next(): host OK?',title:'The frontier hands out a URL whose host hasn\'t been hit in the last ~1 s (politeness)'},
+        {from:'dl',to:'dns',pkt:'news.example?',title:'Resolve DNS (cached, because DNS is slow)'},
+        {from:'dns',to:'dl',pkt:'203.0.113.7',t:'res',title:'IP address'},
+        {from:'dl',to:'dl',pkt:'robots.txt ✅ + GET',t:'evt',title:'Check robots.txt (cached), then download the page'},
+        {from:'dl',to:'pa',pkt:'HTML 120 KB',t:'res',title:'Parse and validate the HTML'},
+        {from:'pa',to:'dd',pkt:'fingerprint',title:'Have we seen this exact content before?'},
+        {from:'dd',to:'st',pkt:'new → save',t:'db',title:'New content: store it for the indexer'},
+        {from:'dd',to:'ex',pkt:'extract links',title:'Pull out all the links'},
+        {from:'ex',to:'uf',pkt:'87 links',title:'Filter: drop blacklisted sites, images, mailto:, overly long URLs'},
+        {from:'uf',to:'seen',pkt:'52 links',title:'Check the URL-seen Bloom filter'},
+        {from:'seen',to:'fr',pkt:'31 new URLs',t:'res',title:'Only unseen URLs go back into the frontier, and the loop continues 🔁'}]},
+      {name:'🪞 Duplicate page', intro:'The same article is mirrored on another URL.', steps:[
+        {from:'fr',to:'dl',pkt:'mirror.example/…',title:'Download it'},
+        {from:'dl',to:'pa',pkt:'HTML',t:'res',title:'Parse'},
+        {from:'pa',to:'dd',pkt:'fingerprint',title:'Content check'},
+        {from:'dd',to:'dd',pkt:'already seen ❌',t:'err',title:'Same fingerprint: discard it',desc:'About 30% of the web is duplicate content! Comparing hashes is far cheaper than comparing pages.'}]}]},
+  lld:{cd:{w:420,classes:[{id:'cr',x:142,y:4,w:132,name:'Crawler',m:['+run(workers)']},{id:'fr',x:4,y:4,w:130,name:'UrlFrontier',f:['-hostQueues: Map'],m:['+add(url, prio)','+next(): Url']},{id:'dl',x:282,y:4,w:134,name:'Downloader',f:['-robots, -dns'],m:['+fetch(url): Page']},
+      {id:'pp',x:142,y:120,w:132,name:'PageProcessor',kind:IF,m:['+process(page, ctx)']},{id:'dd',x:4,y:120,w:130,name:'Deduper',f:['-bloom'],m:['+seen(hash)']},{id:'pr',x:282,y:120,w:134,name:'Prioritizer',kind:IF,m:['+score(url)']},
+      {id:'ex',x:142,y:235,w:132,name:'LinkExtractor',m:['+process(page, ctx)']},{id:'uf',x:4,y:235,w:130,name:'UrlFilter',kind:IF,m:['+accept(url)']},{id:'pr2',x:282,y:235,w:134,name:'PageRankPrioritizer'},
+      {id:'df',x:4,y:345,w:62,name:'Domain'},{id:'xf',x:72,y:345,w:62,name:'Ext'},{id:'cs',x:142,y:345,w:132,name:'ContentStore',kind:IF,m:['+save(page)']}],
+      rels:[['cr','fr','assoc'],['cr','dl','assoc'],['cr','pp','assoc','pipeline'],['ex','pp','implement'],['cr','dd','assoc'],['fr','pr','assoc'],['pr2','pr','implement'],['ex','uf','assoc','chain'],['df','uf','implement'],['xf','uf','implement'],['cr','cs','assoc']]},
+    pat:[['Producer–consumer','The frontier is a queue; many downloader workers consume from it'],['Pipeline / Chain of Responsibility','Page processors and URL filters run in sequence'],['Strategy','Prioritizer (PageRank, freshness, site importance)'],['Open/Closed','Add a PdfProcessor without touching the Crawler']],
+    code:`<span class="k">void</span> worker() {
+  <span class="k">while</span> (running) {
+    Url url = frontier.next();                      <span class="c">// blocks; respects per-host delay</span>
+    Page page = downloader.fetch(url);              <span class="c">// robots.txt + DNS cache + timeout</span>
+    <span class="k">if</span> (page == <span class="k">null</span> || deduper.seen(page.hash())) <span class="k">continue</span>;
+    store.save(page);
+    <span class="k">for</span> (Url link : extractor.links(page))
+      <span class="k">if</span> (filters.accept(link) &amp;&amp; !urlSeen.mightContain(link)) {
+        urlSeen.put(link); frontier.add(link, prioritizer.score(link));
+      }
+  }
+}`},
+  deep:[{t:'🧮 Try it: a Bloom filter', h:`<p>A Bloom filter answers "have I seen this?" using tiny memory. "No" is always right; "yes" is <i>probably</i> right.</p><div class="stage"><div class="ctrls" style="margin:0"><input type="text" id="bfIn" value="news.example/a" style="width:180px"><button id="bfAdd" class="pri">➕ Add</button><button id="bfChk">🔍 Check</button></div><div id="bfBits" style="display:grid;grid-template-columns:repeat(16,1fr);gap:3px;margin-top:12px"></div><div class="status" id="bfSt">3 hash functions set 3 bits per URL.</div></div>`},
+    {t:'🙇 Politeness', h:`<p>The frontier keeps <b>one queue per host</b> and a worker only takes from a host after a delay. Front queues handle <b>priority</b> (important sites first); back queues handle <b>politeness</b>. Always fetch and cache <code>robots.txt</code>.</p>`},
+    {t:'🕳️ Spider traps', h:li(['Infinite calendars: /2026/11/10/… → /2099/…','Session IDs in URLs that make every link "new"','Defences: max URL length, max depth per site, URL normalisation, and a per-domain page cap'])}],
+  trade:['<b>BFS</b> with prioritisation, not DFS (DFS gets stuck deep in one site).','A Bloom filter\'s false positives mean we occasionally skip a new URL, which is acceptable at this scale.'],
+  tips:['Draw the loop: frontier → download → parse → dedupe → extract → filter → seen → frontier.','Mention politeness, robots.txt and traps.']};
+
+/* ---------------- NOTIFICATION SYSTEM ---------------- */
+CASES.notify = {icon:'🔔', name:'Notification System', tagline:'"Your order shipped", "Your OTP is 4821", "Ana liked your photo": millions a day, across push, SMS and email, never lost and never spammy.',
+  func:['Send push (iOS/Android), SMS and email','Triggered by services or on a schedule','Respect user preferences and opt-outs','Templates with personalisation'],
+  nonfunc:['Soft real-time (seconds are fine)','No lost notifications (at-least-once with de-duplication)','Per-user rate limits (don\'t spam)','Handle 3rd-party outages with retries'],
+  est:[['Push','10M / day','Our assumption'],['SMS','1M / day','Expensive, so use it sparingly'],['Email','5M / day',''],['Average','~185 / sec','16M ÷ 86,400 (peaks 10×)']],
+  api:`<span class="k">POST</span> /v1/notifications
+{ <span class="s">"userIds"</span>: [<span class="n">42</span>], <span class="s">"template"</span>: <span class="s">"order_shipped"</span>,
+  <span class="s">"params"</span>: { <span class="s">"orderId"</span>: <span class="n">9001</span> }, <span class="s">"channels"</span>: [<span class="s">"push"</span>,<span class="s">"email"</span>],
+  <span class="s">"dedupeKey"</span>: <span class="s">"order-9001-shipped"</span> }   → <span class="n">202</span> Accepted`,
+  data:`<pre class="code">users(id, email, phone)        devices(user_id, platform, push_token)
+preferences(user_id, channel, opted_in, quiet_hours)
+templates(id, channel, subject, body)  <span class="c">-- "Hi {{name}}, order {{orderId}} shipped 🚚"</span>
+notification_log(id, user_id, channel, status, attempts, dedupe_key UNIQUE)</pre>`,
+  db:[['Users, prefs, templates','PostgreSQL + Redis cache','Read on every notification'],['Per-channel queues','Kafka / SQS','Isolate slow channels; buffer spikes'],['Delivery log','Cassandra / DynamoDB','High write volume; used for dedupe and analytics']],
+  flow:{w:420,h:320,nodes:[{id:'svc',x:55,y:55,icon:'🧾',label:'Order service',w:96,color:'#2563eb'},{id:'ns',x:210,y:55,icon:'🔔',label:'Notification API',w:104,color:'#d97706'},{id:'cache',x:365,y:55,icon:'⚡',label:'Prefs & templates',w:110,color:'#7c3aed'},
+    {id:'qp',x:55,y:170,icon:'📬',label:'Push queue',sub:'+ workers',w:92,color:'#0891b2'},{id:'qe',x:210,y:170,icon:'📬',label:'Email queue',sub:'+ workers',w:92,color:'#0891b2'},{id:'qs',x:365,y:170,icon:'📬',label:'SMS queue',sub:'+ workers',w:92,color:'#0891b2'},
+    {id:'apns',x:55,y:285,icon:'📱',label:'APNs / FCM',color:'#059669'},{id:'ses',x:210,y:285,icon:'✉️',label:'Email (SES)',w:92,color:'#059669'},{id:'tw',x:365,y:285,icon:'💬',label:'SMS (Twilio)',w:96,color:'#059669'}],
+    scenarios:[
+      {name:'🚚 Order shipped', intro:'Send push + email for order 9001.', steps:[
+        {from:'svc',to:'ns',pkt:'POST /notifications',title:'A service asks for a notification',data:{userIds:[42],template:'order_shipped',channels:['push','email'],dedupeKey:'order-9001-shipped'}},
+        {from:'ns',to:'cache',pkt:'prefs + template',title:'Load preferences and the template (cached)'},
+        {from:'cache',to:'ns',pkt:'push ✅ email ✅ sms ❌',t:'res',title:'User 42 allows push and email'},
+        {from:'ns',to:'ns',pkt:'dedupe + render',t:'evt',title:'Already sent this dedupeKey? No. Render: "Your order 9001 shipped 🚚"'},
+        {from:'ns',to:'svc',pkt:'202 Accepted',t:'res',title:'Respond fast; the rest is async'},
+        {from:'ns',to:'qp',pkt:'push job',t:'evt',title:'Enqueue the push'},
+        {from:'ns',to:'qe',pkt:'email job',t:'evt',title:'Enqueue the email'},
+        {from:'qp',to:'apns',pkt:'send',t:'push',title:'Worker → Apple/Google push service'},
+        {from:'qe',to:'ses',pkt:'send',t:'push',title:'Worker → email provider'},
+        {from:'apns',to:'qp',pkt:'delivered ✅',t:'res',title:'Mark it sent in the log'}]},
+      {name:'🔁 Provider outage', intro:'The SMS provider has a bad minute.', steps:[
+        {from:'qs',to:'tw',pkt:'send OTP',t:'push',title:'Send "Your code is 4821"'},
+        {from:'tw',to:'qs',pkt:'503 😵',t:'err',title:'Provider error'},
+        {from:'qs',to:'qs',pkt:'retry in 2s, 4s…',t:'evt',title:'Re-queue with exponential backoff (max 5 attempts → dead-letter queue)'},
+        {from:'qs',to:'tw',pkt:'retry ✅',t:'push',title:'Delivered on retry 2'}]}]},
+  lld:{cd:{w:420,classes:[{id:'ns',x:142,y:4,w:132,name:'NotificationService',m:['+send(request)']},{id:'pf',x:4,y:4,w:130,name:'PreferenceService',m:['+allowed(user, ch)']},{id:'te',x:282,y:4,w:134,name:'TemplateEngine',m:['+render(id, params)']},
+      {id:'cf',x:4,y:120,w:130,name:'ChannelFactory',m:['+get(type): Channel']},{id:'ch',x:142,y:120,w:132,name:'Channel',kind:IF,m:['+send(msg): Result']},{id:'rp',x:282,y:120,w:134,name:'RetryPolicy',f:['maxAttempts, base'],m:['+nextDelay(n)']},
+      {id:'pc',x:4,y:235,w:130,name:'PushChannel'},{id:'ec',x:142,y:235,w:132,name:'EmailChannel'},{id:'sc',x:282,y:235,w:134,name:'SmsChannel'},{id:'nt',x:142,y:320,w:132,name:'Notification',f:['id, userId, channel','body, status, dedupeKey']}],
+      rels:[['ns','pf','assoc'],['ns','te','assoc'],['ns','cf','assoc'],['cf','ch','depend','creates'],['pc','ch','implement'],['ec','ch','implement'],['sc','ch','implement'],['ns','rp','assoc']]},
+    pat:[['Factory','ChannelFactory.get("SMS")'],['Strategy','Each Channel knows how to deliver via its provider'],['Observer / pub-sub','Services publish events; the notification service subscribes'],['Retry with backoff + dead-letter queue','Resilience to provider outages']],
+    code:`<span class="k">public void</span> send(NotificationRequest req) {
+  <span class="k">for</span> (Long userId : req.userIds())
+    <span class="k">for</span> (ChannelType type : req.channels()) {
+      <span class="k">if</span> (!prefs.allowed(userId, type) || log.exists(req.dedupeKey(), userId, type)) <span class="k">continue</span>;
+      String body = templates.render(req.template(), type, req.params());
+      queues.of(type).publish(<span class="k">new</span> Notification(userId, type, body, req.dedupeKey()));
+    }
+}
+<span class="c">// worker: channelFactory.get(n.type()).send(n), with retryPolicy on failure</span>`},
+  deep:[{t:'✅ Reliability checklist', h:li(['<b>Persist before sending</b> (notification_log), so a crash can\'t lose it','<b>Dedupe key</b>, so a retry never double-sends','<b>Retries</b> with backoff, then a dead-letter queue','<b>Per-user rate limit</b> and quiet hours','<b>Track</b> delivered, opened and clicked for analytics'])}],
+  trade:['<b>At-least-once</b> delivery + dedupe is simpler than exactly-once.','<b>A queue per channel</b>: an email outage never delays OTP SMS.'],
+  tips:['Draw the 3 channel paths and their 3rd-party providers.','Mention device tokens, templates, preferences and rate limiting.']};
+
+/* ---------------- NEWS FEED ---------------- */
+CASES.newsfeed = {icon:'📰', name:'News Feed', tagline:'Show each user the latest posts from their friends, instantly, even when a celebrity with 50 million followers posts.',
+  func:['Publish a post (text + images)','See a feed of friends\' posts, newest first','Up to 5,000 friends per user','Infinite scroll'],
+  nonfunc:['Feed loads in under 200 ms','10M daily active users','Eventual consistency is fine (a post appearing a few seconds late is OK)'],
+  est:[['Feed reads','~1,200 / sec','10M users × 10 reads / day'],['New posts','~230 / sec','2 posts per user per day'],['Fan-out writes','~70,000 / sec','230 posts × ~300 friends'],['Feed cache','~40 GB','10M users × 500 post IDs × 8 bytes']],
+  api:`<span class="k">POST</span> /v1/me/feed     { <span class="s">"content"</span>: <span class="s">"Sunset 🌅"</span>, <span class="s">"media"</span>: [<span class="s">"s3://…"</span>] }
+<span class="k">GET</span>  /v1/me/feed?cursor=post_8812&amp;limit=20   → { items: [...], nextCursor }`,
+  data:`<pre class="code">posts(id, author_id, content, media, created_at)    <span class="c">-- sharded by author_id</span>
+follows(follower_id, followee_id)                    <span class="c">-- or a graph DB</span>
+<span class="c">Redis:</span>  feed:{userId} → [postId, postId, …]  (latest 500 only)
+        post:{id} → hash   user:{id} → hash   likes:{postId} → counter</pre>`,
+  db:[['Posts','MySQL / PostgreSQL (sharded) or Cassandra','Durable source of truth'],['Social graph','Graph DB or a follows table','"Who follows X?"'],['Feeds','Redis lists','Precomputed, so reads are instant'],['Media','S3 + CDN','Images and videos']],
+  flow:{w:420,h:320,nodes:[{id:'a',x:55,y:55,icon:'🧑‍🎤',label:'Author',color:'#2563eb'},{id:'ps',x:210,y:55,icon:'🚪',label:'Post service',w:92,color:'#d97706'},{id:'pdb',x:365,y:55,icon:'🗄️',label:'Posts DB',color:'#7c3aed'},
+    {id:'fo',x:210,y:170,icon:'📣',label:'Fan-out workers',w:104,color:'#0891b2'},{id:'gr',x:365,y:170,icon:'🕸️',label:'Social graph',w:92,color:'#7c3aed'},
+    {id:'r',x:55,y:285,icon:'👀',label:'Reader',color:'#2563eb'},{id:'fc',x:210,y:285,icon:'⚡',label:'Feed cache',sub:'IDs per user',w:96,color:'#db2777'},{id:'pc',x:365,y:285,icon:'⚡',label:'Post & user cache',w:110,color:'#db2777'}],
+    scenarios:[
+      {name:'📝 Publish', intro:'A normal user with 300 friends posts.', steps:[
+        {from:'a',to:'ps',pkt:'POST /feed',title:'Publish a post'},
+        {from:'ps',to:'pdb',pkt:'INSERT post',t:'db',title:'Save it (the source of truth)'},
+        {from:'ps',to:'fo',pkt:'post.created',t:'evt',title:'Hand off to fan-out (async), and respond to the author'},
+        {from:'fo',to:'gr',pkt:'friends of A?',t:'db',title:'Get the friend list'},
+        {from:'gr',to:'fo',pkt:'300 ids',t:'res',title:'300 friends'},
+        {from:'fo',to:'fc',pkt:'LPUSH ×300',t:'db',title:'Push the post ID onto each friend\'s feed list (trimmed to 500)'}]},
+      {name:'📖 Read feed', intro:'A friend opens the app.', steps:[
+        {from:'r',to:'fc',pkt:'LRANGE 0 19',t:'db',title:'Get the 20 newest post IDs (precomputed!)'},
+        {from:'fc',to:'pc',pkt:'hydrate 20 ids',t:'db',title:'Fetch post content + author names (MGET from the cache)'},
+        {from:'pc',to:'fc',pkt:'posts + users',t:'res',title:'Hydrated'},
+        {from:'fc',to:'r',pkt:'20 posts ⚡',t:'res',title:'Feed rendered in ~10 ms'}]},
+      {name:'⭐ Celebrity posts', intro:'A star with 50M followers posts.', steps:[
+        {from:'a',to:'ps',pkt:'POST /feed',title:'The celebrity posts'},
+        {from:'ps',to:'pdb',pkt:'INSERT',t:'db',title:'Saved'},
+        {from:'ps',to:'ps',pkt:'skip fan-out',t:'evt',title:'Don\'t push to 50M lists (that would take forever)',desc:'Hybrid model: push for normal users, <b>pull</b> for celebrities.'},
+        {from:'r',to:'fc',pkt:'my feed',title:'A follower opens their feed'},
+        {from:'fc',to:'pc',pkt:'+ merge celeb posts',t:'db',title:'At read time, merge in recent posts from the celebrities they follow'},
+        {from:'fc',to:'r',pkt:'feed ✅',t:'res',title:'Still fast, with no fan-out storm'}]}]},
+  lld:{cd:{w:420,classes:[{id:'fs',x:142,y:4,w:132,name:'FeedService',m:['+publish(post)','+getFeed(user, cursor)']},{id:'fo',x:282,y:4,w:134,name:'FanoutStrategy',kind:IF,m:['+onPublish(post)','+onRead(user, ids)']},
+      {id:'pr',x:4,y:4,w:130,name:'PostRepository',m:['+save(p)','+getMany(ids)']},{id:'push',x:282,y:120,w:134,name:'PushFanout'},{id:'hy',x:282,y:185,w:134,name:'HybridFanout',f:['-celebThreshold']},
+      {id:'fr',x:142,y:130,w:132,name:'FeedRepository',m:['+prepend(user, id)','+range(user, cur, n)']},{id:'gs',x:4,y:130,w:130,name:'GraphService',m:['+followers(u)','+celebsFollowedBy(u)']},
+      {id:'p',x:4,y:250,w:130,name:'Post',f:['id, authorId','content, createdAt']},{id:'fi',x:142,y:250,w:132,name:'FeedPage',f:['items: List<Post>','nextCursor']}],
+      rels:[['fs','fo','assoc'],['push','fo','implement'],['hy','fo','implement'],['fs','pr','assoc'],['fs','fr','assoc'],['hy','gs','assoc'],['pr','p','assoc'],['fs','fi','depend','returns']]},
+    pat:[['Strategy','Push, pull or hybrid fan-out, swappable'],['Cache-aside','Post and user hydration'],['Repository','Hides Redis / SQL details'],['Cursor pagination','A stable infinite scroll while new posts arrive']],
+    code:`<span class="k">public</span> FeedPage getFeed(<span class="k">long</span> userId, String cursor) {
+  List&lt;Long&gt; ids = feeds.range(userId, cursor, <span class="n">20</span>);               <span class="c">// precomputed (push)</span>
+  ids = fanout.onRead(userId, ids);                                <span class="c">// + celebrity posts (pull)</span>
+  List&lt;Post&gt; posts = postRepo.getMany(ids);                         <span class="c">// hydrate from cache</span>
+  <span class="k">return new</span> FeedPage(posts, posts.isEmpty() ? <span class="k">null</span> : posts.get(posts.size()-<span class="n">1</span>).cursor());
+}`},
+  deep:[{t:'⚖️ Push vs pull vs hybrid', h:`<div class="tblwrap"><table><tr><th>Model</th><th>👍</th><th>👎</th></tr><tr><td><b>Push</b> (fan-out on write)</td><td>Reads are instant</td><td>Celebrities cause huge write storms; work wasted on inactive users</td></tr><tr><td><b>Pull</b> (fan-out on read)</td><td>No wasted writes</td><td>Slow reads: merge N friends\' posts every time</td></tr><tr><td><b>Hybrid</b> ✅</td><td>Push for most users, pull for celebrities</td><td>More complex</td></tr></table></div>`}],
+  trade:['Store only <b>IDs</b> in feed lists, and hydrate from the cache: memory stays small and edits show everywhere.','Keep only the latest ~500 items per feed; older ones come from the DB.'],
+  tips:['Split it into two flows: publishing (fan-out) and retrieval (hydration).','Bring up the celebrity problem yourself.']};
+
+/* ---------------- AUTOCOMPLETE ---------------- */
+CASES.autocomplete = {icon:'🔤', name:'Search Autocomplete', tagline:'Type "din" and see "dinner recipes" before you finish thinking. Top 5 suggestions in under 100 ms, for every keystroke.',
+  func:['Return the top 5 suggestions for a prefix','Ranked by popularity (search frequency)','Only lowercase English, for this design'],
+  nonfunc:['Under 100 ms (otherwise it feels laggy)','Relevant and safe (filter offensive terms)','Scales to ~48k queries per second'],
+  est:[['Queries','~24,000 / sec (peak 48k)','10M users × 10 searches × ~20 keystrokes'],['New data / day','~0.4 GB','~20% new queries'],['Trie size','Fits in memory per shard','Cache the top 5 at each node']],
+  api:`<span class="k">GET</span> /v1/autocomplete?q=din
+→ <span class="n">200</span> [<span class="s">"dinner recipes"</span>, <span class="s">"dinosaur"</span>, <span class="s">"dino game"</span>, <span class="s">"diner near me"</span>, <span class="s">"dining table"</span>]
+Cache-Control: max-age=<span class="n">3600</span>     <span class="c"># the browser caches popular prefixes</span>`,
+  data:`<pre class="code">query_log (raw)     : "dinner recipes", ts …        → aggregated weekly
+frequency table     : (query, count)               e.g. ("dinner recipes", 90123)
+trie (serialised)   : prefix → top-5 [(query, count)]  stored in a KV store
+                      "d" → [...], "di" → [...], "din" → [...]</pre>`,
+  db:[['Query service','In-memory trie cache','Each lookup is O(prefix length)'],['Trie storage','Key-value store (prefix → top 5)','Fast rebuilds and loading'],['Logs → counts','Kafka → Spark / batch jobs','Rebuild the trie weekly (or hourly for trending)']],
+  flow:{w:420,h:320,nodes:[{id:'u',x:55,y:55,icon:'⌨️',label:'User types',w:92,color:'#2563eb'},{id:'q',x:210,y:55,icon:'🔍',label:'Query service',w:96,color:'#d97706'},{id:'tc',x:365,y:55,icon:'🧠',label:'Trie cache',sub:'in memory',w:92,color:'#db2777'},
+    {id:'log',x:55,y:170,icon:'📜',label:'Analytics logs',w:100,color:'#64748b'},{id:'agg',x:210,y:170,icon:'🧮',label:'Aggregator',sub:'weekly batch',w:96,color:'#7c3aed'},{id:'tdb',x:365,y:170,icon:'🗄️',label:'Trie DB',sub:'prefix → top 5',color:'#7c3aed'},
+    {id:'b',x:210,y:285,icon:'🏗️',label:'Trie builder',w:96,color:'#059669'}],
+    scenarios:[
+      {name:'⌨️ Query path', intro:'The user types "d", "i", "n".', steps:[
+        {from:'u',to:'q',pkt:'q=din',title:'A request for each keystroke (debounced ~50 ms in the browser)'},
+        {from:'q',to:'tc',pkt:'topK("din")',t:'db',title:'Walk d → i → n in the trie'},
+        {from:'tc',to:'q',pkt:'top 5 (cached at node)',t:'res',title:'The top 5 is pre-stored at the "n" node, so there\'s no subtree search',data:[['dinner recipes',90123],['dinosaur',61000],['dino game',58200],['diner near me',40110],['dining table',22050]]},
+        {from:'q',to:'u',pkt:'5 suggestions',t:'res',title:'Shown in ~20 ms; the browser caches it for an hour'}]},
+      {name:'🔄 Data path', intro:'How the trie learns new popular searches.', steps:[
+        {from:'u',to:'log',pkt:'searched "dinner recipes"',t:'evt',title:'Every completed search is logged'},
+        {from:'log',to:'agg',pkt:'weekly job',t:'evt',title:'Aggregate: count each query (and drop rare ones)'},
+        {from:'agg',to:'b',pkt:'frequency table',title:'Hand the counts to the builder'},
+        {from:'b',to:'tdb',pkt:'new trie',t:'db',title:'Build a fresh trie with top 5 per node, and store it'},
+        {from:'tdb',to:'tc',pkt:'hot swap',t:'db',title:'Query servers load the new trie (blue/green swap)'}]}]},
+  lld:{cd:{w:420,classes:[{id:'as',x:142,y:4,w:132,name:'AutocompleteService',f:['-trie, -filter'],m:['+suggest(prefix)']},{id:'f',x:282,y:4,w:134,name:'SuggestionFilter',kind:IF,m:['+allow(q)']},
+      {id:'t',x:4,y:120,w:130,name:'Trie',f:['-root: TrieNode'],m:['+topK(prefix)']},{id:'tn',x:142,y:120,w:132,name:'TrieNode',f:['children: Map','topK: List<Hit>']},{id:'h',x:282,y:120,w:134,name:'Hit',kind:'record',f:['query, count']},
+      {id:'tb',x:4,y:240,w:130,name:'TrieBuilder',m:['+add(q, count)','+build(k): Trie']},{id:'ag',x:142,y:240,w:132,name:'FrequencyAggregator',m:['+aggregate(logs)']},{id:'bl',x:282,y:240,w:134,name:'BlocklistFilter'}],
+      rels:[['as','t','assoc'],['as','f','assoc'],['bl','f','implement'],['t','tn','compose','root'],['tn','tn','compose'],['tn','h','aggregate','top 5'],['tb','t','depend','builds'],['ag','tb','depend','feeds']]},
+    pat:[['Builder','TrieBuilder builds the immutable trie offline'],['Composite','A TrieNode contains child TrieNodes'],['Strategy / filter chain','Blocklist, language or personalisation filters'],['Immutable + hot swap','Readers never see a half-built trie']],
+    code:`<span class="k">public</span> List&lt;String&gt; suggest(String prefix) {
+  TrieNode node = trie.root();
+  <span class="k">for</span> (<span class="k">char</span> c : prefix.toCharArray()) {          <span class="c">// O(length of prefix)</span>
+    node = node.children().get(c);
+    <span class="k">if</span> (node == <span class="k">null</span>) <span class="k">return</span> List.of();
+  }
+  <span class="k">return</span> node.topK().stream()                     <span class="c">// precomputed at build time</span>
+      .map(Hit::query).filter(filter::allow).limit(<span class="n">5</span>).toList();
+}`},
+  deep:[{t:'🧪 Try it', h:`<div class="stage"><div class="ctrls" style="margin:0"><input type="text" id="acIn" value="di" style="width:200px" placeholder="type a prefix…" aria-label="prefix"></div><div id="acOut" style="max-width:360px;margin:12px auto 0"></div><div class="status" id="acSt"></div></div>`},
+    {t:'⚡ Making it fast', h:li(['Cache the <b>top-k at every trie node</b>: no subtree walk at query time','Limit prefix length (e.g. 50 chars)','Browser cache + CDN for common prefixes ("a", "th"…)','Shard the trie by first letter(s) when it outgrows one machine'])}],
+  trade:['<b>Weekly rebuild</b> = stale for trends; add a smaller real-time trie for trending queries.','Precomputing top-k uses more memory, but makes queries O(prefix).'],
+  tips:['Separate the <b>query path</b> (read, fast) from the <b>data-gathering path</b> (batch).','Explain why caching the top-k per node matters.'],
+  mount(){ const D = [['dinner recipes',90],['dinosaur',61],['dino game',58],['diner near me',40],['dining table',22],['discord',95],['disney plus',80],['dish soap',30],['dictionary',70],['diet plan',45],['dog names',66],['dogecoin',50]];
+    const R = () => { const q = $('#acIn').value.trim().toLowerCase(); const hits = D.filter(([w]) => w.startsWith(q)).sort((a,b) => b[1]-a[1]).slice(0,5); const mx = Math.max(1, ...hits.map(h => h[1]));
+      $('#acOut').innerHTML = hits.map(([w,c]) => `<div style="display:flex;align-items:center;gap:8px;margin:5px 0"><span style="flex:1"><b>${esc(q)}</b>${esc(w.slice(q.length))}</span><div style="width:110px;background:#e2e8f0;border-radius:5px;height:9px"><div style="width:${c/mx*100}%;height:100%;background:#2563eb;border-radius:5px"></div></div><span class="muted" style="font-size:12px;width:30px">${c}k</span></div>`).join('') || '<p class="muted" style="text-align:center">No suggestions 🤷</p>';
+      $('#acSt').innerHTML = q ? `Trie path: <code>${[...q].join(' → ')}</code>, then read the cached top 5. ${q.length} steps, no matter how many queries exist.` : 'Type a prefix.'; };
+    $('#acIn').oninput = R; R(); }
+};
+
+/* ---------------- GOOGLE DRIVE ---------------- */
+CASES.gdrive = {icon:'📁', name:'Google Drive', tagline:'Save a file on your laptop and see it on your phone seconds later, with every old version kept and no corrupted data, ever.',
+  func:['Upload and download files (up to 10 GB)','Sync across devices automatically','Version history (restore old versions)','Share with others; notify on changes'],
+  nonfunc:['Reliability: never lose or corrupt data','Fast sync, bandwidth-efficient (only send changes)','Highly available','Scales to 50M users'],
+  est:[['Users','50M signed up, 10M daily','Our assumption'],['Allocated storage','~500 PB','50M × 10 GB free'],['Uploads','~240 / sec (peak ~480)','10M × 2 uploads / day'],['Block size','4 MB','Sweet spot for dedupe and resumable uploads']],
+  api:`<span class="k">POST</span> /v1/files/upload?uploadType=resumable    <span class="c"># big files in chunks</span>
+<span class="k">GET</span>  /v1/files/download?path=/docs/cv.pdf
+<span class="k">GET</span>  /v1/files/revisions?path=/docs/cv.pdf&amp;limit=20
+<span class="k">GET</span>  /v1/changes/poll                             <span class="c"># long polling: "tell me when something changes"</span>`,
+  data:`<pre class="code">users(id, quota)    devices(id, user_id, push_id)    workspaces(id, owner_id)
+files(id, workspace_id, path, latest_version, checksum)
+file_versions(file_id, version, created_at, device_id)    <span class="c">-- append-only</span>
+blocks(hash PK, size, storage_url)    version_blocks(file_id, version, block_order, block_hash)</pre>`,
+  db:[['Metadata','PostgreSQL (strong consistency)','Two devices must agree on the latest version'],['File blocks','S3, cross-region replicated','Durable; deduplicated by hash'],['Old versions','Cold storage (S3 Glacier-like)','Rarely read, so cheap'],['Change notifications','Long polling','Clients wait for "something changed"']],
+  flow:{w:420,h:320,nodes:[{id:'lp',x:55,y:55,icon:'💻',label:'Laptop',color:'#2563eb'},{id:'api',x:210,y:55,icon:'🚪',label:'API / metadata',w:100,color:'#d97706'},{id:'md',x:365,y:55,icon:'🗄️',label:'Metadata DB',w:94,color:'#7c3aed'},
+    {id:'bs',x:55,y:170,icon:'🧱',label:'Block servers',w:94,color:'#0891b2'},{id:'s3',x:210,y:170,icon:'🪣',label:'Cloud storage',sub:'S3',w:96,color:'#7c3aed'},{id:'nt',x:365,y:170,icon:'🔔',label:'Notification',sub:'long poll',w:94,color:'#db2777'},
+    {id:'cold',x:210,y:285,icon:'🧊',label:'Cold storage',w:94,color:'#64748b'},{id:'ph',x:365,y:285,icon:'📱',label:'Phone',color:'#2563eb'}],
+    scenarios:[
+      {name:'⬆️ Edit & upload', intro:'You edit a 40 MB presentation on your laptop.', steps:[
+        {from:'lp',to:'api',pkt:'start: cv.pptx v6',title:'Tell the metadata service about the new version (status: pending)'},
+        {from:'api',to:'md',pkt:'INSERT pending',t:'db',title:'Record the pending upload'},
+        {from:'lp',to:'bs',pkt:'changed blocks only',title:'Split into 4 MB blocks; send only the 2 that changed (delta sync)'},
+        {from:'bs',to:'bs',pkt:'compress + encrypt',t:'evt',title:'Compress, encrypt and hash each block'},
+        {from:'bs',to:'s3',pkt:'PUT 2 blocks',t:'db',title:'Store the blocks (identical blocks are deduplicated by hash)'},
+        {from:'s3',to:'api',pkt:'upload done',t:'evt',title:'Callback: blocks stored'},
+        {from:'api',to:'md',pkt:'commit v6',t:'db',title:'Mark version 6 committed (a list of block hashes)',data:"UPDATE files SET latest_version=6 WHERE id=77 AND latest_version=5;  -- optimistic lock"},
+        {from:'api',to:'nt',pkt:'file 77 changed',t:'evt',title:'Notify the user\'s other devices'},
+        {from:'s3',to:'cold',pkt:'old versions → cold',t:'db',title:'Rarely used old versions move to cheap storage'}]},
+      {name:'📱 Sync another device', intro:'Your phone is long-polling for changes.', steps:[
+        {from:'nt',to:'ph',pkt:'changed: file 77',t:'push',title:'The long-poll request returns "something changed"'},
+        {from:'ph',to:'api',pkt:'get v6 metadata',title:'Fetch the new block list'},
+        {from:'api',to:'ph',pkt:'blocks [a1,9c,…]',t:'res',title:'The phone compares it with the blocks it already has'},
+        {from:'ph',to:'s3',pkt:'GET 2 blocks',title:'Download only the missing blocks'},
+        {from:'ph',to:'ph',pkt:'reassemble ✅',t:'evt',title:'Rebuild the file locally, then long-poll again'}]},
+      {name:'⚔️ Conflict', intro:'You edit the same file on laptop and phone while offline.', steps:[
+        {from:'lp',to:'api',pkt:'commit v6 (base v5)',title:'Laptop syncs first'},
+        {from:'api',to:'md',pkt:'v5 → v6 ✅',t:'db',title:'Accepted'},
+        {from:'ph',to:'api',pkt:'commit v6 (base v5)',title:'Phone tries with the same base version'},
+        {from:'api',to:'ph',pkt:'409 conflict',t:'err',title:'Base is stale: v6 already exists'},
+        {from:'ph',to:'ph',pkt:'keep both',t:'evt',title:'Save as "cv (phone\'s conflicted copy).pptx" and let the user merge',desc:'The first write wins; nobody\'s work is silently lost.'}]}]},
+  lld:{cd:{w:420,classes:[{id:'sc',x:4,y:4,w:130,name:'SyncClient',m:['+onLocalChange(file)','+onRemoteChange(id)']},{id:'ch',x:142,y:4,w:132,name:'Chunker',m:['+split(file): List<Block>']},{id:'b',x:282,y:4,w:134,name:'Block',f:['hash, index, bytes']},
+      {id:'ms',x:4,y:120,w:130,name:'MetadataService',m:['+commit(id, hashes, base)','+changesSince(cursor)']},{id:'bp',x:142,y:120,w:132,name:'BlockProcessor',kind:IF,m:['+apply(block)']},{id:'fv',x:282,y:120,w:134,name:'FileVersion',f:['fileId, version','blockHashes: List']},
+      {id:'cr',x:4,y:240,w:130,name:'ConflictResolver',kind:IF,m:['+resolve(local, remote)']},{id:'comp',x:142,y:235,w:62,name:'Compress'},{id:'enc',x:212,y:235,w:62,name:'Encrypt'},{id:'kb',x:4,y:345,w:130,name:'KeepBothResolver'}],
+      rels:[['sc','ch','assoc'],['ch','b','depend','creates'],['sc','ms','assoc'],['ms','fv','assoc'],['comp','bp','implement'],['enc','bp','implement'],['sc','bp','assoc','pipeline'],['sc','cr','assoc'],['kb','cr','implement']]},
+    pat:[['Decorator / pipeline','Compress → encrypt → upload, each a BlockProcessor'],['Strategy','ConflictResolver: keep both, last-write-wins, manual merge'],['Observer','Long-poll notifications for other devices'],['Optimistic locking','commit(base=5) only succeeds if the latest version is still 5']],
+    code:`<span class="k">public void</span> onLocalChange(Path file) {
+  List&lt;Block&gt; blocks = chunker.split(file);                       <span class="c">// 4 MB blocks + SHA-256</span>
+  Set&lt;String&gt; missing = api.missingBlocks(hashes(blocks));        <span class="c">// dedupe + delta</span>
+  blocks.stream().filter(b -> missing.contains(b.hash()))
+        .map(pipeline::apply).forEach(uploader::put);             <span class="c">// compress → encrypt → upload</span>
+  <span class="k">try</span> { api.commit(fileId, hashes(blocks), localVersion); }
+  <span class="k">catch</span> (ConflictException e) { resolver.resolve(file, e.remote()); }
+}`},
+  deep:[{t:'🧱 Why blocks?', h:li(['<b>Delta sync</b>: change 1 slide and only one 4 MB block uploads','<b>Deduplication</b>: identical blocks (even across users) are stored once','<b>Resumable</b>: a failed upload resumes from the last block','<b>Parallel</b>: upload several blocks at the same time'])},
+    {t:'🔒 Strong consistency for metadata', h:`<p>Metadata uses an ACID database with <b>optimistic locking</b> (a version check). File blocks are immutable, so they can be cached and replicated freely. Only the pointer to the "latest version" must be strongly consistent.</p>`}],
+  trade:['<b>Long polling</b> over WebSockets: updates aren\'t constant, and long polling is simpler at this scale.','Cold storage saves money but makes restoring very old versions slower.'],
+  tips:['Separate metadata (small, consistent) from blocks (big, immutable).','Cover the upload flow, the download/sync flow and conflict handling.']};
+
+/* ---- shared mount for KV quorum + crawler bloom (runs from CASES[*].mount) ---- */
+CASES.kvstore.mount = () => { let W = 2, R = 2; const N = 3;
+  const upd = () => { const strong = W + R > N; $('#qSt').innerHTML = `N=${N}, W=${W}, R=${R} → W+R = ${W+R} ${strong ? '>' : '≤'} N → ${strong ? '✅ <b>Strong consistency</b>: every read overlaps the latest write' : '⚠️ <b>Eventual consistency</b>: a read may miss the latest write'}<br>${W === 1 ? '⚡ Fast writes' : W === 3 ? '🐢 Slow writes (wait for all 3)' : '⚖️ Balanced writes'} · ${R === 1 ? '⚡ fast reads' : R === 3 ? '🐢 slow reads' : '⚖️ balanced reads'}`; };
+  $('#qW').onclick = e => { const b = e.target.closest('[data-w]'); if (!b) return; W = +b.dataset.w; $$('#qW button').forEach(x => x.className = x === b ? 'on' : ''); upd(); };
+  $('#qR').onclick = e => { const b = e.target.closest('[data-r]'); if (!b) return; R = +b.dataset.r; $$('#qR button').forEach(x => x.className = x === b ? 'on' : ''); upd(); }; upd(); };
+CASES.crawler.mount = () => { const bits = Array(32).fill(0); let lastHit = [];
+  const hs = s => [7, 13, 29].map(k => { let h = k; for (const c of s) h = (h * 31 + c.charCodeAt(0) * k) % 1000003; return h % 32; });
+  const R = () => $('#bfBits').innerHTML = bits.map((b,i) => `<div style="height:26px;border-radius:5px;font-size:10px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);background:${lastHit.includes(i)?'#fde68a':b?'#2563eb':'#e2e8f0'};color:${b?'#fff':'#64748b'}">${b}</div>`).join('');
+  R(); ['news.example/b','shop.example/x'].forEach(u => hs(u).forEach(i => bits[i] = 1)); R();
+  $('#bfAdd').onclick = () => { const u = $('#bfIn').value.trim(); if (!u) return; lastHit = hs(u); lastHit.forEach(i => bits[i] = 1); R(); $('#bfSt').innerHTML = `Added: set bits ${lastHit.join(', ')}.`; };
+  $('#bfChk').onclick = () => { const u = $('#bfIn').value.trim(); if (!u) return; lastHit = hs(u); const all = lastHit.every(i => bits[i]); R();
+    $('#bfSt').innerHTML = all ? `Bits ${lastHit.join(', ')} are all 1, so <b>"probably seen"</b> (could be a false positive).` : `At least one bit is 0, so <b>"definitely NOT seen"</b> ✅. Crawl it!`; }; };
+
 /* ================= DSA PAGE ================= */
 const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
 const opsTable = rows => `<div class="tblwrap"><table><tr><th>Operation</th><th>Speed</th><th>Why</th></tr>${rows.map(r => `<tr><td>${r[0]}</td><td>${Ob(r[1])}</td><td class="muted">${r[2]}</td></tr>`).join('')}</table></div>`;
@@ -2310,10 +2836,23 @@ SDsec('apis', 'APIs', 'How things talk', 'APIs & protocols: the languages of app
     <div class="mini"><h4>🔔 Webhook</h4><p>"Call me back at this URL when something happens."</p><p class="muted">Payment providers notifying your shop.</p></div>
     <div class="mini"><h4>🔁 Polling</h4><p>The client asks "anything new?" every few seconds.</p><p class="muted">Simple, but wasteful. "Are we there yet?" 🚗</p></div>
   </div>
-  <h3>🚦 HTTP status codes, decoded</h3>
-  <div class="tblwrap"><table><tr><th>Code</th><th>Means</th><th>Translation</th></tr>
-    ${[['200','OK','👍 Here you go!'],['201','Created','🎉 Made the thing you asked for'],['301 / 302','Moved','👉 It\'s over there now'],['304','Not Modified','😴 Use your cached copy'],['400','Bad Request','🤨 That makes no sense'],['401','Unauthorized','🪪 Who are you? Log in first'],['403','Forbidden','🙅 I know who you are. Still no.'],['404','Not Found','🤷 Never heard of it'],['429','Too Many Requests','🛑 Slow down, buddy (rate limited)'],['500','Server Error','💥 Oops, our bad'],['503','Service Unavailable','😵 Too busy or down right now']].map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')}
-  </table></div>
+  <h3>⚖️ Side by side</h3>
+  <div class="tblwrap"><table><tr><th></th><th>REST</th><th>GraphQL</th><th>gRPC</th><th>WebSocket</th></tr>
+    <tr><td><b>Format</b></td><td>JSON over HTTP</td><td>JSON, one endpoint</td><td>Protobuf (binary) over HTTP/2</td><td>Any frames, persistent</td></tr>
+    <tr><td><b>Best for</b></td><td>Public APIs, CRUD</td><td>Mobile apps with varied screens</td><td>Service-to-service, low latency</td><td>Chat, games, live updates</td></tr>
+    <tr><td><b>Caching</b></td><td>✅ Easy (HTTP caches)</td><td>⚠️ Harder</td><td>❌ Custom</td><td>❌ N/A</td></tr>
+    <tr><td><b>Watch out</b></td><td>Over/under-fetching</td><td>Expensive nested queries</td><td>Not browser-native</td><td>Stateful connections</td></tr></table></div>
+  <h3>✅ REST API design checklist</h3>
+  <div class="grid">
+    <div class="mini"><h4>📛 Nouns, not verbs</h4><p><code>GET /orders/42</code> ✅<br><code>GET /getOrder?id=42</code> ❌</p></div>
+    <div class="mini"><h4>🔢 Version it</h4><p><code>/v1/orders</code>, or a header. Never break existing clients.</p></div>
+    <div class="mini"><h4>📄 Paginate lists</h4><p><code>?cursor=abc&limit=20</code>. Cursors beat page numbers for feeds that change.</p></div>
+    <div class="mini"><h4>🔂 Idempotency keys</h4><p><code>Idempotency-Key</code> header on POSTs that move money, so retries are safe.</p></div>
+    <div class="mini"><h4>🔍 Filter & sort</h4><p><code>?status=shipped&sort=-createdAt</code></p></div>
+    <div class="mini"><h4>🚨 Consistent errors</h4><p>Correct status codes plus one error JSON shape. See <a href="#/design/errors">Errors & warning codes</a>.</p></div>
+    <div class="mini"><h4>🔐 Auth & limits</h4><p>Bearer tokens (OAuth2/JWT) over HTTPS, and rate limits returning 429.</p></div>
+    <div class="mini"><h4>📘 Document it</h4><p>An OpenAPI/Swagger spec, so clients can generate SDKs.</p></div>
+  </div>
 `);
 
 /* ---------- LOAD BALANCER ---------- */
@@ -2982,6 +3521,209 @@ SDsec('checklist', 'Interview Checklist', 'Ace it', 'Interview checklist & key r
   $('#ckList').onchange = upd; upd();
 });
 
+/* ================= NEW SYSTEM DESIGN PAGES: Lombok, Errors, Creational (rewrite) ================= */
+
+/* ---------- LOMBOK ---------- */
+const LOMBOK = {
+  '@Getter':['getId(), getName(), getEmail()', 'getters'],
+  '@Setter':['setId(…), setName(…), setEmail(…)', 'setters'],
+  '@ToString':['toString() → "User(id=1, name=Ana, email=…)"', 'toString'],
+  '@EqualsAndHashCode':['equals(Object), hashCode()', 'equals'],
+  '@NoArgsConstructor':['User()', 'noargs'],
+  '@AllArgsConstructor':['User(Long id, String name, String email)', 'allargs'],
+  '@RequiredArgsConstructor':['User(…final / @NonNull fields…)', 'reqargs'],
+  '@Builder':['User.builder().name("Ana").email("a@x.com").build()', 'builder'],
+  '@Slf4j':['private static final Logger log = LoggerFactory.getLogger(User.class)', 'log'],
+};
+const LOMBOK_COMBO = {'@Data':['@Getter','@Setter','@ToString','@EqualsAndHashCode','@RequiredArgsConstructor'], '@Value':['@Getter','@ToString','@EqualsAndHashCode','@AllArgsConstructor','(all fields private final, class final, no setters)']};
+SDsec('lombok', 'Lombok', 'Java productivity', 'Lombok annotations: delete 80% of your boilerplate ✂️', `
+  <p><b>Project Lombok</b> is a Java library that writes repetitive code for you at <b>compile time</b>. You add an annotation like <code>@Getter</code>, and the compiler generates the getter methods. Your source stays short, and the compiled <code>.class</code> file has everything.</p>
+  ${analogy('🍱 Think of a meal-kit service', 'You say "make it a burrito bowl" (an annotation), and the kit arrives pre-chopped and measured (generated code). You still get a full meal, you just didn\'t do the boring chopping.')}
+  <h3>🧪 Try it: tick annotations and watch the code appear</h3>
+  <div class="stage">
+    <div class="ctrls" style="margin:0;justify-content:flex-start" id="lbBtns">${[...Object.keys(LOMBOK), '@Data', '@Value'].map(a => `<button data-a="${a}">${a}</button>`).join('')}</div>
+    <div class="grid2" style="margin-bottom:0">
+      <div><div class="muted" style="font-size:12px;font-weight:800;margin-bottom:4px">✍️ YOU WRITE</div><pre class="code" id="lbSrc"></pre></div>
+      <div><div class="muted" style="font-size:12px;font-weight:800;margin-bottom:4px">⚙️ LOMBOK GENERATES</div><pre class="code" id="lbGen" style="min-height:120px"></pre></div>
+    </div>
+    <div class="status" id="lbSt"></div></div>
+  <h3>📋 The annotations you'll actually use</h3>
+  <div class="tblwrap"><table><tr><th>Annotation</th><th>Generates</th><th>Use it for</th><th>Watch out</th></tr>
+  ${[['@Getter / @Setter','Getters / setters (on a class or a field)','Most classes','Don\'t add setters to things that should be immutable'],
+     ['@ToString','toString()','Logging and debugging','Infinite loops with two-way relationships. Use @ToString.Exclude'],
+     ['@EqualsAndHashCode','equals() + hashCode()','Value objects, sets and map keys','On JPA entities, compare by ID only'],
+     ['@NoArgs / @AllArgs / @RequiredArgsConstructor','Constructors','@RequiredArgs + final fields = clean constructor injection in Spring','Parameter order follows field order'],
+     ['@Data','Getter + Setter + ToString + EqualsAndHashCode + RequiredArgsConstructor','Simple DTOs','❌ Avoid on JPA entities (lazy loading + equals/hashCode bugs)'],
+     ['@Value','An immutable class: private final fields, getters, all-args constructor','Value objects, events, configs','No setters: use toBuilder() or @With to "change" it'],
+     ['@Builder','The Builder pattern: User.builder()…build()','Objects with many optional fields','JPA needs @NoArgsConstructor too; @Builder.Default for default values'],
+     ['@Slf4j','A <code>log</code> field','Every service class','Needs an SLF4J implementation (e.g. Logback) on the classpath'],
+     ['@NonNull','A null check that throws NullPointerException','Constructor and method parameters','Checked at runtime, not compile time'],
+     ['@With','withName("Bo") returns a modified copy','Immutable objects','Creates a new object each time'],
+     ['@SneakyThrows','Throws checked exceptions without declaring them','Rarely: lambdas, tests','Hides exceptions from callers. Use sparingly!']]
+    .map(r => `<tr><td><code>${r[0]}</code></td><td>${r[1]}</td><td>${r[2]}</td><td class="muted">${r[3]}</td></tr>`).join('')}</table></div>
+  <h3>🔁 Before and after</h3>
+  <div class="grid2"><div><div style="font-size:12px;font-weight:800;color:#dc2626">❌ Plain Java: ~60 lines</div><pre class="code"><span class="k">public class</span> Order {
+  <span class="k">private final</span> Long id;
+  <span class="k">private final</span> String item;
+  <span class="k">private final</span> int qty;
+  <span class="k">public</span> Order(Long id, String item, int qty) {…}
+  <span class="k">public</span> Long getId() { <span class="k">return</span> id; }
+  <span class="k">public</span> String getItem() { <span class="k">return</span> item; }
+  <span class="k">public int</span> getQty() { <span class="k">return</span> qty; }
+  @Override <span class="k">public boolean</span> equals(Object o) {…15 lines…}
+  @Override <span class="k">public int</span> hashCode() {…}
+  @Override <span class="k">public</span> String toString() {…}
+  <span class="c">// + a hand-written Builder class (~25 lines)</span>
+}</pre></div><div><div style="font-size:12px;font-weight:800;color:#059669">✅ Lombok: 6 lines</div><pre class="code"><span class="n">@Value</span>
+<span class="n">@Builder</span>
+<span class="k">public class</span> Order {
+  Long id;
+  String item;
+  <span class="k">int</span> qty;
+}
+
+<span class="c">// usage</span>
+Order o = Order.builder()
+    .id(<span class="n">1L</span>).item(<span class="s">"pizza"</span>).qty(<span class="n">2</span>).build();</pre></div></div>
+  <h3>🧱 Lombok in LLD</h3>
+  <div class="grid">
+    <div class="mini"><h4>@Builder = Builder pattern</h4><p>A creational design pattern for free. Great for request, config and test-data objects.</p></div>
+    <div class="mini"><h4>@Value = immutable value object</h4><p>Thread-safe by design, which is perfect for events and money amounts.</p></div>
+    <div class="mini"><h4>@RequiredArgsConstructor = dependency injection</h4><p><code>private final PaymentGateway gw;</code> plus this annotation gives constructor injection (SOLID's D).</p></div>
+    <div class="mini"><h4>Modern alternative: records</h4><p>Java 16+ <code>record Order(Long id, String item, int qty) {}</code> covers many @Value uses with no library.</p></div>
+  </div>
+  ${real('Spring Boot projects use Lombok everywhere: <code>@Slf4j</code> on services, <code>@RequiredArgsConstructor</code> for injection, <code>@Builder</code>/<code>@Value</code> on DTOs. Setup: add the dependency, enable annotation processing, and install the IDE plugin (IntelliJ bundles it).')}
+`, () => {
+  const sel = new Set(['@Getter']);
+  const R = () => {
+    let gen = new Set(); [...sel].forEach(a => (LOMBOK_COMBO[a] || [a]).forEach(x => gen.add(x)));
+    $('#lbSrc').innerHTML = [...sel].map(a => `<span class="n">${a}</span>`).join('\n') + `\n<span class="k">public class</span> User {\n  <span class="k">private</span> Long id;\n  <span class="k">private</span> String name;\n  <span class="k">private</span> String email;\n}`;
+    const lines = [...gen].map(a => LOMBOK[a] ? `<span class="c">// from ${a}</span>\n${LOMBOK[a][0]}` : `<span class="c">// ${a}</span>`);
+    $('#lbGen').innerHTML = lines.join('\n\n') || '<span class="c">// nothing yet: tick an annotation</span>';
+    const saved = [...gen].reduce((s,a) => s + ({'@Getter':9,'@Setter':9,'@ToString':4,'@EqualsAndHashCode':18,'@NoArgsConstructor':2,'@AllArgsConstructor':6,'@RequiredArgsConstructor':3,'@Builder':28,'@Slf4j':1}[a] || 0), 0);
+    $('#lbSt').innerHTML = `${sel.has('@Data') ? '<b>@Data</b> bundles 5 annotations. ' : ''}${sel.has('@Value') ? '<b>@Value</b> makes the class immutable. ' : ''}You saved about <b>${saved}</b> lines of boilerplate ✂️`;
+    $$('#lbBtns button').forEach(b => b.className = sel.has(b.dataset.a) ? 'on' : ''); };
+  $('#lbBtns').onclick = e => { const b = e.target.closest('[data-a]'); if (!b) return; const a = b.dataset.a; sel.has(a) ? sel.delete(a) : sel.add(a);
+    if (a === '@Value' && sel.has('@Value')){ sel.delete('@Setter'); sel.delete('@Data'); } if (a === '@Data' && sel.has('@Data')) sel.delete('@Value'); R(); };
+  R();
+});
+
+/* ---------- ERRORS & WARNING CODES ---------- */
+const CODES = {
+  100:['Continue','Info','Server got the headers; send the body','—'],101:['Switching Protocols','Info','Upgrading to WebSocket','—'],
+  200:['OK','Success','Here\'s what you asked for','—'],201:['Created','Success','New resource made (with a Location header)','—'],202:['Accepted','Success','Queued, will be processed later (async)','—'],204:['No Content','Success','Done, nothing to return (e.g. DELETE)','—'],206:['Partial Content','Success','A byte range (video seeking, resumable downloads)','—'],
+  301:['Moved Permanently','Redirect','Use the new URL forever (browsers cache it)','—'],302:['Found','Redirect','Temporary redirect','—'],304:['Not Modified','Redirect','Your cached copy is still good','—'],307:['Temporary Redirect','Redirect','Like 302, but keep the same method and body','—'],308:['Permanent Redirect','Redirect','Like 301, but keep the same method and body','—'],
+  400:['Bad Request','Client error','Malformed JSON, missing field','❌ Fix the request'],401:['Unauthorized','Client error','Not logged in, or the token expired','🔁 After re-login'],403:['Forbidden','Client error','Logged in, but not allowed','❌ No'],404:['Not Found','Client error','No such resource','❌ No'],405:['Method Not Allowed','Client error','e.g. DELETE on a read-only endpoint','❌ No'],408:['Request Timeout','Client error','The client was too slow to send','✅ Retry'],409:['Conflict','Client error','Version clash, duplicate, seat already taken','🔁 Reload, then retry'],410:['Gone','Client error','Deleted on purpose, forever','❌ No'],412:['Precondition Failed','Client error','The If-Match version didn\'t match (optimistic locking)','🔁 Reload'],415:['Unsupported Media Type','Client error','Sent XML where JSON was expected','❌ Fix it'],422:['Unprocessable Content','Client error','Valid JSON, but it breaks the rules (e.g. age = −5)','❌ Fix it'],429:['Too Many Requests','Client error','Rate limited. Read the Retry-After header','✅ Retry after the wait'],
+  500:['Internal Server Error','Server error','An unhandled bug or exception','⚠️ Maybe, with backoff'],501:['Not Implemented','Server error','The feature doesn\'t exist','❌ No'],502:['Bad Gateway','Server error','A proxy got a bad answer from upstream','✅ Retry with backoff'],503:['Service Unavailable','Server error','Overloaded or under maintenance','✅ Retry (honour Retry-After)'],504:['Gateway Timeout','Server error','Upstream was too slow','✅ Retry with backoff'],
+};
+SDsec('errors', 'Errors & Warning Codes', 'When things go wrong', 'Error types, status codes & warning levels 🚨', `
+  <p>Good systems fail <b>clearly</b>: the right status code, a useful error body, and logs at the right level. This page covers all three.</p>
+  <h3>🔎 Status code decoder</h3>
+  <div class="stage"><div class="ctrls" style="margin:0"><input type="number" id="scIn" value="429" style="width:100px" aria-label="status code"><button id="scGo" class="pri">Decode</button></div>
+    <div class="ctrls" id="scChips">${Object.keys(CODES).map(c => `<button data-c="${c}" style="font-size:12.5px;padding:4px 9px">${c}</button>`).join('')}</div>
+    <div id="scOut" style="margin-top:10px"></div></div>
+  <h3>🎨 The five families</h3>
+  <div class="grid">${[['1xx','Informational','"Hold on…"','#64748b'],['2xx','Success','"Here you go! 👍"','#059669'],['3xx','Redirection','"It\'s over there 👉"','#2563eb'],['4xx','Client error','"You messed up 🤨"','#d97706'],['5xx','Server error','"We messed up 💥"','#dc2626']].map(f => `<div class="mini" style="border-top:4px solid ${f[3]}"><h4 style="color:${f[3]}">${f[0]} · ${f[1]}</h4><p class="muted">${f[2]}</p></div>`).join('')}</div>
+  <h3>🔁 Retry or not? The most useful classification</h3>
+  <div class="grid2"><div class="mini" style="border-left:4px solid #059669"><h4>✅ Transient: retry with backoff</h4><p>408, 429, 502, 503, 504, network timeouts, connection resets. The same request may work in a moment. Use exponential backoff + jitter, and only retry idempotent operations (or use idempotency keys).</p></div>
+    <div class="mini" style="border-left:4px solid #dc2626"><h4>❌ Permanent: don't retry</h4><p>400, 401, 403, 404, 405, 410, 422. Retrying the same request gives the same error. Fix the input, re-authenticate or give up.</p></div></div>
+  <h3>📦 A good error response body</h3>
+  <p>Use one consistent shape everywhere. The standard is <b>Problem Details</b> (RFC 9457, <code>application/problem+json</code>):</p>
+  <pre class="code">HTTP/1.1 <span class="n">422</span> Unprocessable Content
+Content-Type: application/problem+json
+
+{
+  <span class="s">"type"</span>:     <span class="s">"https://api.shop.example/errors/out-of-stock"</span>,
+  <span class="s">"title"</span>:    <span class="s">"Item out of stock"</span>,
+  <span class="s">"status"</span>:   <span class="n">422</span>,
+  <span class="s">"detail"</span>:   <span class="s">"Only 2 'SNEAKER-42' left, you asked for 5"</span>,
+  <span class="s">"instance"</span>: <span class="s">"/orders/9001"</span>,
+  <span class="s">"traceId"</span>:  <span class="s">"4bf92f3577b34da6"</span>      <span class="c">// lets support find the logs</span>
+}</pre>
+  <p class="muted">Never leak stack traces, SQL or internal hostnames in error bodies. Log them instead, keyed by traceId.</p>
+  <h3>🚦 Log levels: WARN vs ERROR and friends</h3>
+  <div class="stage"><div id="lvBars"></div></div>
+  <div class="tblwrap"><table><tr><th>Level</th><th>Use it when…</th><th>Example</th><th>Alert?</th></tr>
+  ${[['TRACE','Super-detailed step-by-step flow','"entering calcTax(cart=…)"','No (dev only)'],['DEBUG','Details useful while debugging','"cache miss for user:42"','No'],['INFO','Normal, important business events','"order 9001 placed"','No'],['WARN','Something odd happened but we recovered; may need attention later','"payment retry 2/3", "deprecated API v1 called", "disk 85% full"','Watch trends'],['ERROR','An operation failed and a user or feature was affected','"payment failed for order 9001", unhandled exception','✅ Yes, on rate spikes'],['FATAL','The app can\'t continue','"can\'t connect to the DB at startup"','🚨 Page someone']].map(r => `<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td class="muted">${r[2]}</td><td>${r[3]}</td></tr>`).join('')}</table></div>
+  <div class="grid2"><div class="mini"><h4>WARN or ERROR? The quick test</h4><p>Did a user-facing operation <b>fail</b>? → ERROR. Did it succeed with a hiccup (retry worked, fallback used, slow, deprecated)? → WARN.</p></div>
+    <div class="mini"><h4>⚠️ Deprecation warnings in APIs</h4><p>To warn clients that an endpoint is going away, send the <code>Deprecation</code> and <code>Sunset</code> response headers, plus a link to the docs. (The old <code>Warning</code> header is obsolete.)</p></div></div>
+  <h3>☕ Java: exception types → HTTP codes</h3>
+  <div class="grid2"><div class="mini"><h4>Checked exceptions</h4><p>Must be declared or caught (<code>IOException</code>, <code>SQLException</code>). For recoverable conditions.</p></div><div class="mini"><h4>Unchecked (RuntimeException)</h4><p>Programming errors or business rules (<code>IllegalArgumentException</code>, <code>NullPointerException</code>, custom <code>OrderNotFoundException</code>).</p></div></div>
+  <pre class="code"><span class="n">@RestControllerAdvice</span>                           <span class="c">// Spring: one place to map errors</span>
+<span class="k">class</span> ApiErrors {
+  <span class="n">@ExceptionHandler</span>(OrderNotFoundException.<span class="k">class</span>)
+  ResponseEntity&lt;ProblemDetail&gt; notFound(OrderNotFoundException e) {
+    <span class="k">return</span> ResponseEntity.status(<span class="n">404</span>).body(ProblemDetail.forStatusAndDetail(NOT_FOUND, e.getMessage()));
+  }
+  <span class="n">@ExceptionHandler</span>(Exception.<span class="k">class</span>)                 <span class="c">// last resort</span>
+  ResponseEntity&lt;ProblemDetail&gt; boom(Exception e) {
+    log.error(<span class="s">"Unhandled error"</span>, e);                 <span class="c">// full detail in the logs…</span>
+    <span class="k">return</span> ResponseEntity.status(<span class="n">500</span>).body(ProblemDetail.forStatus(<span class="n">500</span>)); <span class="c">// …nothing leaked</span>
+  }
+}</pre>
+`, () => {
+  const fam = c => ({1:'#64748b',2:'#059669',3:'#2563eb',4:'#d97706',5:'#dc2626'}[String(c)[0]] || '#64748b');
+  const show = c => { const x = CODES[c];
+    $('#scOut').innerHTML = x ? `<div class="mini" style="border-left:6px solid ${fam(c)}"><h4 style="font-size:20px;color:${fam(c)}">${c} ${x[0]}</h4><p><b>Family:</b> ${x[1]} · <b>Whose fault:</b> ${c >= 500 ? 'the server 🖥️' : c >= 400 ? 'the client 📱' : 'nobody 🙂'}</p><p><b>Means:</b> ${x[2]}</p><p><b>Retry?</b> ${x[3]}</p></div>`
+      : `<p class="muted">${c >= 100 && c < 600 ? `A ${String(c)[0]}xx code: ${['','informational','success','redirection','client error','server error'][String(c)[0]]}. Not in our common list.` : 'Status codes go from 100 to 599.'}</p>`;
+    $$('#scChips button').forEach(b => b.className = b.dataset.c == c ? 'on' : ''); };
+  $('#scGo').onclick = () => show(+$('#scIn').value); $('#scIn').onkeydown = e => { if (e.key === 'Enter') show(+$('#scIn').value); };
+  $('#scChips').onclick = e => { const b = e.target.closest('[data-c]'); if (b){ $('#scIn').value = b.dataset.c; show(+b.dataset.c); } };
+  show(429);
+  $('#lvBars').innerHTML = [['TRACE','#94a3b8',100],['DEBUG','#64748b',80],['INFO','#2563eb',55],['WARN','#d97706',30],['ERROR','#dc2626',14],['FATAL','#7f1d1d',4]].map(([l,c,w]) =>
+    `<div style="display:flex;align-items:center;gap:8px;margin:5px 0"><b style="width:56px;font-family:var(--mono);font-size:12.5px;color:${c}">${l}</b><div style="flex:1;background:#e2e8f0;border-radius:6px;height:14px"><div style="width:${w}%;height:100%;background:${c};border-radius:6px"></div></div></div>`).join('') +
+    '<p class="muted" style="font-size:13px;text-align:center;margin:6px 0 0">How much each level shows up in logs. Higher severity = rarer = more important. Production usually logs INFO and above.</p>';
+});
+
+/* ---------- CREATIONAL: rewrite with when / why / when not ---------- */
+(() => { const s = LLDS.find(x => x.id === 'creational');
+s.title = 'Factory, Singleton & Builder: when to use them, and why 🏭';
+const block = (icon, name, prob, why, use, not, code) => `<div class="mini" style="margin:14px 0"><h4 style="font-size:18px">${icon} ${name}</h4>
+  <div class="grid2" style="margin:8px 0"><div><b>😫 The problem</b><p>${prob}</p></div><div><b>💡 Why it helps</b><p>${why}</p></div></div>
+  <div class="grid2" style="margin:8px 0"><div style="background:#ecfdf5;border-radius:10px;padding:8px 12px"><b style="color:#047857">✅ Use it when</b><ul class="tight">${use.map(x=>`<li>${x}</li>`).join('')}</ul></div><div style="background:#fef2f2;border-radius:10px;padding:8px 12px"><b style="color:#b91c1c">❌ Avoid it when</b><ul class="tight">${not.map(x=>`<li>${x}</li>`).join('')}</ul></div></div>
+  <pre class="code">${code}</pre></div>`;
+s.body = `<p><b>Creational patterns</b> control <i>how objects get created</i>, so the rest of your code doesn't have to care. These three come up in nearly every LLD interview.</p>
+  ${analogy('🍕 Think of a pizza shop', '<b>Factory:</b> you say "margherita" and the kitchen decides how to make it. <b>Singleton:</b> there\'s exactly one oven everybody shares. <b>Builder:</b> "large, thin crust, extra cheese, no olives", built step by step.')}
+  ${block('🏭','Factory (Simple Factory & Factory Method)','Code is full of <code>new CardPayment()</code>, <code>new UpiPayment()</code> and if/else chains on a type string. Adding a new type means editing many files.','Creation logic lives in <b>one</b> place. Callers depend on an interface (<code>Payment</code>), not concrete classes, so adding <code>CryptoPayment</code> touches only the factory (Open/Closed).',
+    ['You create one of several related classes based on input/config','Creation is complex (needs config, caching, validation)','You want to hide concrete classes behind an interface'],['There\'s only one implementation and no plan for more','A plain constructor is perfectly clear'],
+    `<span class="k">interface</span> Payment { <span class="k">void</span> pay(<span class="k">long</span> cents); }
+<span class="k">class</span> PaymentFactory {                                  <span class="c">// simple factory</span>
+  <span class="k">static</span> Payment of(String type) {
+    <span class="k">return switch</span> (type) {
+      <span class="k">case</span> <span class="s">"CARD"</span> -> <span class="k">new</span> CardPayment();
+      <span class="k">case</span> <span class="s">"UPI"</span>  -> <span class="k">new</span> UpiPayment();
+      <span class="k">default</span>     -> <span class="k">throw new</span> IllegalArgumentException(type);
+    };
+  }
+}
+Payment p = PaymentFactory.of(req.type());   <span class="c">// caller never says "new CardPayment"</span>`)}
+  <div class="tblwrap"><table><tr><th>Flavour</th><th>What it is</th><th>Example</th></tr><tr><td><b>Simple factory</b></td><td>One static method with a switch</td><td><code>PaymentFactory.of("UPI")</code></td></tr><tr><td><b>Factory Method</b></td><td>Subclasses decide which object to create (an overridable <code>create()</code>)</td><td><code>Dialog.createButton()</code>, overridden by WindowsDialog and MacDialog</td></tr><tr><td><b>Abstract Factory</b></td><td>A factory of <i>families</i> of related objects</td><td><code>UIFactory</code> → <code>DarkUIFactory</code> makes DarkButton + DarkCheckbox</td></tr></table></div>
+  ${block('☝️','Singleton','Some things must exist only once: app config, a cache manager, a connection pool. Creating several copies wastes memory or causes inconsistent state.','Guarantees <b>exactly one instance</b> with a global access point, created safely even with many threads.',
+    ['Exactly one shared resource: config, logger, metrics registry, cache manager','Creating it is expensive and it can be shared safely','In an LLD interview: ParkingLot, ElevatorSystem, ShoppingCartManager'],['It holds mutable global state that makes testing hard','You use Spring or another DI container: beans are singletons by default, so inject them instead','"I just need it in a few places" (pass it as a parameter)'],
+    `<span class="k">public enum</span> AppConfig {               <span class="c">// ✅ best: enum singleton (thread-safe, serialization-safe)</span>
+  INSTANCE;
+  <span class="k">private final</span> Properties props = load();
+  <span class="k">public</span> String get(String k) { <span class="k">return</span> props.getProperty(k); }
+}
+AppConfig.INSTANCE.get(<span class="s">"db.url"</span>);
+
+<span class="k">public class</span> ParkingLot {             <span class="c">// lazy "holder" idiom</span>
+  <span class="k">private</span> ParkingLot() {}
+  <span class="k">private static class</span> Holder { <span class="k">static final</span> ParkingLot I = <span class="k">new</span> ParkingLot(); }
+  <span class="k">public static</span> ParkingLot getInstance() { <span class="k">return</span> Holder.I; }
+}`)}
+  ${block('🧱','Builder','Constructors with many parameters (<code>new User(1, "Ana", null, null, true, false, 3)</code>) are unreadable and error-prone. This is the "telescoping constructor" problem.','Build step by step with <b>named</b> methods; optional fields are simply skipped. The result can be immutable.',
+    ['4+ constructor parameters, especially optional ones','Immutable objects (DTOs, requests, configs)','Test data setup'],['The object has 2–3 required fields only','The object must change after being created'],
+    `User u = User.builder()          <span class="c">// with Lombok: just put @Builder on the class</span>
+    .name(<span class="s">"Ana"</span>)
+    .email(<span class="s">"ana@x.com"</span>)
+    .premium(<span class="k">true</span>)              <span class="c">// skip what you don't need</span>
+    .build();`)}
+  <h3>🏭 Try the Factory</h3>
+  <div class="stage"><div class="ctrls" style="margin:0">${['car','bike','truck'].map(t=>`<button data-vf="${t}">VehicleFactory.create("${t}")</button>`).join('')}</div><div class="cells" id="vfOut" style="margin-top:12px"></div><div class="status" id="vfSt">The caller never writes <code>new Car()</code>. Adding "bus" later means changing only the factory.</div></div>
+  <div class="mini"><h4>🐑 Bonus: Prototype</h4><p>Create objects by <b>cloning</b> a pre-configured one (<code>enemy.clone()</code>). Use it when building from scratch is expensive.</p></div>`;
+})();
+
 /* ================= NETWORK FUNDAMENTALS ================= */
 const NETS = [];
 const NSec = (id, title, body, mount) => NETS.push({id, title, body, mount});
@@ -3575,123 +4317,137 @@ function mini(id){
 }
 
 
-/* ================= MODULES, MENU, PROGRESS, ROUTING ================= */
+/* ================= TWO SECTIONS: DSA + SYSTEM DESIGN ================= */
 let DONE;
 try { DONE = new Set(JSON.parse(localStorage.getItem('bc_done') || '[]')); } catch(_) { DONE = new Set(); }
 const isDone = k => DONE.has(k);
-function setDone(k, v){ v ? DONE.add(k) : DONE.delete(k); try { localStorage.setItem('bc_done', JSON.stringify([...DONE])); } catch(_){} refreshChrome(); }
+function setDone(k, v){ v ? DONE.add(k) : DONE.delete(k); try { localStorage.setItem('bc_done', JSON.stringify([...DONE])); } catch(_){} }
+SM.lombok = ['✂️','Lombok Annotations','@Data, @Builder, @Value… and when not to'];
+SM.errors = ['🚨','Errors & Warning Codes','Status codes, retries, log levels'];
+LM.creational = ['🏭','Factory, Singleton & Builder','When to use them, and why'];
 
-const CASE_GROUPS = [
-  ['🌐 System design (HLD + LLD)', '#d97706', ['url','chat','delivery','video']],
-  ['🧱 Object design (LLD + HLD)', '#059669', ['parking','booking']],
-];
-const MODULES = [
-  {id:'net', n:'Network Fundamentals', short:'Network', icon:'🌐', color:'#0891b2', blurb:'How data actually travels: packets, IPs, DNS, TCP, HTTP and TLS. The foundation for everything else.', groups:NET_GROUPS,
-    sec:id => NETS.find(x => x.id === id), meta:id => ({t:NM[id][1], i:NM[id][0], one:NM[id][2]})},
-  {id:'dsa', n:'Data Structures & Algorithms', short:'DSA', icon:'🧮', color:'#7c3aed', blurb:'Big O, arrays, trees, graphs, sorting and DP. Every one is animated so you can watch it think.', groups:DSA_GROUPS,
-    sec:id => DSA_SECTIONS.find(x => x.id === id), meta:id => ({t:DM[id].n, i:DM[id].i, use:DM[id].use, fig:id, foot:[`⏱ ${DM[id].t}`, `💾 ${DM[id].s}`]})},
-  {id:'leet', n:'Problem Patterns (LeetCode)', short:'Problems', icon:'🧩', color:'#db2777', blurb:'150 classic interview problems (the NeetCode 150, which includes the Blind 75), grouped by pattern, with templates, hints and progress tracking.', groups:LEET_GROUPS,
-    sec:id => PATS[id] && {title:`${PATS[id].i} ${PATS[id].n}`, body:leetBody(id), mount:() => leetMount(id)},
-    meta:id => ({t:PATS[id].n, i:PATS[id].i, use:PATS[id].clue.slice(0,2), fig:PATS[id].fig, foot:[`📝 ${PATS[id].p.length} problems`, `✅ ${solvedIn(id)} solved`]})},
-  {id:'design', n:'System Design (HLD)', short:'HLD', icon:'🏗️', color:'#2563eb', blurb:'Load balancers, caches, databases, CAP, queues and scaling. The building blocks of big systems.', groups:SD_GROUPS,
-    sec:id => SD.find(x => x.id === id), meta:id => ({t:SM[id][1], i:SM[id][0], one:SM[id][2]})},
-  {id:'lld', n:'Low-Level Design (LLD)', short:'LLD', icon:'🧱', color:'#059669', blurb:'OOP, SOLID, UML and design patterns with live demos: how to design the classes inside a service.', groups:LLD_GROUPS,
-    sec:id => LLDS.find(x => x.id === id), meta:id => ({t:LM[id][1], i:LM[id][0], one:LM[id][2]})},
-  {id:'case', n:'Case Studies (HLD + LLD)', short:'Cases', icon:'🏆', color:'#d97706', blurb:'Complete designs from requirements to HLD flows to LLD class diagrams and code.', groups:CASE_GROUPS, custom:true,
-    sec:id => CASES[id] && {title:`${CASES[id].icon} ${CASES[id].name}`}, meta:id => { const c = CASE_LIST.find(x => x.id === id); return {t:c.name, i:c.icon, one:c.blurb, foot:['🗺️ HLD', '🧱 LLD']}; }},
-];
-const MOD = Object.fromEntries(MODULES.map(m => [m.id, m]));
-const gflat = m => m.groups.flatMap(g => g[2]);
-const SEQ = MODULES.flatMap(m => gflat(m).map(id => ({m, id, key:m.id + '/' + id})));
-const numOf = (m, id) => `${MODULES.indexOf(m)+1}.${gflat(m).indexOf(id)+1}`;
-const groupIn = (m, id) => m.groups.find(g => g[2].includes(id));
-const modDone = m => gflat(m).filter(id => isDone(m.id + '/' + id)).length;
+/* every topic, by key → where its content lives */
+function topicInfo(k){
+  if (k.startsWith('c-')){ const id = k.slice(2), c = CASES[id], L = CASE_LIST.find(x => x.id === id); return c && {t:L.name, i:L.icon, one:L.blurb, case:id}; }
+  if (k.startsWith('p-')) return PATS[k] && {t:PATS[k].n, i:PATS[k].i, one:`${PATS[k].p.length} problems · ${PATS[k].clue[0]}`, sec:{title:`${PATS[k].i} ${PATS[k].n}`, body:leetBody(k), mount:() => leetMount(k)}};
+  if (NM[k]) return {t:NM[k][1], i:NM[k][0], one:NM[k][2], sec:NETS.find(x => x.id === k)};
+  if (DM[k]) return {t:DM[k].n, i:DM[k].i, one:DM[k].use[0], sec:DSA_SECTIONS.find(x => x.id === k), dsa:true};
+  if (LM[k]) return {t:LM[k][1], i:LM[k][0], one:LM[k][2], sec:LLDS.find(x => x.id === k)};
+  if (SM[k]) return {t:SM[k][1], i:SM[k][0], one:SM[k][2], sec:SD.find(x => x.id === k)};
+  return null;
+}
+const ALL_CASES = ['ratelimiter','kvstore','idgen','url','crawler','notify','newsfeed','chat','autocomplete','video','gdrive','delivery','parking','booking'];
+const SECTIONS = {
+  dsa:{n:'Data Structures & Algorithms', short:'DSA', icon:'🧮', color:'#7c3aed', blurb:'Start with how computers talk, then learn how data is stored and processed, then practise with the 150 classic interview problems.',
+    chapters:[
+      ['Network Fundamentals','🌐','#0891b2','How data travels: packets, IPs, DNS, TCP, HTTP and TLS.', ['internet','urljourney','osi','ip','nat','dns','tcpudp','http','tls','realtime','proxies','latency','security']],
+      ['Big O & Complexity','⏱️','#2563eb','How to measure whether code is fast or slow.', ['bigo']],
+      ['Data Structures','📦','#059669','Where data lives: arrays to graphs, each one animated.', ['array','linked','stack','queue','hash','bst','traversal','heap','trie','graph']],
+      ['Algorithms','⚙️','#d97706','Step-by-step recipes: sorting, searching, windows, recursion and DP.', ['sorting','bsearch','window','prefix','backtrack','dp']],
+      ['Problem Patterns (LeetCode 150)','🧩','#db2777','150 interview problems grouped into 18 patterns, with templates, hints and checkboxes.', Object.keys(PATS)],
+      ['Cheat Sheet','📌','#64748b','Everything on one page for quick revision.', ['cheat']],
+    ]},
+  design:{n:'System Design', short:'System Design', icon:'🏗️', color:'#2563eb', blurb:'Read it in order: fundamentals, then data, then object design, then APIs and errors, then scaling. Finish with complete use cases that combine HLD and LLD.',
+    chapters:[
+      ['Fundamentals','🧱','#2563eb','How to approach any design, and the building blocks: load balancers, caching, CDNs, queues and more.', ['recipe','journey','lb','caching','cdn','queues','ratelimit','hashing','reliability','whenuse']],
+      ['CAP Theorem','🎭','#7c3aed','Consistency vs availability when the network breaks, with a bank demo.', ['cap']],
+      ['Databases','🗄️','#0891b2','Why we need databases, how to choose one, and how to scale it.', ['databases','dbchoose','dbscale']],
+      ['Design Patterns','🧩','#db2777','From HLD to LLD: OOP, SOLID, UML, and the patterns real systems use.', ['hldlld','oop','solid','uml','structural','behavioral','patterns','concurrency']],
+      ['Factory, Singleton & Builder','🏭','#d97706','The creational patterns, with when to use them and why.', ['creational']],
+      ['Lombok Annotations','✂️','#059669','Java boilerplate killers, and how they map to LLD patterns.', ['lombok']],
+      ['API Types','🔌','#0891b2','REST, GraphQL, gRPC, WebSockets and webhooks, plus a design checklist.', ['apis']],
+      ['Errors & Warning Codes','🚨','#dc2626','HTTP status codes, retryable vs permanent errors, error bodies and log levels.', ['errors']],
+      ['Scaling','📈','#7c3aed','From one server to 100M users, plus the maths to size it.', ['scale','numbers']],
+      ['Use Cases (HLD + LLD)','🏆','#d97706','Complete designs: requirements → estimates → API → data → animated HLD → LLD classes and code.', ALL_CASES.map(c => 'c-' + c)],
+      ['Interview Prep & Glossary','🎤','#64748b','Checklists for HLD and LLD interviews, and every term in plain words.', ['checklist','lldsteps','dictionary']],
+    ]},
+};
+const SEQS = {}; Object.entries(SECTIONS).forEach(([s, S]) => SEQS[s] = S.chapters.flatMap((c, ci) => c[4].map((k, ti) => ({k, ci, ti}))));
+const findIn = (s, k) => SEQS[s].find(x => x.k === k);
+const tnum = (s, k) => { const x = findIn(s, k); return x ? `${x.ci+1}.${x.ti+1}` : ''; };
 
-/* ---------- top bar + drawer ---------- */
+/* ---------- chrome: top bar + drawer ---------- */
 function buildChrome(){
-  $('#toplinks').innerHTML = MODULES.map(m => `<a href="#/${m.id}" data-p="${m.id}">${m.icon} ${m.short}</a>`).join('');
-  $('#drawer').innerHTML = `<div class="dhead"><b>📚 Learning path</b><button id="dClose" aria-label="Close menu">✕</button></div>
+  $('#toplinks').innerHTML = Object.entries(SECTIONS).map(([s, S]) => `<a href="#/${s}" data-p="${s}">${S.icon} ${S.short}</a>`).join('');
+  $('#drawer').innerHTML = `<div class="dhead"><b>🥊 Byte Club</b><button id="dClose" aria-label="Close menu">✕</button></div>
     <input type="search" id="dSearch" placeholder="🔍 Search topics…">
-    <nav class="tree"><a class="leaf home" href="#/">🏠 Home</a>${MODULES.map((m, mi) => `<div class="node" data-m="${m.id}" style="--c:${m.color}">
-      <button class="nodebtn"><span class="num">${mi+1}</span><span class="nt">${m.icon} ${m.n}</span><span class="cnt" data-cnt="${m.id}"></span><span class="chev">▸</span></button>
-      <div class="sub"><a class="leaf hubleaf" href="#/${m.id}">▦ Overview: all ${m.short} topics</a>${m.groups.map(g => `<div class="subnode"><div class="sublabel">${g[0]}</div>${g[2].map(id => `<a class="leaf" href="#/${m.id}/${id}" data-k="${m.id}/${id}"><span class="ck">✓</span><span class="ln">${numOf(m,id)}</span> ${m.meta(id).t}</a>`).join('')}</div>`).join('')}</div></div>`).join('')}</nav>`;
+    <nav class="tree"><a class="leaf home" href="#/">🏠 Home</a>
+    ${Object.entries(SECTIONS).map(([s, S]) => `<div class="sect" data-s="${s}"><a class="secthead" href="#/${s}" style="--c:${S.color}">${S.icon} ${S.n}</a>
+      ${S.chapters.map((c, ci) => `<div class="node" style="--c:${c[2]}"><button class="nodebtn"><span class="num">${ci+1}</span><span class="nt">${c[0]}</span><span class="chev">▸</span></button>
+        <div class="sub">${c[4].map((k, ti) => { const x = topicInfo(k); return `<a class="leaf" href="#/${s}/${k}"><span class="ln">${ci+1}.${ti+1}</span>${x.t}</a>`; }).join('')}</div></div>`).join('')}</div>`).join('')}</nav>`;
   const open = v => document.body.classList.toggle('drawer-open', v);
-  $('#burger').onclick = () => open(true); $('#scrim').onclick = () => open(false); $('#dClose').onclick = () => open(false); $('#progBtn').onclick = () => open(true);
+  $('#burger').onclick = () => open(true); $('#scrim').onclick = () => open(false); $('#dClose').onclick = () => open(false);
   $$('.nodebtn').forEach(b => b.onclick = () => b.parentElement.classList.toggle('open'));
-  $('#drawer').addEventListener('click', e => { if (e.target.closest('a.leaf')) open(false); });
+  $('#drawer').addEventListener('click', e => { if (e.target.closest('a')) open(false); });
   $('#dSearch').oninput = e => { const q = e.target.value.trim().toLowerCase();
-    $$('.tree .node').forEach(n => { let any = false; $$('.leaf[data-k]', n).forEach(l => { const hit = !q || l.textContent.toLowerCase().includes(q); l.style.display = hit ? '' : 'none'; any = any || hit; });
-      $$('.subnode', n).forEach(s => s.style.display = $$('.leaf[data-k]', s).some(l => l.style.display !== 'none') ? '' : 'none');
-      n.style.display = any ? '' : 'none'; if (q) n.classList.toggle('open', any); }); };
-  refreshChrome(location.hash.replace(/^#\/?/, '').split('/')[0] || 'home');
+    $$('.tree .node').forEach(n => { let any = false; $$('.leaf', n).forEach(l => { const hit = !q || l.textContent.toLowerCase().includes(q); l.style.display = hit ? '' : 'none'; any = any || hit; });
+      n.style.display = any || !q ? '' : 'none'; n.classList.toggle('open', !!q && any); }); };
+  refreshChrome();
 }
-function refreshChrome(p, arg){
-  const total = SEQ.length, done = SEQ.filter(s => isDone(s.key)).length;
-  $('#progBtn').innerHTML = `✓ ${done}<span>/${total}</span>`;
-  const next = SEQ.find(s => !isDone(s.key)) || SEQ[0];
-  $('#contBtn').href = `#/${next.m.id}/${next.id}`; $('#contBtn').title = 'Continue: ' + next.m.meta(next.id).t;
-  $$('.leaf[data-k]').forEach(l => l.classList.toggle('done', isDone(l.dataset.k)));
-  MODULES.forEach(m => { const c = $(`[data-cnt="${m.id}"]`); if (c) c.textContent = `${modDone(m)}/${gflat(m).length}`; });
-  if (p !== undefined){
-    $$('.leaf').forEach(l => l.classList.toggle('cur', l.getAttribute('href') === location.hash || (location.hash === '' && l.classList.contains('home'))));
-    $$('.tree .node').forEach(n => { if (n.dataset.m === p) n.classList.add('open'); });
-    $$('#toplinks a').forEach(a => a.classList.toggle('on', a.dataset.p === p));
-  }
+function refreshChrome(){
+  const h = location.hash.replace(/^#\/?/, ''), [p] = h.split('/');
+  $$('.tree a').forEach(a => a.classList.toggle('cur', a.getAttribute('href') === '#/' + h || (h === '' && a.classList.contains('home'))));
+  $$('.tree .node').forEach(n => n.classList.toggle('open', !!$('.leaf.cur', n)));
+  const on = $('.siblings .on'); if (on) on.parentElement.scrollLeft = on.offsetLeft - 24;
+  $$('#toplinks a').forEach(a => a.classList.toggle('on', a.dataset.p === p));
+  let last; try { last = localStorage.getItem('bc_last'); } catch(_){}
+  $('#contBtn').href = last ? '#/' + last : '#/dsa/internet';
+  $('#contBtn').title = last ? 'Continue where you left off' : 'Start learning';
 }
 
-/* ---------- hub + topic pages ---------- */
-function card(m, id){
-  const x = m.meta(id), g = groupIn(m, id), k = m.id + '/' + id;
-  return `<a class="tcard ${isDone(k)?'isdone':''}" href="#/${m.id}/${id}" style="--c:${g[1]}">
-    <div class="tc-head"><span class="num wide">${numOf(m,id)}</span><b>${x.t}</b><span class="tc-ic">${isDone(k) ? '✅' : x.i}</span></div>
-    ${x.fig || x.use ? `<div class="tc-body">${x.fig ? `<div class="tc-fig">${mini(x.fig)}</div>` : ''}${x.use ? `<ul>${x.use.slice(0,3).map(u => `<li>${u}</li>`).join('')}</ul>` : ''}</div>` : ''}
-    ${x.one ? `<p class="tc-one">${x.one}</p>` : ''}
-    ${x.foot ? `<div class="tc-foot">${x.foot.map(f => `<span>${f}</span>`).join('')}</div>` : ''}</a>`;
+/* ---------- TOC (section home) ---------- */
+function toc(s){
+  const S = SECTIONS[s], first = SEQS[s][0].k;
+  return `<div class="wrap narrow">
+    <div class="crumbs"><a href="#/">Home</a> › <span>${S.n}</span></div>
+    <header class="tochero" style="--c:${S.color}"><div class="kicker">${S.chapters.length} chapters · ${SEQS[s].length} topics</div><h1>${S.icon} ${S.n}</h1><p>${S.blurb}</p>
+      <a class="btnlink pri" href="#/${s}/${first}">▶ Start from chapter 1</a></header>
+    <ol class="toc">${S.chapters.map((c, ci) => `<li class="chap" style="--c:${c[2]}">
+      <div class="chap-num">${ci+1}</div>
+      <div class="chap-body"><h2>${c[1]} ${c[0]}</h2><p>${c[3]}</p>
+        <div class="chap-topics ${c[4].length > 4 ? 'two' : ''}">${c[4].map((k, ti) => { const x = topicInfo(k); return `<a class="tlink" href="#/${s}/${k}"><span class="tn">${ci+1}.${ti+1}</span><span class="ti">${x.i}</span><span class="tt">${x.t}</span><span class="ta">→</span></a>`; }).join('')}</div></div></li>`).join('')}</ol>
+    ${s === 'dsa' ? '<p style="text-align:center"><a class="btnlink" href="#/design">Next: 🏗️ System Design →</a></p>' : '<p style="text-align:center"><a class="btnlink" href="#/dsa">← 🧮 Data Structures & Algorithms</a></p>'}
+  </div><footer>Byte Club · ${S.n}</footer>`;
 }
-function hub(m){
-  const mi = MODULES.indexOf(m), d = modDone(m), t = gflat(m).length, first = gflat(m).find(id => !isDone(m.id+'/'+id)) || gflat(m)[0];
-  return `<div class="wrap pagehero"><div class="crumbs"><a href="#/">Home</a> › <span>${m.n}</span></div>
-    <div class="poster" style="--c:${m.color}"><div class="kicker">Step ${mi+1} of ${MODULES.length} · learning path</div><h1>${m.icon} ${m.n}</h1><p>${m.blurb}</p>
-      <div class="pbar"><i style="width:${t ? d/t*100 : 0}%"></i></div><div class="pmeta"><span>${d} / ${t} done</span><a class="btnlink pri" href="#/${m.id}/${first}">${d ? '▶ Continue' : '▶ Start'}: ${m.meta(first).t}</a></div></div></div>
-    <div class="wrap">${m.groups.map(g => `<section class="group"><div class="ghead" style="--c:${g[1]}">${g[0]}<span>${g[2].length} topic${g[2].length>1?'s':''}</span></div><div class="tgrid${m.meta(g[2][0]).fig ? '' : ' compact'}">${g[2].map(id => card(m, id)).join('')}</div></section>`).join('')}
-    ${mi < MODULES.length - 1 ? `<p style="text-align:center;margin-top:26px"><a class="btnlink" href="#/${MODULES[mi+1].id}">Next module: ${MODULES[mi+1].icon} ${MODULES[mi+1].n} →</a></p>` : ''}</div>
-    <footer>Byte Club · ${m.n}</footer>`;
-}
+
+/* ---------- topic page ---------- */
 function dsaGlance(id){
   const x = DM[id];
   return `<div class="glance"><div class="gtop"><div class="gfig">${mini(id)}</div><div><span class="chip2">⏱ Time: ${x.t}</span> <span class="chip2">💾 Space: ${x.s}</span></div></div>
     <div class="gcols"><div><h4>✅ Use when</h4><ul>${x.use.map(u=>`<li>${u}</li>`).join('')}</ul></div><div><h4>🧪 Example problems</h4><ul>${x.pr.map(u=>`<li>${u}</li>`).join('')}</ul></div></div></div>`;
 }
-function topic(m, id){
-  const s = m.sec(id); if (!s) return hub(m);
-  const g = groupIn(m, id), k = m.id + '/' + id, i = SEQ.findIndex(x => x.key === k), prev = SEQ[i-1], next = SEQ[i+1];
-  const pl = x => `${x.m.icon} ${x.m.meta(x.id).t}`;
-  return `<div class="wrap ${m.custom ? '' : 'narrow'}">
-    <div class="crumbs"><a href="#/">Home</a> › <a href="#/${m.id}">${m.n}</a> › <span>${g[0].replace(/^\S+\s/,'')}</span></div>
-    <div class="thead" style="--c:${g[1]}"><span class="num big">${numOf(m,id)}</span><div><div class="kicker">${m.icon} ${m.short} · ${g[0].replace(/^\S+\s/,'')}</div><h1>${s.title}</h1></div></div>
-    ${m.id === 'dsa' ? dsaGlance(id) : ''}
-    ${m.custom ? caseRender(id) : `<article class="lesson">${s.body}</article>`}
-    <div class="donebar"><button id="doneBtn" class="${isDone(k)?'on':''}">${isDone(k) ? '✅ Done! (tap to undo)' : '☐ Mark this topic as done'}</button></div>
+function topicPage(s, k){
+  const S = SECTIONS[s], pos = findIn(s, k), x = topicInfo(k);
+  if (!pos || !x) return toc(s);
+  const ch = S.chapters[pos.ci], seq = SEQS[s], i = seq.indexOf(pos), prev = seq[i-1], next = seq[i+1];
+  const title = x.case ? `${x.i} ${x.t}` : x.sec.title;
+  return `<div class="wrap ${x.case ? '' : 'narrow'}">
+    <div class="crumbs"><a href="#/">Home</a> › <a href="#/${s}">${S.n}</a> › <span>${pos.ci+1}. ${ch[0]}</span></div>
+    <div class="thead" style="--c:${ch[2]}"><span class="num big">${pos.ci+1}.${pos.ti+1}</span><div><div class="kicker">Chapter ${pos.ci+1} · ${ch[0]}</div><h1>${title}</h1></div></div>
+    ${ch[4].length > 1 ? `<div class="siblings">${ch[4].map((kk, ti) => `<a href="#/${s}/${kk}" class="${kk === k ? 'on' : ''}">${pos.ci+1}.${ti+1} ${topicInfo(kk).t}</a>`).join('')}</div>` : ''}
+    ${x.dsa ? dsaGlance(k) : ''}
+    ${x.case ? caseRender(x.case) : `<article class="lesson">${x.sec.body}</article>`}
     <nav class="pager">
-      ${prev ? `<a href="#/${prev.m.id}/${prev.id}"><small>← Previous${prev.m !== m ? ' · ' + prev.m.short : ''}</small><b>${pl(prev)}</b></a>` : '<span></span>'}
-      ${next ? `<a href="#/${next.m.id}/${next.id}" class="nx"><small>Next${next.m !== m ? ' module · ' + next.m.short : ''} →</small><b>${pl(next)}</b></a>` : `<a href="#/" class="nx"><small>🎓 You finished the path!</small><b>Back home</b></a>`}
+      ${prev ? `<a href="#/${s}/${prev.k}"><small>← ${tnum(s, prev.k)}${prev.ci !== pos.ci ? ' · new chapter' : ''}</small><b>${topicInfo(prev.k).t}</b></a>` : '<span></span>'}
+      ${next ? `<a href="#/${s}/${next.k}" class="nx"><small>${tnum(s, next.k)}${next.ci !== pos.ci ? ' · next chapter' : ''} →</small><b>${topicInfo(next.k).t}</b></a>`
+             : s === 'dsa' ? `<a href="#/design" class="nx"><small>Section complete 🎉 →</small><b>🏗️ System Design</b></a>` : `<a href="#/" class="nx"><small>🎓 You finished everything!</small><b>Back home</b></a>`}
     </nav>
-    <p style="text-align:center"><a href="#/${m.id}" class="btnlink">▦ All ${m.short} topics</a></p>
-  </div><footer>Byte Club · ${m.n}</footer>`;
+    <p style="text-align:center"><a href="#/${s}" class="btnlink">☰ All ${S.short} chapters</a></p>
+  </div><footer>Byte Club · ${S.n}</footer>`;
 }
-MODULES.forEach(m => {
-  PAGES[m.id] = {
-    title: id => id && m.sec(id) ? m.meta(id).t : m.n,
-    render: id => id ? topic(m, id) : hub(m),
-    mount(id){
-      if (!id || !m.sec(id)) return;
-      const k = m.id + '/' + id;
-      $('#doneBtn').onclick = e => { const v = !isDone(k); setDone(k, v); e.target.className = v ? 'on' : ''; e.target.textContent = v ? '✅ Done! (tap to undo)' : '☐ Mark this topic as done'; };
-      if (m.custom) caseMount(id); else { const s = m.sec(id); s.mount && s.mount(); }
-    }
+Object.keys(SECTIONS).forEach(s => {
+  PAGES[s] = {
+    title: k => k && topicInfo(k) ? topicInfo(k).t : SECTIONS[s].n,
+    render: k => k ? topicPage(s, k) : toc(s),
+    mount(k){ if (!k || !findIn(s, k)) return; const x = topicInfo(k);
+      try { localStorage.setItem('bc_last', `${s}/${k}`); } catch(_){}
+      if (x.case) caseMount(x.case); else if (x.sec.mount) x.sec.mount(); }
   };
 });
-window.onRoute = (p, arg) => refreshChrome(p || 'home', arg);
+/* old links keep working */
+const ALIAS = {net:'dsa', leet:'dsa', lld:'design', case:'design'};
+window.routeAlias = (p, arg) => ALIAS[p] ? [ALIAS[p], p === 'case' && arg ? 'c-' + arg : arg] : [p, arg];
+window.onRoute = () => refreshChrome();
 window.addEventListener('DOMContentLoaded', buildChrome);
 
 /* ================= HOME ================= */
@@ -3709,9 +4465,13 @@ const JOKES = [
   "Binary search is just the 'higher… lower…' game, with a CS degree.",
 ];
 PAGES[''] = {
-  title: () => 'Learn Networking, DSA & System Design visually',
+  title: () => 'Learn DSA & System Design visually',
   render: () => {
-    const total = SEQ.length, done = SEQ.filter(x => isDone(x.key)).length, next = SEQ.find(x => !isDone(x.key)) || SEQ[0];
+    const panel = (s) => { const S = SECTIONS[s];
+      return `<a class="panel" href="#/${s}" style="--c:${S.color}">
+        <div class="ptop"><div class="kicker">${s === 'dsa' ? 'Part 1' : 'Part 2'} · ${SEQS[s].length} topics</div><h2>${S.icon} ${S.n}</h2></div>
+        <ol class="plist2">${S.chapters.map((c, i) => `<li><span class="pn" style="background:${c[2]}">${i+1}</span><span>${c[1]} ${c[0]}</span><span class="pc">${c[4].length}</span></li>`).join('')}</ol>
+        <span class="go">Open ${S.short} →</span></a>`; };
     return `
   <div class="wrap">
     <div class="hero">
@@ -3726,19 +4486,10 @@ PAGES[''] = {
       </svg>
       <div class="kicker" style="margin-top:8px">Hi, I'm Bitsy, a very small data packet 👋</div>
       <h1>Welcome to <span class="grad">Byte Club</span> 🥊</h1>
-      <p class="muted" style="max-width:600px;margin:0 auto">The first rule of Byte Club: you <b>always</b> talk about Big O. One path from "what's a packet?" to designing WhatsApp, with pictures, moving parts and terrible jokes. <b>No CS degree required.</b></p>
+      <p class="muted" style="max-width:600px;margin:0 auto">The first rule of Byte Club: you <b>always</b> talk about Big O. Two parts, read in order, with pictures, moving parts and terrible jokes. <b>No CS degree required.</b></p>
       <div class="bubble" id="joke">💬 ${JOKES[0]}</div>
-      <div style="margin-top:18px"><a class="btnlink pri" href="#/${next.m.id}/${next.id}">${done ? '▶ Continue' : '🚀 Start the path'}: ${next.m.meta(next.id).t}</a></div>
-      <div style="max-width:420px;margin:12px auto 0"><div class="pbar"><i style="width:${done/total*100}%"></i></div><div class="muted" style="font-size:13px;margin-top:4px">${done} / ${total} topics done · progress is saved in this browser</div></div>
     </div>
-    <h2 style="text-align:center;margin-top:34px">🗺️ Your learning path</h2>
-    <p class="muted" style="text-align:center;margin-top:-6px">Go in order, or jump to whatever you need. ☰ opens the full map anytime.</p>
-    <div class="path">${MODULES.map((m, i) => { const d = modDone(m), t = gflat(m).length;
-      return `<a class="step" href="#/${m.id}" style="--c:${m.color}">
-        <div class="sn">${i+1}</div>
-        <div class="sb"><div class="kicker">Step ${i+1} · ${t} topics</div><h3>${m.icon} ${m.n}</h3><p>${m.blurb}</p>
-          <div class="chipsrow">${m.groups.map(g => `<span class="tag">${g[0]}</span>`).join('')}</div>
-          <div class="pbar sm"><i style="width:${d/t*100}%"></i></div><div class="muted" style="font-size:12.5px;font-weight:700">${d}/${t} done</div></div></a>`; }).join('')}</div>
+    <div class="panels">${panel('dsa')}${panel('design')}</div>
   </div>
   <div class="ticker"><span>${JOKES.join('   ✦   ')}</span></div>
   <footer>Made with ☕, SVG and questionable puns · Byte Club</footer>`;
