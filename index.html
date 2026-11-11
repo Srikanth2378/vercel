@@ -330,6 +330,33 @@ body.drawer-open #scrim{opacity:1;pointer-events:auto}
 .plist2 .pc{margin-left:auto;font-size:12px;color:var(--muted);font-weight:700;background:#f1f5f9;border-radius:99px;padding:1px 8px}
 .panel .go{display:inline-block;margin:10px 20px 20px;font-weight:800;padding:10px 18px;border-radius:12px;background:var(--c);color:#fff}
 button.on:hover{background:#334155;color:#fff}
+/* ===== v5: beginner explanations ===== */
+.eli{background:linear-gradient(135deg,#eff6ff,#f5f3ff);border:1px solid #c7d2fe;border-radius:16px;padding:16px 18px;margin:0 0 16px}
+.eli-h{font-weight:900;color:#4338ca;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.eli-g{display:grid;grid-template-columns:1fr 1fr;gap:6px 22px;margin-top:6px}
+@media(max-width:620px){.eli-g{grid-template-columns:1fr}}
+.eli-g b{color:var(--navy)}
+.eli-g p{margin:2px 0 6px;font-size:16px;color:var(--ink2)}
+.eli-w{border-top:1px dashed #c7d2fe;margin-top:8px;padding-top:8px}
+.eli-w dl{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px 14px;margin:6px 0 0}
+.eli-w dt{font-weight:800;color:#4338ca;font-size:14px}
+.eli-w dd{margin:0;font-size:14px;color:var(--ink2)}
+.why{background:#fff;border:1px solid var(--line);border-left:5px solid var(--green);border-radius:14px;padding:12px 16px;margin:0 0 16px;box-shadow:var(--shadow)}
+.why h4{margin:0 0 6px;color:#047857}
+.why p{margin:6px 0;font-size:15.5px}
+.qa{display:grid;gap:8px}
+.qa>div{display:flex;gap:12px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.qa .qn{flex:none;width:34px;height:34px;border-radius:10px;background:#eef2ff;color:#4338ca;font-weight:900;display:flex;align-items:center;justify-content:center;font-size:13px}
+.qa p{margin:2px 0 0;color:#047857;font-size:15px}
+.core{background:#fef3c7;border:1px solid #fcd34d;border-radius:12px;padding:12px 16px;margin:16px 0;font-size:16px;color:#78350f}
+.evostep h4{margin:12px 0 6px;font-size:17px}
+.evochain{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin:8px 0}
+.evobox{background:#fff;border:2px solid #cbd5e1;border-radius:12px;padding:6px 10px;font-size:22px;line-height:1}
+.evoarr{color:#94a3b8;font-weight:900}
+.evostep .ok{color:#047857;margin:6px 0}
+.evostep .bad{color:#b45309;margin:6px 0}
+.roadmap{margin:6px 0;padding-left:22px}
+.roadmap li{margin:4px 0}
 </style>
 </head>
 <body>
@@ -663,6 +690,85 @@ const TERMS = [
 ['Performance & Planning','Back-of-the-envelope estimation','Quick, rough maths to work out how big a system needs to be.','Guessing how much food to buy for a party.','10 million users × 2 photos a day × 2 MB ≈ 40 TB of new storage every day.'],
 ['Performance & Planning','Read-heavy vs Write-heavy','Whether a system mostly reads data or mostly saves it. This shapes the whole design.','A library (lots of reading) vs a diary (lots of writing).','Twitter timelines are read-heavy. Sensors sending data every second are write-heavy.']
 ];
+
+/* ================= HUBS + TOPIC PAGES ================= */
+const DSA_GROUPS = [
+  ['🚀 Foundations', '#2563eb', ['bigo']],
+  ['📦 Linear data structures', '#0891b2', ['array','linked','stack','queue','hash']],
+  ['🌳 Trees & graphs', '#059669', ['bst','traversal','heap','trie','graph']],
+  ['🧠 Problem-solving patterns', '#7c3aed', ['window','prefix','bsearch','backtrack','dp']],
+  ['📊 Sorting & reference', '#d97706', ['sorting','cheat']],
+];
+const DM = {
+  bigo:{n:'Big O Notation', i:'⏱️', use:['Compare two solutions','Predict if code is too slow','Every interview answer'], pr:['Analyse any loop','Spot nested loops = O(n²)'], t:'—', s:'—'},
+  array:{n:'Arrays', i:'🔢', use:['Fast access by index','Ordered, mostly-append lists','Base for two pointers & windows'], pr:['Two Sum','Best Time to Buy & Sell Stock','Maximum Subarray (Kadane\'s)'], t:'O(1) access', s:'O(n)'},
+  linked:{n:'Linked List', i:'🔗', use:['Many inserts/deletes at the ends','Unknown size','Inside LRU caches'], pr:['Reverse Linked List','Merge Two Sorted Lists','Linked List Cycle'], t:'O(n) search', s:'O(n)'},
+  stack:{n:'Stack', i:'🥞', use:['Last in, first out','Matching brackets','Undo / backtracking'], pr:['Valid Parentheses','Daily Temperatures','Min Stack'], t:'O(1) push/pop', s:'O(n)'},
+  queue:{n:'Queue', i:'🚶', use:['First in, first out','BFS','Scheduling & buffering'], pr:['Implement Queue using Stacks','Rotting Oranges','Number of Islands'], t:'O(1) enq/deq', s:'O(n)'},
+  hash:{n:'Hash Map', i:'🧥', use:['Instant lookups','Counting frequencies','"Seen it before?" checks'], pr:['Two Sum','Group Anagrams','Top K Frequent Elements'], t:'O(1) avg', s:'O(n)'},
+  bst:{n:'Binary Search Tree', i:'🌳', use:['Sorted data + fast search','Range queries','Hierarchies'], pr:['Validate BST','Lowest Common Ancestor','Kth Smallest in a BST'], t:'O(log n)', s:'O(n)'},
+  traversal:{n:'Tree Traversals', i:'🚶', use:['Visit every node in order','Copy / delete / serialise trees','Level-by-level views'], pr:['Inorder Traversal','Level Order Traversal','Maximum Depth'], t:'O(n)', s:'O(h)'},
+  heap:{n:'Heap / Priority Queue', i:'⛰️', use:['Always grab min or max','Top K problems','Scheduling by priority'], pr:['Kth Largest Element','Merge K Sorted Lists','Find Median from Data Stream'], t:'O(log n) insert', s:'O(n)'},
+  trie:{n:'Trie', i:'⌨️', use:['Prefix search','Autocomplete','Word games'], pr:['Implement Trie','Word Search II','Design Add & Search Words'], t:'O(L) per word', s:'O(total chars)'},
+  graph:{n:'Graphs (BFS / DFS)', i:'🕸️', use:['Connections & networks','Shortest paths','Dependencies & cycles'], pr:['Number of Islands','Course Schedule','Network Delay Time'], t:'O(V + E)', s:'O(V)'},
+  window:{n:'Two Pointers & Sliding Window', i:'🪟', use:['Contiguous subarrays / substrings','Pairs in a sorted array','"Longest / shortest with a condition"'], pr:['Longest Substring Without Repeating','Container With Most Water','3Sum'], t:'O(n)', s:'O(1)'},
+  prefix:{n:'Prefix Sum', i:'➕', use:['Many range-sum queries','Subarray sums equal to K','2D region sums'], pr:['Range Sum Query','Subarray Sum Equals K','Product of Array Except Self'], t:'O(1) per query', s:'O(n)'},
+  bsearch:{n:'Binary Search', i:'🎯', use:['Sorted array or answer space','"Smallest value that works"','Halve the search each step'], pr:['Binary Search','Search in Rotated Sorted Array','Koko Eating Bananas'], t:'O(log n)', s:'O(1)'},
+  backtrack:{n:'Backtracking', i:'↩️', use:['All combinations / permutations','Constraint puzzles','"Try, then undo"'], pr:['Subsets','Permutations','N-Queens','Combination Sum'], t:'O(2ⁿ) / O(n!)', s:'O(n)'},
+  dp:{n:'Recursion & Dynamic Programming', i:'🧠', use:['Overlapping sub-problems','"Count the ways" / "min cost"','Optimal choices step by step'], pr:['Climbing Stairs','Coin Change','House Robber','Longest Common Subsequence'], t:'Varies', s:'Varies'},
+  sorting:{n:'Sorting Algorithms', i:'📊', use:['Order data for display','Before binary search / two pointers','Grouping duplicates'], pr:['Sort Colors','Merge Intervals','Kth Largest (Quickselect)'], t:'O(n log n)', s:'O(1)–O(n)'},
+  cheat:{n:'Cheat Sheet & Patterns', i:'📌', use:['Revise before interviews','Compare all structures','Pick the right pattern'], pr:['"If you smell X, try Y"'], t:'—', s:'—'},
+};
+const SD_GROUPS = [
+  ['🧭 Start here', '#2563eb', ['recipe','journey','apis','checklist']],
+  ['🧱 Building blocks', '#0891b2', ['lb','caching','cdn','queues','ratelimit']],
+  ['🗄️ Data & storage', '#7c3aed', ['databases','dbchoose','dbscale']],
+  ['🌐 Distributed systems', '#059669', ['cap','hashing','reliability','patterns']],
+  ['📈 Scale & numbers', '#d97706', ['scale','numbers','whenuse']],
+  ['🗺️ Architecture templates', '#db2777', ['templates']],
+  ['📖 Reference', '#64748b', ['dictionary']],
+];
+const SM = {
+  recipe:['🧑‍🍳','Design Process','The 4-step recipe + napkin maths'], journey:['📱','Request Journey','Follow one tap through the whole system'], apis:['🗣️','APIs & Protocols','REST, GraphQL, gRPC, WebSocket, status codes'], checklist:['🎤','Interview Checklist','45-minute plan, checklist, common mistakes'],
+  lb:['🚦','Load Balancer','Spread traffic; survive crashed servers'], caching:['🧊','Caching','Cache-aside, write-through, LRU eviction'], cdn:['📦','CDN','Serve files from near the user'], queues:['📬','Queues & Pub/Sub','Do slow work later; decouple services'], ratelimit:['🛑','Rate Limiting','Token bucket and 429s'],
+  databases:['🗄️','Why Databases','Why not a file? SQL vs NoSQL, ACID vs BASE'], dbchoose:['🧭','Database Choice Guide','Decision tree: which DB for which job'], dbscale:['🍕','Indexes, Replication & Sharding','Make data fast and huge'],
+  cap:['🎭','CAP Theorem','Consistency vs availability, with a bank demo'], hashing:['🍩','Consistent Hashing','Add servers without moving all the data'], reliability:['🛟','Reliability','Circuit breakers, failover, the nines'], patterns:['🧩','Design Patterns','Saga, CQRS, event sourcing, backoff…'],
+  scale:['📈','How to Scale','From 1 server to 100M users, step by step'], numbers:['🔢','Numbers & Formulas','Calculator, targets, trade-off matrix'], whenuse:['🧰','When to Use What','Problem → the right component'],
+  templates:['🗺️','Architecture Templates','News feed, notifications, file sync, rate limiter'], dictionary:['📖','Dictionary (112 terms)','Every term in plain words'],
+};
+
+/* ---- tiny cheat-sheet diagrams for DSA cards ---- */
+function mini(id){
+  const c = '#334155', f = '#ffffff', hl = '#e0f2fe', bx = (x,y,t,h) => `<rect x="${x}" y="${y}" width="20" height="18" rx="3" fill="${h?hl:f}" stroke="${c}" stroke-width="1"/><text x="${x+10}" y="${y+12.5}" font-size="9" text-anchor="middle" fill="${c}">${t}</text>`;
+  const arr = (vals, y = 16, hls = []) => vals.map((v,i) => bx(8 + i*22, y, v, hls.includes(i))).join('');
+  const tree = (labels, col = c) => { const P = [[70,10],[40,28],[100,28],[24,46],[56,46],[84,46],[116,46]];
+    return [[0,1],[0,2],[1,3],[1,4],[2,5],[2,6]].map(([a,b]) => `<line x1="${P[a][0]}" y1="${P[a][1]}" x2="${P[b][0]}" y2="${P[b][1]}" stroke="#94a3b8"/>`).join('') + P.map(([x,y],i) => `<circle cx="${x}" cy="${y}" r="7.5" fill="${f}" stroke="${col}"/><text x="${x}" y="${y+3}" font-size="8" text-anchor="middle" fill="${c}">${labels[i]}</text>`).join(''); };
+  const svg = s => `<svg viewBox="0 0 140 56" width="140" height="56">${s}</svg>`;
+  const ar = (x1,y1,x2,y2) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" marker-end="url(#ma)"/>`;
+  const defs = `<defs><marker id="ma" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0L10,5L0,10z" fill="${c}"/></marker></defs>`;
+  switch(id){
+    case 'bigo': return svg(`<path d="M8,50 L132,48" stroke="#059669" fill="none" stroke-width="2"/><path d="M8,50 Q60,40 132,32" stroke="#2563eb" fill="none" stroke-width="2"/><path d="M8,50 Q90,46 112,4" stroke="#d97706" fill="none" stroke-width="2"/><path d="M8,50 Q60,50 70,4" stroke="#dc2626" fill="none" stroke-width="2"/>`);
+    case 'array': return svg(arr([10,20,30,40,50]) + [0,1,2,3,4].map(i => `<text x="${18+i*22}" y="46" font-size="8" text-anchor="middle" fill="#64748b">${i}</text>`).join(''));
+    case 'linked': return svg(defs + [10,20,30].map((v,i) => bx(6 + i*44, 19, v)).join('') + ar(27,28,48,28) + ar(71,28,92,28) + `<text x="122" y="31" font-size="8" fill="#64748b">null</text>`);
+    case 'stack': return svg(defs + [30,20,10].map((v,i) => `<rect x="60" y="${6+i*15}" width="30" height="13" rx="2" fill="${i===0?hl:f}" stroke="${c}"/><text x="75" y="${15+i*15}" font-size="8" text-anchor="middle">${v}</text>`).join('') + `<text x="22" y="15" font-size="8" fill="#64748b">top</text>` + ar(40,12,58,12));
+    case 'queue': return svg(arr([10,25,50,75], 14, [0]) + `<text x="10" y="46" font-size="8" fill="#64748b">front</text><text x="72" y="46" font-size="8" fill="#64748b">rear</text>`);
+    case 'hash': return svg(defs + ['k1','k2','k3'].map((k,i) => `<text x="14" y="${14+i*16}" font-size="8.5" fill="${c}">${k}</text>`).join('') + [0,1,2].map(i => ar(30,11+i*16,72,11+[1,2,0][i]*16)).join('') + [0,1,2].map(i => `<rect x="76" y="${4+i*16}" width="44" height="13" rx="2" fill="${f}" stroke="${c}"/><text x="98" y="${13+i*16}" font-size="8" text-anchor="middle">v${i+1}</text>`).join(''));
+    case 'bst': return svg(tree([8,3,10,1,6,9,14]));
+    case 'traversal': return svg(tree([1,2,5,3,4,6,7], '#059669'));
+    case 'heap': return svg(tree([1,3,2,7,4,5,6], '#7c3aed'));
+    case 'trie': return svg(tree(['•','c','d','a','o','r','g']));
+    case 'graph': { const P = [[70,8],[110,24],[96,48],[44,48],[30,24]]; return svg([[0,1],[1,2],[2,3],[3,4],[4,0],[0,2]].map(([a,b]) => `<line x1="${P[a][0]}" y1="${P[a][1]}" x2="${P[b][0]}" y2="${P[b][1]}" stroke="#94a3b8"/>`).join('') + P.map(([x,y],i) => `<circle cx="${x}" cy="${y}" r="7" fill="${f}" stroke="${c}"/><text x="${x}" y="${y+3}" font-size="8" text-anchor="middle">${i+1}</text>`).join('')); }
+    case 'window': return svg(arr([2,1,5,1,3], 18, [1,2,3]) + `<rect x="28" y="14" width="68" height="26" rx="5" fill="none" stroke="#db2777" stroke-width="1.6"/>`);
+    case 'prefix': return svg(arr([1,2,3,4], 6) + arr([1,3,6,10], 32, [3]));
+    case 'bsearch': return svg(defs + arr([1,3,5,7,9], 10, [2]) + ar(62,46,62,31));
+    case 'backtrack': { const pts = [[70,6],[40,24],[100,24],[24,44],[56,44],[84,44],[116,44]]; return svg([[0,1],[0,2],[1,3],[1,4],[2,5],[2,6]].map(([a,b]) => `<line x1="${pts[a][0]}" y1="${pts[a][1]}" x2="${pts[b][0]}" y2="${pts[b][1]}" stroke="#94a3b8"/>`).join('') + pts.map(([x,y],i) => `<circle cx="${x}" cy="${y}" r="4" fill="${i>2?'#059669':c}"/>`).join('')); }
+    case 'dp': return svg(Array.from({length:12}, (_,k) => { const i = k % 4, j = Math.floor(k/4); return `<rect x="${30+i*20}" y="${4+j*16}" width="20" height="16" fill="${(i+j)%3===0?'#fde68a':f}" stroke="${c}" stroke-width=".8"/>`; }).join(''));
+    case 'sorting': return svg([30,14,40,22,48,10,34].map((h,i) => `<rect x="${14+i*17}" y="${52-h}" width="13" height="${h}" rx="2" fill="${['#2563eb','#d97706','#2563eb','#dc2626','#059669','#2563eb','#2563eb'][i]}"/>`).join(''));
+    case 'cheat': return svg([0,1,2,3].map(j => `<line x1="10" y1="${10+j*13}" x2="130" y2="${10+j*13}" stroke="#cbd5e1"/>`).join('') + [0,1,2].map(j => `<rect x="10" y="${12+j*13}" width="30" height="9" fill="#e0f2fe"/><rect x="50" y="${12+j*13}" width="${30+j*15}" height="9" fill="${['#d1fae5','#fef3c7','#fee2e2'][j]}"/>`).join(''));
+  }
+  return '';
+}
+
 
 /* ================= CASE STUDIES ================= */
 const CASE_LIST = [
@@ -1067,10 +1173,11 @@ views:v123 → 1,048,576</pre>`,
 
 function caseRender(id){
   const c = CASES[id] || CASES.url;
-  const parts = [['req','Requirements'],['est','Napkin maths'],['api','API'],['data','Data & DBs'],['arch','▶ HLD flows'],['lld','🧱 LLD'],['deep','Deep dives'],['trade','Trade-offs'],['tips','Interview tips']];
+  const parts = [['approach','How to approach'],['req','Requirements'],['est','Napkin maths'],['api','API'],['data','Data & DBs'],['arch','▶ HLD flows'],['lld','🧱 LLD'],['deep','Deep dives'],['trade','Trade-offs'],['tips','Interview tips']];
   const L = c.lld;
   return `<p class="muted" style="margin:-6px 0 14px">${c.tagline}</p>
-    <div class="casenav">${parts.map(([i,l],k) => `<button data-jump="${i}"><b>${k+1}</b> ${l}</button>`).join('')}</div>
+    <div class="casenav">${parts.map(([i,l],k) => `<button data-jump="${i}"><b>${k}</b> ${l}</button>`).join('')}</div>
+    ${approachSection(c)}
     ${sec('req','Step 1 · What are we building?','🎯 Requirements', `<div class="grid2"><div class="mini"><h4>✅ Functional (what it does)</h4>${li(c.func)}</div><div class="mini"><h4>⚙️ Non-functional (how well)</h4>${li(c.nonfunc)}</div></div>`)}
     ${sec('est','Step 2 · Napkin maths','🧮 Back-of-the-envelope estimates', estTable(c.est))}
     ${sec('api','Step 3 · The contract','🔌 API design', `<pre class="code">${c.api}</pre>`)}
@@ -2089,6 +2196,143 @@ CASES.crawler.mount = () => { const bits = Array(32).fill(0); let lastHit = [];
   $('#bfChk').onclick = () => { const u = $('#bfIn').value.trim(); if (!u) return; lastHit = hs(u); const all = lastHit.every(i => bits[i]); R();
     $('#bfSt').innerHTML = all ? `Bits ${lastHit.join(', ')} are all 1, so <b>"probably seen"</b> (could be a false positive).` : `At least one bit is 0, so <b>"definitely NOT seen"</b> ✅. Crawl it!`; }; };
 
+/* ================= "HOW TO THINK ABOUT IT" for every use case ================= */
+const AP = (id, eli, qs, core, evo) => CASES[id].approach = {eli, qs, core, evo};
+const V = (t, b, ok, bad) => ({t, b, ok, bad});
+
+AP('ratelimiter', 'A bouncer for your API. Each customer may only come in so many times per minute, and anyone over the limit is politely told to wait.',
+  [['Limit by what: user, IP address or API key?','By API key, with a separate login limit by IP.'],['One server or many?','Hundreds of servers, so the limit must be shared.'],['What happens when someone is over the limit?','Reject with 429 and say when to retry.'],['Must it be perfectly exact?','Close enough is fine; speed matters more.']],
+  'Counting requests accurately across many servers without adding noticeable delay.',
+  [V('v1 · A counter in each server', ['🤖','🖥️'], 'Simple, and fast (just memory).', 'With 50 servers, each counts separately, so a client gets 50× the limit!'),
+   V('v2 · One shared counter in Redis', ['🤖','🖥️','⚡'], 'Every server sees the same count. Redis is in-memory, so it\'s fast.', 'Two servers can read "99" at the same time and both allow the request: a race condition.'),
+   V('v3 · Atomic token bucket in the gateway', ['🤖','🚪','⚡','🖥️'], 'An atomic Lua script prevents races, and the gateway rejects requests before they reach any app server.', 'If Redis goes down, decide: block everyone, or let traffic through (fail open)?'),
+   V('v4 · + fail-open backup + monitoring', ['🤖','🚪','⚡','🖥️','📊'], 'A local fallback limiter, alerts, and logs of blocked requests. Production-ready.', '')]);
+
+AP('kvstore', 'A giant dictionary spread over many computers: you save a value under a name, and get it back by that name, even if some computers break.',
+  [['How big are values?','Small: under 10 KB each.'],['How much data in total?','Too much for one machine (terabytes).'],['Is it OK to sometimes read slightly old data?','Yes, but let callers ask for strong consistency when they need it.'],['Must it survive machines failing?','Yes. Always available.']],
+  'Splitting and copying data across machines so it stays fast, available and correct even while machines fail.',
+  [V('v1 · A hash map on one server', ['💻','🖥️'], 'Super simple and fast.', 'Runs out of memory, and if that server dies, everything is gone.'),
+   V('v2 · Split data across servers (sharding)', ['💻','🖥️','🖥️','🖥️'], 'Now it can hold far more data.', '"key % N" moves almost all data when a server is added, and a failed server still loses its data.'),
+   V('v3 · Consistent hashing + 3 copies of everything', ['💻','🅰️','🅱️','©️'], 'Adding servers moves little data, and losing one server loses nothing.', 'The copies can disagree. Which one is right?'),
+   V('v4 · + quorum, version clocks, repair', ['💻','🅰️','🅱️','©️','🔧'], 'Tunable consistency (W + R > N), conflict detection, and self-healing.', '')]);
+
+AP('idgen', 'A machine that hands out ticket numbers that are never repeated, even with many machines in many countries handing them out at the same time.',
+  [['What should IDs look like?','Numbers, 64 bits (fits in a "long").'],['Should they sort by time?','Roughly yes: newer IDs should be bigger.'],['How many per second?','10,000+ per machine.'],['Many data centres?','Yes.']],
+  'Making IDs unique without the machines having to talk to each other for every single ID.',
+  [V('v1 · Database auto-increment', ['🧾','🗄️'], 'Easy: 1, 2, 3…', 'One database = one bottleneck and a single point of failure, and it doesn\'t work across shards.'),
+   V('v2 · Random UUIDs', ['🧾','🎲'], 'No coordination at all.', '128 bits, not numbers, not sortable, and they make database indexes slow.'),
+   V('v3 · Snowflake: time + machine + counter', ['🧾','🆔','⏰'], '64-bit, unique (each machine has its own number), and sorted by time.', 'What if two machines get the same machine number, or a clock goes backwards?'),
+   V('v4 · + ZooKeeper machine IDs + clock checks', ['🧾','🆔','🦓'], 'Unique machine numbers are guaranteed, and clock rollback is handled.', '')]);
+
+AP('url', 'A service that turns a very long web link into a tiny one (like bit.ly/abc123). Click the tiny one and you land on the long one.',
+  [['How many new links per day, and how many clicks?','100M new links a month; about 100 clicks per link created.'],['How short should links be?','As short as possible: 7 characters.'],['Custom names? Expiry? Click stats?','Yes, yes and yes.'],['Can a link ever change where it points?','No.']],
+  'Generating short codes that never collide, and redirecting billions of clicks in milliseconds.',
+  [V('v1 · One server + one database table', ['👤','🖥️','🗄️'], 'Works for a hobby project.', 'Clicks outnumber new links 100 to 1, so the database melts under reads.'),
+   V('v2 · + Redis cache for popular links', ['👤','🖥️','⚡','🗄️'], 'Most clicks are served from memory in ~1 ms.', 'How do we make unique short codes when many servers create links at once?'),
+   V('v3 · + ID generator + base62', ['👤','🖥️','🔢','⚡','🗄️'], 'Unique numbers become short codes (1234567890123 → "lJt8pyN").', 'Analytics inside the click path would slow every redirect.'),
+   V('v4 · + async click events → analytics', ['👤','🚪','🖥️','⚡','🗄️','📬'], 'Redirects stay fast, and stats are counted in the background.', '')]);
+
+AP('crawler', 'A robot that reads the whole web: it opens a page, saves it, collects all its links, and visits those next, forever. It\'s how search engines know what\'s online.',
+  [['What is it for?','A search engine index (HTML only for now).'],['How many pages?','1 billion per month.'],['Keep old versions of pages?','Yes, for 5 years.'],['Any rules to follow?','Yes: obey robots.txt and don\'t overload any website.']],
+  'Visiting a billion pages quickly while never hammering one website, never fetching the same page twice, and never getting stuck in traps.',
+  [V('v1 · A loop: download → extract links → repeat', ['🌱','⬇️','🔗'], 'Easy to understand (it\'s BFS over the web).', 'It hits one site thousands of times a second (rude!) and downloads duplicates.'),
+   V('v2 · + URL frontier with per-site queues', ['🌱','🗂️','⬇️','🔗'], 'Polite: each website gets a delay between visits.', 'Billions of "have I seen this URL?" checks are too slow and too big.'),
+   V('v3 · + Bloom filter + content fingerprints', ['🗂️','⬇️','🧮','🪞','🔗'], 'Seen URLs and duplicate pages are skipped cheaply.', 'One machine can\'t do 400 pages per second, and DNS lookups are slow.'),
+   V('v4 · Many workers + DNS cache + trap guards', ['🗂️','⬇️⬇️⬇️','📖','🧮','🪣'], 'Scales out, and survives spider traps and broken HTML.', '')]);
+
+AP('notify', 'One service that every other team calls to say "tell user 42 their order shipped". It figures out how (phone, email, SMS) and makes sure the message arrives exactly once.',
+  [['Which channels?','Push (iOS / Android), SMS and email.'],['How many per day?','About 16 million.'],['Do users get to choose?','Yes: opt-outs per channel and quiet hours.'],['Instant, or a few seconds OK?','A few seconds is fine.']],
+  'Delivering through flaky 3rd-party providers without losing messages, sending duplicates or spamming users.',
+  [V('v1 · Each service calls Apple / Twilio directly', ['🧾','📱'], 'Quick to build once.', 'Every team re-builds the same thing, there are no retries, and user preferences are ignored.'),
+   V('v2 · One notification service', ['🧾','🔔','📱'], 'One place for templates, preferences and provider keys.', 'If the email provider is slow, everything waits behind it.'),
+   V('v3 · + a queue per channel + workers', ['🧾','🔔','📬','📱'], 'A slow channel doesn\'t block the others; traffic spikes are buffered.', 'A crash mid-send could lose or double-send a message.'),
+   V('v4 · + delivery log, dedupe keys, retries, rate limits', ['🧾','🔔','📬','📱','🗄️'], 'At-least-once delivery with no duplicates, and no spamming.', '')]);
+
+AP('newsfeed', 'The scrolling list of your friends\' posts when you open a social app, newest first.',
+  [['What makes up a feed?','Posts from friends and pages you follow, newest first.'],['How many friends can someone have?','Up to 5,000.'],['How many users?','10 million daily.'],['Can a post appear a few seconds late?','Yes.']],
+  'Making the feed load instantly for everyone, even when one celebrity post would need to reach 50 million followers.',
+  [V('v1 · Build the feed when it\'s opened (pull)', ['👀','🖥️','🗄️'], 'Simple: query friends\' recent posts and sort them.', 'With 500 friends, every feed open is a huge, slow query.'),
+   V('v2 · Pre-build feeds when someone posts (push)', ['🧑‍🎤','📣','⚡','👀'], 'Opening a feed is just reading a ready-made list: instant.', 'A celebrity post must be copied into 50 million lists: a "fan-out storm".'),
+   V('v3 · Hybrid: push for most, pull for celebrities', ['🧑‍🎤','📣','⚡','👀','⭐'], 'Fast reads, without storms.', 'Feed lists hold only IDs, so posts still need fast lookups.'),
+   V('v4 · + post & user caches, cursor paging', ['📣','⚡','⚡','👀'], 'Feeds load in ~10 ms, with smooth infinite scroll.', '')]);
+
+AP('chat', 'An app like WhatsApp: send a message and your friend\'s phone buzzes within a moment. Messages wait safely if they\'re offline.',
+  [['1-to-1, groups or both?','Both (groups up to a few hundred).'],['How many users?','50 million daily.'],['Read receipts? Online status?','Yes and yes.'],['Must messages never be lost?','Never.']],
+  'Keeping millions of phones connected so messages arrive instantly, in order, and survive anyone being offline.',
+  [V('v1 · Phones ask "any new messages?" every few seconds', ['📱','🖥️','🗄️'], 'Works with plain HTTP.', 'Laggy, and millions of mostly empty requests waste battery and servers.'),
+   V('v2 · Keep a WebSocket open to a chat server', ['📱','💬','🗄️'], 'The server pushes messages instantly.', 'With many chat servers, how does server 1 reach a user connected to server 2?'),
+   V('v3 · + presence (who\'s where) + pub/sub between servers', ['📱','💬','📇','💬','📱'], 'Messages are routed to whichever server holds the friend\'s connection.', 'What if the friend is offline?'),
+   V('v4 · + message DB, push notifications, sync on reconnect', ['📱','💬','🗄️','🔔','📱'], 'Store first, then deliver: nothing is ever lost.', '')]);
+
+AP('autocomplete', 'The suggestions that appear under a search box as you type: type "din" and see "dinner recipes", "dinosaur"…',
+  [['How many suggestions?','The top 5.'],['Ranked by what?','By how often people search them.'],['How fast?','Under 100 ms, or it feels laggy.'],['How fresh?','Updating weekly is fine (plus trending, if we have time).']],
+  'Answering "top 5 for this prefix" tens of thousands of times a second, faster than a person types.',
+  [V('v1 · SQL: WHERE query LIKE "din%" ORDER BY count', ['⌨️','🖥️','🗄️'], 'Easy to write.', 'Scanning millions of rows on every keystroke is far too slow.'),
+   V('v2 · A trie (prefix tree) in memory', ['⌨️','🖥️','🌳'], 'Walk d → i → n, then look at everything below.', 'Collecting and sorting everything below "d" is still slow.'),
+   V('v3 · Store the top 5 at every trie node', ['⌨️','🖥️','🌳⚡'], 'An answer is just "walk the prefix, read 5 items".', 'How does the trie learn about new popular searches?'),
+   V('v4 · + logs → weekly rebuild → hot swap, + browser cache', ['⌨️','🧠','📜','🏗️'], 'Fresh data, instant answers, and the browser caches common prefixes.', '')]);
+
+AP('video', 'A site like YouTube: creators upload videos, and millions watch smoothly on any device and any connection.',
+  [['Upload and watch, or also live streaming?','Upload and watch.'],['Which devices?','Phones, laptops and TVs.'],['How many uploads and views?','~1M uploads and 1B views a day.'],['Must quality adapt to the connection?','Yes, with no buffering.']],
+  'Delivering petabytes of video worldwide without buffering, and turning every upload into many formats.',
+  [V('v1 · Save the file, serve it from our server', ['🎥','🖥️','🍿'], 'Simple.', 'One huge file doesn\'t play on slow phones, and one server can\'t send video to millions.'),
+   V('v2 · + transcode into many sizes', ['🎥','⚙️','🍿'], 'Each device gets a size it can handle.', 'Transcoding a 1-hour video on one machine takes ages.'),
+   V('v3 · Split into chunks + parallel workers', ['🎥','📬','⚙️⚙️⚙️','🪣'], 'Fast processing, and the player can switch quality every few seconds.', 'Sending all that video from one place is too slow and too expensive.'),
+   V('v4 · + CDN + adaptive bitrate', ['🎥','⚙️','🪣','📦','🍿'], 'Video comes from servers near viewers, and quality adapts to their connection.', '')]);
+
+AP('gdrive', 'A cloud folder: save a file on your laptop and it appears on your phone. Every old version is kept, and nothing is ever corrupted.',
+  [['Which features?','Upload, download, sync, version history and sharing.'],['File sizes?','Up to 10 GB.'],['How many users?','50 million (10 million daily).'],['What matters most?','Never losing or corrupting data.']],
+  'Syncing big files between devices quickly (sending only what changed) while keeping every version safe.',
+  [V('v1 · Upload the whole file every time it changes', ['💻','🖥️','🪣'], 'Simple.', 'Changing one word re-uploads 2 GB, and a dropped connection restarts from zero.'),
+   V('v2 · Split files into 4 MB blocks', ['💻','🧱','🪣'], 'Upload only the changed blocks; resume after failures; identical blocks are stored once.', 'How does the phone know something changed?'),
+   V('v3 · + metadata DB + notification (long polling)', ['💻','🗄️','🔔','📱'], 'Other devices hear about changes within seconds and download just the new blocks.', 'Two devices edit the same file offline: who wins?'),
+   V('v4 · + version checks, conflict copies, cold storage', ['💻','🗄️','🔔','📱','🧊'], 'No silent overwrites, and old versions are stored cheaply.', '')]);
+
+AP('delivery', 'An app like DoorDash: pick food, pay, the restaurant cooks, a nearby driver picks it up, and you watch them come to you on a map.',
+  [['Who uses it?','Three apps: customers, restaurants and drivers.'],['How many orders?','10 million a day, with big lunch and dinner peaks.'],['Live tracking?','Yes, with driver locations every few seconds.'],['Payments?','Yes, and they must never be charged twice.']],
+  'Coordinating three parties in real time, with correct payments and a flood of location updates.',
+  [V('v1 · One app + one database', ['🧑','🖥️','🗄️'], 'Fine for one small city.', 'Lunch rush overloads it, and 125,000 location updates a second would crush the database.'),
+   V('v2 · Split into services (order, payment, dispatch)', ['🧑','🚪','🧾','💳','🧭'], 'Teams work independently, and each part scales on its own.', 'Services calling each other directly become slow and fragile.'),
+   V('v3 · + Kafka events between services', ['🧾','📬','👩‍🍳','🧭','🔔'], '"Order placed" is announced once, and everyone who cares reacts.', 'Driver locations still overwhelm a normal database.'),
+   V('v4 · + Redis GEO for locations, search index, idempotent payments', ['🛵','📍','🔍','💳'], 'Fast "drivers near me", fast restaurant search, and safe payments.', '')]);
+
+AP('parking', 'Software for a multi-storey car park: give each car a suitable free spot, print a ticket, and charge when it leaves.',
+  [['How many levels and spot types?','Several levels; bike, compact and large spots.'],['Which vehicles fit where?','Bikes anywhere, cars in compact or large, trucks in large only.'],['How is it priced?','Hourly, but it might change (weekends, events).'],['Several gates at once?','Yes, several entries and exits.']],
+  'This is mostly an LLD question: model the classes cleanly, make the rules easy to change, and never give one spot to two cars.',
+  [V('v1 · One big ParkingLot class that does everything', ['🅿️'], 'Quick to write.', 'A giant mess: changing pricing means editing the same class that assigns spots (breaks SOLID).'),
+   V('v2 · Separate classes: Level, Spot, Vehicle, Ticket', ['🅿️','🏢','🟩','🚗','🎫'], 'Each class has one job, and vehicle/spot types use inheritance.', 'Pricing and spot-picking rules are still hard-coded.'),
+   V('v3 · Strategy pattern for pricing and spot assignment', ['🅿️','🧭','💲'], 'Swap the pricing or assignment rules without touching other code.', 'Two gates might grab the same spot at the same moment.'),
+   V('v4 · + locking / atomic spot claims + display boards (Observer)', ['🚧','🔒','🟩','📺'], 'Thread-safe, and the boards update automatically.', '')]);
+
+AP('booking', 'An app like BookMyShow: pick a movie and showtime, choose seats on a map, pay, and get a ticket. Seat A5 must only ever be sold once.',
+  [['Which features?','Browse movies, see the seat map, hold seats, pay, cancel.'],['How long can someone hold seats?','10 minutes while paying.'],['Big premieres?','Yes: huge spikes of fans.'],['What\'s unacceptable?','Double-booking a seat, or charging twice.']],
+  'Letting thousands of people fight over the same seats at once, fairly and without double-booking.',
+  [V('v1 · Click seat → write "booked" to the DB', ['🍿','🖥️','🗄️'], 'Simple.', 'Two fans clicking A5 at the same moment can both succeed: a double booking!'),
+   V('v2 · Lock the seat rows during payment', ['🍿','🖥️','🔒','🗄️'], 'Correct: one winner per seat.', 'Locks are held during slow payments, and abandoned carts block seats.'),
+   V('v3 · Temporary holds in Redis with a 10-minute TTL', ['🍿','⏳','⚡','🗄️'], 'Fast, fair, and holds expire automatically.', 'A premiere brings a million fans in minutes.'),
+   V('v4 · + virtual waiting room + cached seat map', ['🍿','🚦','⏳','⚡','🗄️'], 'Fans are let in at a safe rate, and the seat map is cheap to show.', '')]);
+
+function approachSection(c){
+  const a = c.approach; if (!a) return '';
+  const chain = b => `<div class="evochain">${b.map((x,i) => `${i ? '<span class="evoarr">→</span>' : ''}<span class="evobox">${x}</span>`).join('')}</div>`;
+  return sec('approach', 'Step 0 · Before anything else', '🧭 How to think about it', `
+    <div class="eli" style="margin-top:0"><div class="eli-h">🧒 In plain words</div><p style="margin:4px 0 0;font-size:16.5px">${a.eli}</p></div>
+    <h3>❓ First, ask questions (and agree on answers)</h3>
+    <p class="muted" style="margin-top:0">Never start drawing straight away. These questions decide the whole design. Here are the answers we'll assume:</p>
+    <div class="qa">${a.qs.map(([q, ans], i) => `<div><span class="qn">Q${i+1}</span><div><b>${q}</b><p>👉 ${ans}</p></div></div>`).join('')}</div>
+    <div class="core">🎯 <b>The real challenge:</b> ${a.core}</div>
+    <h3>🪜 Start simple, then fix what breaks</h3>
+    <p class="muted" style="margin-top:0">Good designs grow step by step. Tap through the versions:</p>
+    <div class="stage evo" data-evo>
+      <div class="ctrls" style="margin:0;justify-content:flex-start">${a.evo.map((v, i) => `<button data-v="${i}" class="${i?'':'on'}">${v.t.split('·')[0].trim()}</button>`).join('')}</div>
+      ${a.evo.map((v, i) => `<div class="evostep" data-s="${i}" style="${i ? 'display:none' : ''}"><h4>${v.t}</h4>${chain(v.b)}<p class="ok">✅ ${v.ok}</p>${v.bad ? `<p class="bad">⚠️ <b>But:</b> ${v.bad}</p>` : '<p class="ok">🏁 <b>This is our final design.</b> The rest of this page details it.</p>'}</div>`).join('')}
+    </div>
+    <h3>🗺️ What the rest of this page covers</h3>
+    <ol class="roadmap"><li><b>Requirements</b>: what exactly it must do</li><li><b>Napkin maths</b>: how big it gets</li><li><b>API</b>: how apps talk to it</li><li><b>Data</b>: what we store, and where</li><li><b>HLD flows</b>: the final design, animated</li><li><b>LLD</b>: the classes and code inside</li><li><b>Deep dives, trade-offs, tips</b></li></ol>`);
+}
+document.addEventListener('click', e => { const b = e.target.closest('[data-evo] [data-v]'); if (!b) return; const box = b.closest('[data-evo]');
+  $$('[data-v]', box).forEach(x => x.className = x === b ? 'on' : ''); $$('.evostep', box).forEach(s => s.style.display = s.dataset.s === b.dataset.v ? '' : 'none'); });
+
 /* ================= DSA PAGE ================= */
 const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
 const opsTable = rows => `<div class="tblwrap"><table><tr><th>Operation</th><th>Speed</th><th>Why</th></tr>${rows.map(r => `<tr><td>${r[0]}</td><td>${Ob(r[1])}</td><td class="muted">${r[2]}</td></tr>`).join('')}</table></div>`;
@@ -2765,6 +3009,171 @@ D('backtrack', 'Backtracking', 'Patterns', 'Backtracking: try, and if it fails, 
     try { await visit(nodes[0]); } catch(_) { return; }
     draw(st); $('#btSt').innerHTML = `🎉 Found all <b>${res.length}</b> subsets = 2³. Every branch = one choice. Every leaf = one answer.`; busy = false; };
 });
+
+/* ================= BIG O CHAPTER: time, space, cases, practice ================= */
+DM.tcomplex = {n:'Time Complexity: Counting Steps', i:'👣', use:['Predict how slow code gets as data grows','Compare two solutions before writing them','Answer "what\'s the complexity?" in interviews'], pr:['Count the steps of any loop','Spot O(n²) nested loops'], t:'—', s:'—'};
+DM.scomplex = {n:'Space Complexity: Counting Memory', i:'🧠', use:['Know how much extra memory code needs','Spot memory blow-ups (copies, recursion)','Trade memory for speed on purpose'], pr:['Reverse an array in place','Two Sum with a hash map'], t:'—', s:'—'};
+DM.bcases = {n:'Best, Average, Worst & Amortized', i:'🎲', use:['Talk precisely about performance','Understand why "average O(1)" is OK','Explain dynamic arrays and hash tables'], pr:['Linear search cases','ArrayList append'], t:'—', s:'—'};
+DM.bigopractice = {n:'Practice: Find the Big O', i:'🏋️', use:['Test yourself on real code','Build interview reflexes','Learn the common traps'], pr:['8 quick questions'], t:'—', s:'—'};
+
+/* ---------- 2.2 TIME COMPLEXITY ---------- */
+const SNIPS = {
+  one:{name:'Get the first item', big:'O(1)', code:['first = items[0]','print(first)'], steps:n => [0,1]},
+  lin:{name:'Add up every item', big:'O(n)', code:['total = 0','for x in items:','    total = total + x','print(total)'], steps:n => [0, ...Array(n).fill(0).flatMap(() => [1,2]), 3]},
+  quad:{name:'Compare every pair', big:'O(n²)', code:['for a in items:','    for b in items:','        if a == b: count += 1'], steps:n => Array(n).fill(0).flatMap(() => [0, ...Array(n).fill(0).flatMap(() => [1,2])])},
+  log:{name:'Keep halving', big:'O(log n)', code:['size = n','while size > 1:','    size = size // 2','print("done")'], steps:n => { const s = [0]; let k = n; while (k > 1){ s.push(1,2); k = Math.floor(k/2); } s.push(1,3); return s; }},
+};
+D('tcomplex', 'Time Complexity', 'Big O · lesson 2', 'Time complexity: counting steps, not seconds 👣', `
+  <p><b>Time complexity</b> answers one question: <i>"If I give this code more data, how many more steps does it take?"</i></p>
+  <p>We don't measure in seconds, because a gaming PC and an old phone run the same code at different speeds. Instead we count <b>steps</b>: small basic actions the computer does, each taking roughly the same tiny amount of time.</p>
+  ${analogy('🧺 Think of folding laundry', 'Folding 1 shirt = 1 step. 10 shirts = 10 steps. 100 shirts = 100 steps. The work grows <b>in line</b> with the pile: that\'s O(n). But if you had to <b>compare every shirt with every other shirt</b> to find matching pairs, 10 shirts = 100 comparisons and 100 shirts = 10,000 comparisons! That\'s O(n²).')}
+  <h3>👣 What counts as one "step"?</h3>
+  <div class="grid">${[['➕','Doing maths','a + b, x × 2'],['🟰','Comparing','is a > b?'],['📥','Saving a value','total = 0'],['📤','Reading a value','items[3]'],['↩️','Returning','return total']].map(r=>`<div class="mini" style="text-align:center"><div style="font-size:26px">${r[0]}</div><b>${r[1]}</b><div class="muted" style="font-family:var(--mono);font-size:13px">${r[2]}</div></div>`).join('')}</div>
+  <p class="muted">Each of these takes about a billionth of a second. One step on its own is nothing. What matters is <b>how many</b> steps there are as the data grows.</p>
+  <h3>🧪 Try it: the step counter</h3>
+  <div class="stage">
+    <div class="ctrls" style="margin:0" id="scSn">${Object.entries(SNIPS).map(([k,v],i)=>`<button data-sn="${k}" class="${i===1?'on':''}">${v.name}</button>`).join('')}</div>
+    <div class="ctrls" id="scN">How many items (n)? ${[4,8,16].map((v,i)=>`<button data-n="${v}" class="${i===0?'on':''}">n = ${v}</button>`).join('')}</div>
+    <pre class="code" id="scCode" style="font-size:14px"></pre>
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center"><button id="scRun" class="pri">▶ Run and count</button><div style="font-size:22px;font-weight:900">👣 <span id="scCnt">0</span> steps</div></div>
+    <div id="scDots" style="display:flex;flex-wrap:wrap;gap:3px;margin-top:10px;min-height:14px"></div>
+    <div class="status" id="scSt"></div></div>
+  <h3>✍️ Counting steps by hand: a worked example</h3>
+  <pre class="code"><span class="k">def</span> total(items):          <span class="c"># n = how many items</span>
+    t = <span class="n">0</span>                    <span class="c"># 1 step</span>
+    <span class="k">for</span> x <span class="k">in</span> items:          <span class="c"># the loop runs n times…</span>
+        t = t + x            <span class="c">#   …1 step each time  → n steps</span>
+    <span class="k">return</span> t                 <span class="c"># 1 step</span>
+                             <span class="c"># TOTAL = n + 2 steps</span></pre>
+  <p>With 10 items that's 12 steps. With a million items it's 1,000,002. The "+2" stops mattering, and what grows is the <b>n</b>. So we say it's <b>O(n)</b>: the work grows in line with the input.</p>
+  <h3>📏 The 4 rules for turning a step count into Big O</h3>
+  <div class="grid2">
+    <div class="mini"><h4>1️⃣ Drop the constants</h4><p><code>3n + 5</code> → <b>O(n)</b>. A loop doing 3 things per item is still "grows with n".</p></div>
+    <div class="mini"><h4>2️⃣ Keep only the biggest term</h4><p><code>n² + n + 100</code> → <b>O(n²)</b>. When n = 1,000, n² is 1,000,000 and the rest is tiny.</p></div>
+    <div class="mini"><h4>3️⃣ Steps one after another → add</h4><p>A loop over n, then another loop over n → <code>n + n = 2n</code> → <b>O(n)</b>.</p></div>
+    <div class="mini"><h4>4️⃣ Loop inside a loop → multiply</h4><p>For each of n items, loop over n items → <code>n × n</code> → <b>O(n²)</b>.</p></div>
+  </div>
+  <div class="mini"><h4>🔪 Bonus rule: halving → log n</h4><p>If each step <b>throws away half</b> of what's left (like binary search), the number of steps is "how many times can I halve n until 1 is left?" For 1,000 that's about 10; for 1,000,000 about 20. That's <b>O(log n)</b>, the second-best speed there is.</p></div>
+  <h3>📊 What it means in real life (n = 1,000 items)</h3>
+  <div class="tblwrap"><table><tr><th>Big O</th><th>Name</th><th>Steps for 1,000 items</th><th>Feels like</th></tr>
+  ${[['O(1)','Constant','1','⚡ Instant, no matter how big'],['O(log n)','Logarithmic','~10','⚡ Practically instant'],['O(n)','Linear','1,000','🙂 Fine'],['O(n log n)','Linearithmic','~10,000','🙂 Fine (good sorting)'],['O(n²)','Quadratic','1,000,000','🐢 Slow for big data'],['O(2ⁿ)','Exponential','a 302-digit number','💀 Never finishes']].map(r=>`<tr><td>${Ob(r[0])}</td><td>${r[1]}</td><td><b>${r[2]}</b></td><td>${r[3]}</td></tr>`).join('')}</table></div>
+`, () => {
+  let sn = 'lin', n = 4, busy = false; const g = routeGen;
+  const showCode = hl => $('#scCode').innerHTML = SNIPS[sn].code.map((l,i) => `<span style="display:block;${i===hl?'background:#1d4ed8;border-radius:4px;':''}">${esc(l)}</span>`).join('');
+  const reset = () => { showCode(-1); $('#scCnt').textContent = 0; $('#scDots').innerHTML = ''; $('#scSt').innerHTML = `Expected: <b>${SNIPS[sn].big}</b>. Press run to count.`; };
+  reset();
+  $('#scSn').onclick = e => { const b = e.target.closest('[data-sn]'); if (!b || busy) return; sn = b.dataset.sn; $$('#scSn button').forEach(x => x.className = x === b ? 'on' : ''); reset(); };
+  $('#scN').onclick = e => { const b = e.target.closest('[data-n]'); if (!b || busy) return; n = +b.dataset.n; $$('#scN button').forEach(x => x.className = x === b ? 'on' : ''); reset(); };
+  $('#scRun').onclick = async () => { if (busy) return; busy = true; reset(); const st = SNIPS[sn].steps(n); const d = Math.max(8, Math.min(260, 3200 / st.length));
+    for (let i = 0; i < st.length; i++){ if (!alive(g)) return; showCode(st[i]); $('#scCnt').textContent = i + 1;
+      $('#scDots').insertAdjacentHTML('beforeend', '<i style="width:10px;height:10px;border-radius:3px;background:#2563eb;display:inline-block"></i>'); await sleep(d); }
+    showCode(-1);
+    const f = {one:'always ~2, no matter what n is', lin:`about 2 × n + 2 = ${2*n+2}`, quad:`about n × n × 2 = ${2*n*n} (+${n})`, log:`about 2 × log₂(${n}) + 3 = ${2*Math.log2(n)+3}`}[sn];
+    $('#scSt').innerHTML = `✅ <b>${st.length} steps</b> for n = ${n}: ${f}. Try a bigger n and watch how the count grows → <b>${SNIPS[sn].big}</b>`; busy = false; };
+});
+
+/* ---------- 2.3 SPACE COMPLEXITY ---------- */
+D('scomplex', 'Space Complexity', 'Big O · lesson 3', 'Space complexity: how much extra memory? 🧠', `
+  <p><b>Space complexity</b> asks: <i>"As the input grows, how much <b>extra</b> memory does my code need?"</i> Memory (RAM) is like desk space: limited, and if you run out, the program slows down or crashes.</p>
+  ${analogy('📝 Think of doing maths homework', 'Adding up a list of numbers in your head needs just <b>one</b> running total, whatever the length of the list: O(1) space. Copying the whole list onto a new sheet first needs a sheet <b>as long as the list</b>: O(n) space.')}
+  <div class="grid2"><div class="mini"><h4>📥 Input space</h4><p>The memory the data itself takes (the list you were given). Usually <b>not</b> counted.</p></div><div class="mini"><h4>🧮 Auxiliary (extra) space</h4><p>The memory your code <b>adds</b>: new variables, copies, lists, the recursion stack. This is what "space complexity" usually means.</p></div></div>
+  <h3>🧪 Try it: watch memory get used</h3>
+  <div class="stage">
+    <div class="ctrls" style="margin:0" id="spA">${[['sum','Sum (one variable)'],['copy','Copy the list'],['grid','Make an n × n grid'],['rec','Recursion n deep']].map(([k,v],i)=>`<button data-a="${k}" class="${i?'':'on'}">${v}</button>`).join('')}</div>
+    <div class="ctrls">n = <input type="range" id="spN" min="1" max="12" value="6" style="width:180px"> <b id="spNv">6</b></div>
+    <div id="spMem" style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;min-height:60px;margin-top:8px"></div>
+    <div class="status" id="spSt"></div></div>
+  <h3>📚 Common examples</h3>
+  <div class="tblwrap"><table><tr><th>Code does…</th><th>Extra memory</th><th>Space</th></tr>
+  ${[['Keeps a few variables (a counter, a max)','The same, whatever n is','O(1)'],['Reverses a list in place (swapping ends)','Just one temp variable','O(1)'],['Builds a new list / copy / hash set of the input','Grows with n','O(n)'],['Recursion that goes n levels deep','n "sticky notes" on the call stack','O(n)'],['Binary search with recursion','Only log n levels deep','O(log n)'],['A 2D table of n × n (e.g. some DP)','n² cells','O(n²)']].map(r=>`<tr><td>${r[0]}</td><td class="muted">${r[1]}</td><td>${Ob(r[2])}</td></tr>`).join('')}</table></div>
+  <h3>⚖️ The great trade-off: memory for speed</h3>
+  <p>Often you can make code <b>faster</b> by using <b>more memory</b>. The classic example is <i>Two Sum</i> ("find two numbers that add up to the target"):</p>
+  <div class="grid2"><div class="mini"><h4>🐢 No extra memory</h4><p>Check every pair: <b>O(n²) time, O(1) space</b>.</p></div><div class="mini"><h4>⚡ Use a hash map</h4><p>Remember the numbers you've seen: <b>O(n) time, O(n) space</b>. Much faster, at the cost of some memory. Usually a great deal!</p></div></div>
+  ${real('Phones and small servers have limited RAM. An O(n²)-space algorithm on 100,000 items needs 10 billion cells, which simply won\'t fit. Caches are this trade-off on purpose: spend memory to save time.')}
+`, () => {
+  let a = 'sum', n = 6;
+  const R = () => { const cell = (c, t) => `<div style="width:30px;height:30px;border-radius:6px;background:${c};color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center">${t||''}</div>`;
+    let html = '', cnt = 0, big = '';
+    if (a === 'sum'){ html = cell('#059669','t'); cnt = 1; big = 'O(1)'; }
+    if (a === 'copy'){ html = Array(n).fill(0).map((_,i) => cell('#2563eb', i)).join(''); cnt = n; big = 'O(n)'; }
+    if (a === 'grid'){ html = `<div style="display:grid;grid-template-columns:repeat(${n},30px);gap:4px">${Array(n*n).fill(0).map(() => cell('#d97706')).join('')}</div>`; cnt = n*n; big = 'O(n²)'; }
+    if (a === 'rec'){ html = `<div style="display:flex;flex-direction:column-reverse;gap:3px">${Array(n).fill(0).map((_,i) => `<div style="background:#7c3aed;color:#fff;border-radius:6px;padding:3px 12px;font-size:12px;font-family:var(--mono)">f(${n-i}) waiting…</div>`).join('')}</div>`; cnt = n; big = 'O(n)'; }
+    $('#spMem').innerHTML = html; $('#spNv').textContent = n;
+    $('#spSt').innerHTML = `n = ${n} → <b>${cnt}</b> extra memory box${cnt>1?'es':''} → ${Ob(big)}${a==='rec'?' (every call waits on the "call stack" until the one below it finishes)':''}${a==='sum'?' (still just 1, even if n were a billion)':''}`; };
+  $('#spA').onclick = e => { const b = e.target.closest('[data-a]'); if (!b) return; a = b.dataset.a; $$('#spA button').forEach(x => x.className = x === b ? 'on' : ''); R(); };
+  $('#spN').oninput = e => { n = +e.target.value; R(); }; R();
+});
+
+/* ---------- 2.4 BEST / AVERAGE / WORST / AMORTIZED ---------- */
+D('bcases', 'Best/Worst Case', 'Big O · lesson 4', 'Best, average & worst case (and "amortized") 🎲', `
+  <p>The same code can be fast or slow depending on <b>luck</b>, meaning where the thing you want happens to be.</p>
+  ${analogy('🃏 Think of finding the Ace of Spades in a shuffled deck', 'You flip cards one by one. <b>Best case:</b> it\'s the first card, 1 flip. <b>Worst case:</b> it\'s the last card, 52 flips. <b>Average:</b> about 26 flips. All three grow with the deck size, so linear search is O(n).')}
+  <div class="grid">
+    <div class="mini" style="border-top:4px solid #059669"><h4>😎 Best case</h4><p>The luckiest input. Nice, but don't plan around luck.</p></div>
+    <div class="mini" style="border-top:4px solid #d97706"><h4>🙂 Average case</h4><p>What usually happens with random input.</p></div>
+    <div class="mini" style="border-top:4px solid #dc2626"><h4>😱 Worst case</h4><p>The unluckiest input. <b>This is what "Big O" normally means</b>: a guarantee it never gets worse than this.</p></div>
+  </div>
+  <div class="tblwrap"><table><tr><th>Algorithm</th><th>Best</th><th>Average</th><th>Worst</th></tr>
+    <tr><td>Linear search</td><td>${Ob('O(1)')}</td><td>${Ob('O(n)')}</td><td>${Ob('O(n)')}</td></tr>
+    <tr><td>Binary search</td><td>${Ob('O(1)')}</td><td>${Ob('O(log n)')}</td><td>${Ob('O(log n)')}</td></tr>
+    <tr><td>Hash table lookup</td><td>${Ob('O(1)')}</td><td>${Ob('O(1)')}</td><td>${Ob('O(n)')} (everything collides)</td></tr>
+    <tr><td>Quick sort</td><td>${Ob('O(n log n)')}</td><td>${Ob('O(n log n)')}</td><td>${Ob('O(n²)')} (bad pivots)</td></tr></table></div>
+  <h3>🧾 Amortized: "expensive sometimes, cheap on average"</h3>
+  <p>A growable list (Python <code>list</code>, Java <code>ArrayList</code>) reserves some empty seats. Adding is 1 step… until the seats run out. Then it moves to a block <b>twice as big</b> and copies everything over (expensive!). Because the size doubles each time, those big copies are rare, so the <b>average cost per add stays O(1)</b>. That's called <b>amortized O(1)</b>.</p>
+  ${analogy('🏠 Think of moving house', 'Moving is a lot of work, but if you buy a house twice as big each time, you move rarely. Spread over all the years, the moving cost per year is small.')}
+  <div class="stage"><div class="ctrls" style="margin:0"><button id="amAdd" class="pri">➕ append(item)</button><button id="amAdd10">➕ ×10</button><button id="amReset">↺</button></div>
+    <div id="amBox" style="display:flex;flex-wrap:wrap;gap:3px;margin-top:12px"></div><div class="status" id="amSt"></div></div>
+`, () => {
+  let size = 0, cap = 1, total = 0, last = '';
+  const R = () => { $('#amBox').innerHTML = Array(cap).fill(0).map((_,i) => `<div style="width:24px;height:24px;border-radius:5px;border:2px solid ${i<size?'#2563eb':'#cbd5e1'};background:${i<size?'#dbeafe':'#fff'}"></div>`).join('');
+    $('#amSt').innerHTML = `${size} items · capacity ${cap} · total work ${total} steps · <b>average ${(size ? total/size : 0).toFixed(2)} steps per append</b>${last}`; };
+  const add = () => { let cost = 1; last = ''; if (size === cap){ cost += size; cap *= 2; last = `<br>📦 Full! Moved to a ${cap}-seat block and copied ${size} items (cost ${cost}).`; } size++; total += cost; };
+  R(); $('#amAdd').onclick = () => { add(); R(); }; $('#amAdd10').onclick = () => { for (let i = 0; i < 10; i++) add(); R(); }; $('#amReset').onclick = () => { size = 0; cap = 1; total = 0; last = ''; R(); };
+});
+
+/* ---------- 2.5 PRACTICE ---------- */
+const QUIZ = [
+  ['print(items[0])', 'O(1)', 'One step, whatever the list size.'],
+  ['for x in items:\n    print(x)', 'O(n)', 'One print per item, so n steps.'],
+  ['for x in items:\n    print(x)\nfor y in items:\n    print(y)', 'O(n)', 'n + n = 2n. Drop the constant → O(n). Loops one after another ADD.'],
+  ['for x in items:\n    for y in items:\n        print(x, y)', 'O(n²)', 'For each of n items, n more steps → n × n. Nested loops MULTIPLY.'],
+  ['i = n\nwhile i > 1:\n    i = i // 2', 'O(log n)', 'i halves every time, so it takes log₂(n) steps to reach 1.'],
+  ['items.sort()\nfor x in items:\n    print(x)', 'O(n log n)', 'Sorting is n log n, then the loop is n. Keep the biggest → n log n.'],
+  ['for x in items:\n    if x in other_list:   # other_list has n items\n        print(x)', 'O(n²)', '"x in list" secretly loops over the list! n × n. (With a set it would be O(n).)'],
+  ['def f(n):\n    if n <= 1: return 1\n    return f(n-1) + f(n-1)', 'O(2ⁿ)', 'Each call makes 2 more calls, so it doubles every level: 2ⁿ.'],
+];
+D('bigopractice', 'Practice', 'Big O · lesson 5', 'Practice: find the Big O 🏋️', `
+  <p>Look at each snippet, count the steps the way we learned, and pick the Big O. You'll get an explanation after each answer.</p>
+  <div class="stage"><div id="qzQ"></div><div class="ctrls" id="qzA"></div><div class="status" id="qzSt"></div><div class="ctrls"><button id="qzNext" class="pri" style="display:none">Next question →</button></div></div>
+  <div class="mini"><h4>🧭 The 10-second method</h4><ol class="tight"><li>What is <b>n</b>? (usually the size of the input)</li><li>Find the loops. Is one inside another? <b>Multiply.</b> One after another? <b>Add.</b></li><li>Does something <b>halve</b> each time? That's <b>log n</b>.</li><li>Watch for <b>hidden loops</b>: <code>in list</code>, <code>.sort()</code>, <code>.index()</code>, copying.</li><li>Keep the biggest term and drop the constants.</li></ol></div>
+`, () => {
+  const opts = ['O(1)','O(log n)','O(n)','O(n log n)','O(n²)','O(2ⁿ)']; let q = 0, score = 0;
+  const show = () => { const [code] = QUIZ[q]; $('#qzQ').innerHTML = `<div class="muted" style="font-size:13px;font-weight:700">Question ${q+1} of ${QUIZ.length} · score ${score}</div><pre class="code" style="font-size:14px">${esc(code)}</pre>`;
+    $('#qzA').innerHTML = opts.map(o => `<button data-o="${o}">${o}</button>`).join(''); $('#qzSt').innerHTML = ''; $('#qzNext').style.display = 'none'; };
+  $('#qzA').onclick = e => { const b = e.target.closest('[data-o]'); if (!b || $('#qzNext').style.display !== 'none') return; const [, ans, why] = QUIZ[q]; const ok = b.dataset.o === ans; if (ok) score++;
+    $$('#qzA button').forEach(x => { if (x.dataset.o === ans) x.style.cssText = 'background:#059669;color:#fff;border-color:#059669'; else if (x === b) x.style.cssText = 'background:#dc2626;color:#fff;border-color:#dc2626'; });
+    $('#qzSt').innerHTML = `${ok ? '✅ Correct!' : `❌ It's <b>${ans}</b>.`} ${why}`; $('#qzNext').style.display = ''; $('#qzNext').textContent = q < QUIZ.length - 1 ? 'Next question →' : `🎉 Done: ${score}/${QUIZ.length}. Restart`; };
+  $('#qzNext').onclick = () => { q = q < QUIZ.length - 1 ? q + 1 : 0; if (q === 0) score = 0; show(); };
+  show();
+});
+
+/* ---------- arrays: add the "why O(1)" memory visual ---------- */
+(() => { const s = DSA_SECTIONS.find(x => x.id === 'array'); const old = s.mount;
+  s.body = s.body.replace('<div class="stage"><div class="cells" id="arrCells"', `<h3>🔍 Why is reading by position instant (O(1))?</h3>
+  <p>Computer memory is one long street of numbered houses (<b>addresses</b>). An array puts its items in <b>neighbouring</b> houses, each the same size. So the computer never searches: it <b>calculates</b> where item #i lives with one sum.</p>
+  <div class="stage"><div id="memRow" style="display:flex;gap:4px;overflow-x:auto;padding:4px 2px 10px"></div>
+    <div class="ctrls">Find item number <input type="number" id="memI" value="3" min="0" max="7" style="width:70px"><button id="memGo" class="pri">📍 Jump</button></div>
+    <pre class="code" id="memMath" style="text-align:center;white-space:pre-wrap"></pre></div>
+  <p>Whether the array has 8 items or 8 million, it's always one multiplication and one addition: <b>1 step → O(1)</b>. A linked list can't do this, because its items are scattered around memory.</p>
+  <h3>🎮 Try the other operations</h3>
+  <div class="stage"><div class="cells" id="arrCells"`);
+  s.mount = () => { old && old();
+    const vals = [7,3,9,1,5,8,2,6], base = 1000;
+    const R = hi => $('#memRow').innerHTML = vals.map((v,i) => `<div style="flex:none;text-align:center"><div style="font-family:var(--mono);font-size:10.5px;color:#64748b">#${base + i*4}</div><div class="cell ${i===hi?'ok':''}" style="margin:2px 0">${v}</div><div style="font-family:var(--mono);font-size:10.5px;color:#2563eb">[${i}]</div></div>`).join('');
+    const go = () => { const i = Math.max(0, Math.min(7, +$('#memI').value || 0)); R(i);
+      $('#memMath').textContent = `address = start + index × size of each item\n        = ${base} + ${i} × 4 bytes\n        = ${base + i*4}  → value ${vals[i]} ✅ (1 calculation, no searching)`; };
+    $('#memGo').onclick = go; go(); };
+})();
 
 /* ================= SYSTEM DESIGN PAGE ================= */
 const SD = [];
@@ -4238,84 +4647,110 @@ function leetMount(id){
   upd();
 }
 
-/* ================= HUBS + TOPIC PAGES ================= */
-const DSA_GROUPS = [
-  ['🚀 Foundations', '#2563eb', ['bigo']],
-  ['📦 Linear data structures', '#0891b2', ['array','linked','stack','queue','hash']],
-  ['🌳 Trees & graphs', '#059669', ['bst','traversal','heap','trie','graph']],
-  ['🧠 Problem-solving patterns', '#7c3aed', ['window','prefix','bsearch','backtrack','dp']],
-  ['📊 Sorting & reference', '#d97706', ['sorting','cheat']],
-];
-const DM = {
-  bigo:{n:'Big O Notation', i:'⏱️', use:['Compare two solutions','Predict if code is too slow','Every interview answer'], pr:['Analyse any loop','Spot nested loops = O(n²)'], t:'—', s:'—'},
-  array:{n:'Arrays', i:'🔢', use:['Fast access by index','Ordered, mostly-append lists','Base for two pointers & windows'], pr:['Two Sum','Best Time to Buy & Sell Stock','Maximum Subarray (Kadane\'s)'], t:'O(1) access', s:'O(n)'},
-  linked:{n:'Linked List', i:'🔗', use:['Many inserts/deletes at the ends','Unknown size','Inside LRU caches'], pr:['Reverse Linked List','Merge Two Sorted Lists','Linked List Cycle'], t:'O(n) search', s:'O(n)'},
-  stack:{n:'Stack', i:'🥞', use:['Last in, first out','Matching brackets','Undo / backtracking'], pr:['Valid Parentheses','Daily Temperatures','Min Stack'], t:'O(1) push/pop', s:'O(n)'},
-  queue:{n:'Queue', i:'🚶', use:['First in, first out','BFS','Scheduling & buffering'], pr:['Implement Queue using Stacks','Rotting Oranges','Number of Islands'], t:'O(1) enq/deq', s:'O(n)'},
-  hash:{n:'Hash Map', i:'🧥', use:['Instant lookups','Counting frequencies','"Seen it before?" checks'], pr:['Two Sum','Group Anagrams','Top K Frequent Elements'], t:'O(1) avg', s:'O(n)'},
-  bst:{n:'Binary Search Tree', i:'🌳', use:['Sorted data + fast search','Range queries','Hierarchies'], pr:['Validate BST','Lowest Common Ancestor','Kth Smallest in a BST'], t:'O(log n)', s:'O(n)'},
-  traversal:{n:'Tree Traversals', i:'🚶', use:['Visit every node in order','Copy / delete / serialise trees','Level-by-level views'], pr:['Inorder Traversal','Level Order Traversal','Maximum Depth'], t:'O(n)', s:'O(h)'},
-  heap:{n:'Heap / Priority Queue', i:'⛰️', use:['Always grab min or max','Top K problems','Scheduling by priority'], pr:['Kth Largest Element','Merge K Sorted Lists','Find Median from Data Stream'], t:'O(log n) insert', s:'O(n)'},
-  trie:{n:'Trie', i:'⌨️', use:['Prefix search','Autocomplete','Word games'], pr:['Implement Trie','Word Search II','Design Add & Search Words'], t:'O(L) per word', s:'O(total chars)'},
-  graph:{n:'Graphs (BFS / DFS)', i:'🕸️', use:['Connections & networks','Shortest paths','Dependencies & cycles'], pr:['Number of Islands','Course Schedule','Network Delay Time'], t:'O(V + E)', s:'O(V)'},
-  window:{n:'Two Pointers & Sliding Window', i:'🪟', use:['Contiguous subarrays / substrings','Pairs in a sorted array','"Longest / shortest with a condition"'], pr:['Longest Substring Without Repeating','Container With Most Water','3Sum'], t:'O(n)', s:'O(1)'},
-  prefix:{n:'Prefix Sum', i:'➕', use:['Many range-sum queries','Subarray sums equal to K','2D region sums'], pr:['Range Sum Query','Subarray Sum Equals K','Product of Array Except Self'], t:'O(1) per query', s:'O(n)'},
-  bsearch:{n:'Binary Search', i:'🎯', use:['Sorted array or answer space','"Smallest value that works"','Halve the search each step'], pr:['Binary Search','Search in Rotated Sorted Array','Koko Eating Bananas'], t:'O(log n)', s:'O(1)'},
-  backtrack:{n:'Backtracking', i:'↩️', use:['All combinations / permutations','Constraint puzzles','"Try, then undo"'], pr:['Subsets','Permutations','N-Queens','Combination Sum'], t:'O(2ⁿ) / O(n!)', s:'O(n)'},
-  dp:{n:'Recursion & Dynamic Programming', i:'🧠', use:['Overlapping sub-problems','"Count the ways" / "min cost"','Optimal choices step by step'], pr:['Climbing Stairs','Coin Change','House Robber','Longest Common Subsequence'], t:'Varies', s:'Varies'},
-  sorting:{n:'Sorting Algorithms', i:'📊', use:['Order data for display','Before binary search / two pointers','Grouping duplicates'], pr:['Sort Colors','Merge Intervals','Kth Largest (Quickselect)'], t:'O(n log n)', s:'O(1)–O(n)'},
-  cheat:{n:'Cheat Sheet & Patterns', i:'📌', use:['Revise before interviews','Compare all structures','Pick the right pattern'], pr:['"If you smell X, try Y"'], t:'—', s:'—'},
-};
-const SD_GROUPS = [
-  ['🧭 Start here', '#2563eb', ['recipe','journey','apis','checklist']],
-  ['🧱 Building blocks', '#0891b2', ['lb','caching','cdn','queues','ratelimit']],
-  ['🗄️ Data & storage', '#7c3aed', ['databases','dbchoose','dbscale']],
-  ['🌐 Distributed systems', '#059669', ['cap','hashing','reliability','patterns']],
-  ['📈 Scale & numbers', '#d97706', ['scale','numbers','whenuse']],
-  ['🗺️ Architecture templates', '#db2777', ['templates']],
-  ['📖 Reference', '#64748b', ['dictionary']],
-];
-const SM = {
-  recipe:['🧑‍🍳','Design Process','The 4-step recipe + napkin maths'], journey:['📱','Request Journey','Follow one tap through the whole system'], apis:['🗣️','APIs & Protocols','REST, GraphQL, gRPC, WebSocket, status codes'], checklist:['🎤','Interview Checklist','45-minute plan, checklist, common mistakes'],
-  lb:['🚦','Load Balancer','Spread traffic; survive crashed servers'], caching:['🧊','Caching','Cache-aside, write-through, LRU eviction'], cdn:['📦','CDN','Serve files from near the user'], queues:['📬','Queues & Pub/Sub','Do slow work later; decouple services'], ratelimit:['🛑','Rate Limiting','Token bucket and 429s'],
-  databases:['🗄️','Why Databases','Why not a file? SQL vs NoSQL, ACID vs BASE'], dbchoose:['🧭','Database Choice Guide','Decision tree: which DB for which job'], dbscale:['🍕','Indexes, Replication & Sharding','Make data fast and huge'],
-  cap:['🎭','CAP Theorem','Consistency vs availability, with a bank demo'], hashing:['🍩','Consistent Hashing','Add servers without moving all the data'], reliability:['🛟','Reliability','Circuit breakers, failover, the nines'], patterns:['🧩','Design Patterns','Saga, CQRS, event sourcing, backoff…'],
-  scale:['📈','How to Scale','From 1 server to 100M users, step by step'], numbers:['🔢','Numbers & Formulas','Calculator, targets, trade-off matrix'], whenuse:['🧰','When to Use What','Problem → the right component'],
-  templates:['🗺️','Architecture Templates','News feed, notifications, file sync, rate limiter'], dictionary:['📖','Dictionary (112 terms)','Every term in plain words'],
-};
+/* ================= "EXPLAIN IT SIMPLY" for every topic ================= */
+const EXPLAIN = {};
+const EX = (k, what, why, words, how) => EXPLAIN[k] = {what, why, words, how};
 
-/* ---- tiny cheat-sheet diagrams for DSA cards ---- */
-function mini(id){
-  const c = '#334155', f = '#ffffff', hl = '#e0f2fe', bx = (x,y,t,h) => `<rect x="${x}" y="${y}" width="20" height="18" rx="3" fill="${h?hl:f}" stroke="${c}" stroke-width="1"/><text x="${x+10}" y="${y+12.5}" font-size="9" text-anchor="middle" fill="${c}">${t}</text>`;
-  const arr = (vals, y = 16, hls = []) => vals.map((v,i) => bx(8 + i*22, y, v, hls.includes(i))).join('');
-  const tree = (labels, col = c) => { const P = [[70,10],[40,28],[100,28],[24,46],[56,46],[84,46],[116,46]];
-    return [[0,1],[0,2],[1,3],[1,4],[2,5],[2,6]].map(([a,b]) => `<line x1="${P[a][0]}" y1="${P[a][1]}" x2="${P[b][0]}" y2="${P[b][1]}" stroke="#94a3b8"/>`).join('') + P.map(([x,y],i) => `<circle cx="${x}" cy="${y}" r="7.5" fill="${f}" stroke="${col}"/><text x="${x}" y="${y+3}" font-size="8" text-anchor="middle" fill="${c}">${labels[i]}</text>`).join(''); };
-  const svg = s => `<svg viewBox="0 0 140 56" width="140" height="56">${s}</svg>`;
-  const ar = (x1,y1,x2,y2) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" marker-end="url(#ma)"/>`;
-  const defs = `<defs><marker id="ma" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0L10,5L0,10z" fill="${c}"/></marker></defs>`;
-  switch(id){
-    case 'bigo': return svg(`<path d="M8,50 L132,48" stroke="#059669" fill="none" stroke-width="2"/><path d="M8,50 Q60,40 132,32" stroke="#2563eb" fill="none" stroke-width="2"/><path d="M8,50 Q90,46 112,4" stroke="#d97706" fill="none" stroke-width="2"/><path d="M8,50 Q60,50 70,4" stroke="#dc2626" fill="none" stroke-width="2"/>`);
-    case 'array': return svg(arr([10,20,30,40,50]) + [0,1,2,3,4].map(i => `<text x="${18+i*22}" y="46" font-size="8" text-anchor="middle" fill="#64748b">${i}</text>`).join(''));
-    case 'linked': return svg(defs + [10,20,30].map((v,i) => bx(6 + i*44, 19, v)).join('') + ar(27,28,48,28) + ar(71,28,92,28) + `<text x="122" y="31" font-size="8" fill="#64748b">null</text>`);
-    case 'stack': return svg(defs + [30,20,10].map((v,i) => `<rect x="60" y="${6+i*15}" width="30" height="13" rx="2" fill="${i===0?hl:f}" stroke="${c}"/><text x="75" y="${15+i*15}" font-size="8" text-anchor="middle">${v}</text>`).join('') + `<text x="22" y="15" font-size="8" fill="#64748b">top</text>` + ar(40,12,58,12));
-    case 'queue': return svg(arr([10,25,50,75], 14, [0]) + `<text x="10" y="46" font-size="8" fill="#64748b">front</text><text x="72" y="46" font-size="8" fill="#64748b">rear</text>`);
-    case 'hash': return svg(defs + ['k1','k2','k3'].map((k,i) => `<text x="14" y="${14+i*16}" font-size="8.5" fill="${c}">${k}</text>`).join('') + [0,1,2].map(i => ar(30,11+i*16,72,11+[1,2,0][i]*16)).join('') + [0,1,2].map(i => `<rect x="76" y="${4+i*16}" width="44" height="13" rx="2" fill="${f}" stroke="${c}"/><text x="98" y="${13+i*16}" font-size="8" text-anchor="middle">v${i+1}</text>`).join(''));
-    case 'bst': return svg(tree([8,3,10,1,6,9,14]));
-    case 'traversal': return svg(tree([1,2,5,3,4,6,7], '#059669'));
-    case 'heap': return svg(tree([1,3,2,7,4,5,6], '#7c3aed'));
-    case 'trie': return svg(tree(['•','c','d','a','o','r','g']));
-    case 'graph': { const P = [[70,8],[110,24],[96,48],[44,48],[30,24]]; return svg([[0,1],[1,2],[2,3],[3,4],[4,0],[0,2]].map(([a,b]) => `<line x1="${P[a][0]}" y1="${P[a][1]}" x2="${P[b][0]}" y2="${P[b][1]}" stroke="#94a3b8"/>`).join('') + P.map(([x,y],i) => `<circle cx="${x}" cy="${y}" r="7" fill="${f}" stroke="${c}"/><text x="${x}" y="${y+3}" font-size="8" text-anchor="middle">${i+1}</text>`).join('')); }
-    case 'window': return svg(arr([2,1,5,1,3], 18, [1,2,3]) + `<rect x="28" y="14" width="68" height="26" rx="5" fill="none" stroke="#db2777" stroke-width="1.6"/>`);
-    case 'prefix': return svg(arr([1,2,3,4], 6) + arr([1,3,6,10], 32, [3]));
-    case 'bsearch': return svg(defs + arr([1,3,5,7,9], 10, [2]) + ar(62,46,62,31));
-    case 'backtrack': { const pts = [[70,6],[40,24],[100,24],[24,44],[56,44],[84,44],[116,44]]; return svg([[0,1],[0,2],[1,3],[1,4],[2,5],[2,6]].map(([a,b]) => `<line x1="${pts[a][0]}" y1="${pts[a][1]}" x2="${pts[b][0]}" y2="${pts[b][1]}" stroke="#94a3b8"/>`).join('') + pts.map(([x,y],i) => `<circle cx="${x}" cy="${y}" r="4" fill="${i>2?'#059669':c}"/>`).join('')); }
-    case 'dp': return svg(Array.from({length:12}, (_,k) => { const i = k % 4, j = Math.floor(k/4); return `<rect x="${30+i*20}" y="${4+j*16}" width="20" height="16" fill="${(i+j)%3===0?'#fde68a':f}" stroke="${c}" stroke-width=".8"/>`; }).join(''));
-    case 'sorting': return svg([30,14,40,22,48,10,34].map((h,i) => `<rect x="${14+i*17}" y="${52-h}" width="13" height="${h}" rx="2" fill="${['#2563eb','#d97706','#2563eb','#dc2626','#059669','#2563eb','#2563eb'][i]}"/>`).join(''));
-    case 'cheat': return svg([0,1,2,3].map(j => `<line x1="10" y1="${10+j*13}" x2="130" y2="${10+j*13}" stroke="#cbd5e1"/>`).join('') + [0,1,2].map(j => `<rect x="10" y="${12+j*13}" width="30" height="9" fill="#e0f2fe"/><rect x="50" y="${12+j*13}" width="${30+j*15}" height="9" fill="${['#d1fae5','#fef3c7','#fee2e2'][j]}"/>`).join(''));
-  }
-  return '';
+/* ---------- Network ---------- */
+EX('internet','The internet is millions of computers connected by cables and radio, passing small envelopes of data (packets) from one to the next until they reach the right place.','Everything else (websites, apps, system design) sits on top of this. Knowing how data travels explains why things are slow, fast or broken.',[['Packet','A small chunk of data with a "to" and "from" address on it'],['Router','A device that forwards packets one hop closer to where they\'re going'],['ISP','The company that connects you to the internet']]);
+EX('urljourney','When you type a web address and press Enter, about a dozen things happen in under a second: finding the address, connecting, making it secure, asking for the page and drawing it.','It\'s the most famous interview question, and it ties every other networking topic together.',[['Browser','The app that shows websites (Chrome, Safari)'],['Server','A computer somewhere that sends the website to you'],['Request / response','Your question, and the server\'s answer']]);
+EX('osi','Networking is split into layers, like a team where each person does one job: one writes the letter, one adds the address, one drives the van.','When something breaks, layers tell you where to look: is it the Wi-Fi (bottom layer) or the website (top layer)?',[['Layer','One job in the chain of sending data'],['Header','A label each layer sticks on the data'],['Encapsulation','Wrapping data in more and more labels on the way out']]);
+EX('ip','Every device on a network gets an address (an IP address) so data knows where to go, and each app on it gets a door number (a port).','Without addresses, data couldn\'t find your phone. Subnets let organisations split their addresses into neighbourhoods.',[['IP address','A device\'s address, like 192.168.1.23'],['Port','Which app on the device: 443 = websites'],['Subnet','A group of addresses that belong together']]);
+EX('nat','Your home router gives each device a private address, then shares one public address for the whole house when talking to the internet.','It\'s why 10 devices at home can share one internet connection, and why devices inside aren\'t directly reachable from outside.',[['DHCP','The router automatically handing out addresses'],['NAT','Swapping private addresses for the public one'],['Gateway','Your router: the exit door to the internet']]);
+EX('dns','DNS is the internet\'s phone book: it turns names people remember (google.com) into numbers computers use (IP addresses).','Every website visit starts with a DNS lookup. When DNS breaks, "the internet is down" even if it isn\'t.',[['Domain','A website name, like example.com'],['Resolver','The helper that looks up names for you'],['TTL','How long an answer can be remembered (cached)']]);
+EX('tcpudp','TCP and UDP are two ways to send data. TCP is like a phone call that checks you heard everything. UDP is like shouting: fast, but some words get lost.','Choosing between them explains why video calls glitch but downloads never come out corrupted.',[['Handshake','A quick "hello" before talking (TCP only)'],['Acknowledgement (ACK)','"Got it!" sent back to confirm delivery'],['Packet loss','When some data never arrives']]);
+EX('http','HTTP is the simple language browsers and servers use: "GET me this page" → "200 OK, here it is".','Every API and website uses it. Understanding methods, headers and versions explains how the web really works.',[['Method','The verb: GET (read), POST (create)…'],['Header','Extra info sent with the request'],['Status code','A number saying how it went: 200 OK, 404 Not Found']]);
+EX('tls','HTTPS is HTTP inside a locked box. TLS is the lock: it scrambles the data and proves the website is who it claims to be.','Without it, anyone on the same café Wi-Fi could read your passwords.',[['Encryption','Scrambling data so only the right person can read it'],['Certificate','A website\'s ID card, signed by a trusted authority'],['Handshake','Agreeing on a secret key before talking']]);
+EX('realtime','Normally your app has to ask the server for news. Real-time techniques let the server push news to you the moment it happens.','Chat, live scores, notifications and multiplayer games all depend on it.',[['Polling','Asking "anything new?" over and over'],['WebSocket','A connection that stays open in both directions'],['Push','The server sending data without being asked']]);
+EX('proxies','Between you and a website there are often "middlemen": VPNs, CDNs, firewalls and load balancers, each with one job.','They make the internet faster, safer and able to survive attacks.',[['Proxy','A middleman that passes requests along'],['Firewall','A guard that blocks unwanted traffic'],['CDN','Copies of a website stored close to users']]);
+EX('latency','Latency is how long one trip takes (like distance). Bandwidth is how much can travel at once (like the number of lanes on a road).','Explains why a fast internet plan still lags in games, and why companies put servers near their users.',[['Latency','Delay, in milliseconds (ms)'],['Bandwidth','Capacity, in megabits per second (Mbps)'],['Round trip (RTT)','There and back again']]);
+EX('security','The network is full of tricks: eavesdropping, floods of fake traffic and fake websites. Each one has a standard defence.','Security mistakes are the most expensive mistakes in tech.',[['Attack','An attempt to steal, break or spy'],['Encryption','Scrambling data so outsiders can\'t read it'],['DDoS','Flooding a site with junk traffic to knock it over']]);
+
+/* ---------- Big O ---------- */
+EX('bigo','Big O is a way to describe how much slower code gets when you give it more data. It isn\'t about exact seconds: it\'s about the shape of the growth.','It\'s how programmers compare solutions before writing them, and every coding interview asks about it.',[['n','The size of the input (how many items)'],['Complexity','How the work grows as n grows'],['O(…)','Read it as "on the order of…"']]);
+EX('tcomplex','Time complexity counts how many basic steps code takes, and how that count grows as the input grows.','A solution that\'s fine for 100 items can take hours for a million. Counting steps tells you before it happens.',[['Step','One tiny action: compare, add, save'],['Loop','Repeating steps for each item'],['Nested loop','A loop inside a loop: steps multiply']]);
+EX('scomplex','Space complexity counts how much extra memory code needs as the input grows.','Memory is limited. Code that copies everything, or recurses very deep, can crash on big inputs.',[['Memory (RAM)','The computer\'s fast short-term storage'],['Auxiliary space','Extra memory your code adds'],['Call stack','Where waiting function calls are remembered']]);
+EX('bcases','The same code can be fast or slow depending on luck: where the item happens to be. Best, average and worst case describe that.','Big O usually promises the worst case, so you know it never gets worse than that.',[['Best case','The luckiest input'],['Worst case','The unluckiest input'],['Amortized','Averaged over many operations']]);
+EX('bigopractice','A quiz: look at a piece of code, count its steps, and choose its Big O.','Practice turns the rules into a reflex, which is exactly what interviews test.',[['Hidden loop','Code like "x in list" that secretly loops'],['Add vs multiply','Loops after each other add; loops inside each other multiply']]);
+
+/* ---------- Data structures (with "why it costs that") ---------- */
+const STEP = (t) => `<div class="why"><h4>🔍 Why does each operation cost what it does?</h4>${t}</div>`;
+EX('array','An array is a row of numbered boxes sitting right next to each other in memory, like seats in a cinema row.','It\'s the most-used data structure in the world, and almost every other structure is built on top of it.',[['Index','A box\'s position number, starting at 0'],['Element','The value inside a box'],['Contiguous','Side by side, with no gaps']],
+  STEP(`<p><b>Read by index: O(1).</b> The boxes are side by side and the same size, so box #i lives at <code>start + i × size</code>. One calculation, never a search. 1,000 items or a billion: same 1 step.</p><p><b>Search for a value: O(n).</b> The computer doesn't know <i>where</i> the 5 is, so it checks box 0, box 1, box 2… In the worst case it checks all n boxes.</p><p><b>Insert at the front: O(n).</b> There are no gaps, so to make room at seat 0 every item must shift one seat right. With 1,000 items, that's 1,000 moves.</p><p><b>Add at the end: O(1).</b> Nobody has to move: just use the next empty seat.</p>`));
+EX('linked','A linked list is a chain: each item holds its value plus an arrow (pointer) to the next item, which can be anywhere in memory.','Adding or removing at the front is instant, which arrays can\'t do. It\'s also used inside caches, queues and undo history.',[['Node','One item: value + pointer'],['Pointer','The address of the next node'],['Head','The first node: the only one you can reach directly']],
+  STEP(`<p><b>Get the 500th item: O(n).</b> There's no address formula, because nodes are scattered. You must start at the head and follow 499 arrows.</p><p><b>Add at the front: O(1).</b> Make a new node, point it at the old head, and call it the new head. 2 steps, no matter how long the chain.</p><p><b>Search: O(n).</b> Follow the arrows one by one until you find it, or reach the end.</p>`));
+EX('stack','A stack is a pile where you only touch the top: add to the top (push), take from the top (pop). The last thing in is the first thing out.','Undo buttons, the browser back button, and how your computer keeps track of running functions all work this way.',[['Push','Put on top'],['Pop','Take from the top'],['LIFO','Last In, First Out']],
+  STEP(`<p><b>Push and pop: O(1).</b> You only ever touch the top item, so the size of the pile never matters: always 1 step.</p><p><b>Find something in the middle: O(n).</b> You'd have to lift items off one by one to reach it. Stacks aren't for searching.</p>`));
+EX('queue','A queue is a line: join at the back, leave from the front. The first one in is the first one out, like a coffee shop line.','Printers, message systems, ticket waiting rooms and breadth-first search all use queues.',[['Enqueue','Join at the back'],['Dequeue','Leave from the front'],['FIFO','First In, First Out']],
+  STEP(`<p><b>Enqueue and dequeue: O(1).</b> We keep track of where the front and back are, so joining or leaving touches just one spot. No one shuffles.</p><p><b>Why not use an array and remove index 0?</b> Then everyone shifts forward each time, which is O(n). Real queues use a linked list or a "circular buffer" to avoid that.</p>`));
+EX('hash','A hash table stores key → value pairs (like word → meaning). A hash function turns each key into a box number, so you can go straight to it.','It\'s the secret behind fast lookups everywhere: dictionaries, caches, database indexes. If an interviewer asks "how do I make this faster?", the answer is often "use a hash map".',[['Key','What you look things up by ("pizza")'],['Hash function','A recipe that turns a key into a box number'],['Collision','Two keys landing in the same box']],
+  STEP(`<p><b>Find / insert / delete: O(1) on average.</b> Running the hash function on "pizza" always gives the same box number, say 4. So you go straight to box 4: one calculation, not a search through every item.</p><p><b>Worst case: O(n).</b> If many keys collide into the same box, that box holds a long list you must walk. Good hash functions spread keys evenly, so this is very rare.</p>`));
+EX('bst','A binary search tree is a family tree of numbers: smaller numbers go to the left child, bigger numbers to the right.','Every step down throws away half the options, so you can search a million items in about 20 steps while keeping them sorted.',[['Node','One item in the tree'],['Root','The top node'],['Leaf','A node with no children']],
+  STEP(`<p><b>Search: O(log n) when balanced.</b> At each node you ask "smaller or bigger?" and go left or right, ignoring the other half. Halving 1,000,000 repeatedly reaches 1 in about 20 steps.</p><p><b>Worst case: O(n).</b> If you insert 1, 2, 3, 4… in order, every node goes right and the "tree" becomes a straight line. That's why real systems use <i>self-balancing</i> trees.</p>`));
+EX('traversal','Traversing a tree means visiting every node exactly once. The four classic orders differ only in when you visit a parent compared to its children.','Copying, printing, saving or deleting a tree all need a traversal, and they\'re very common interview questions.',[['Pre-order','Parent first, then children'],['In-order','Left, parent, right (sorted on a BST)'],['Level-order','Row by row, top to bottom']],
+  STEP(`<p><b>Time: O(n).</b> Every node is visited exactly once, so n nodes means n visits.</p><p><b>Space: O(h)</b> for depth-first traversal, where h is the tree's height. The computer remembers the path from the root down to the current node, and that path is at most as long as the tree is tall.</p>`));
+EX('heap','A heap is a special tree where the smallest item (or the biggest) is always on top, ready to grab instantly.','"Give me the most urgent task", "top 10 trending", "nearest driver": anything that keeps asking for the min or max.',[['Min-heap','The smallest on top'],['Bubble up','A new item swaps upward until it\'s in place'],['Priority queue','A queue where importance decides the order']],
+  STEP(`<p><b>Peek at the min: O(1).</b> It's always at the very top.</p><p><b>Insert / remove: O(log n).</b> A new item starts at the bottom and swaps upward, one level at a time. A heap with 1,000,000 items is only about 20 levels tall, so at most ~20 swaps.</p>`));
+EX('trie','A trie stores words letter by letter in a tree, and words that start the same way share the same branch.','It powers autocomplete: type "ca" and every word under that branch is a suggestion.',[['Prefix','The beginning of a word ("ca" in "cat")'],['Node','One letter'],['End marker','A flag saying "a word ends here"']],
+  STEP(`<p><b>Insert or find a word: O(L)</b>, where L is the word's length. Finding "cat" takes 3 steps (c → a → t) whether the trie holds 10 words or 10 million, because you only ever walk down one branch.</p>`));
+EX('graph','A graph is dots (nodes) connected by lines (edges). Cities and roads, people and friendships, and web pages and links are all graphs.','Maps, social networks, recommendations and the internet itself are graphs. BFS, DFS and shortest-path algorithms answer questions about them.',[['Node / vertex','A dot (a city, a person)'],['Edge','A line between two dots'],['Weight','A cost on an edge (distance, time)']],
+  STEP(`<p><b>BFS / DFS: O(V + E).</b> Each node (V) is visited once and each edge (E) is checked once. Nothing is visited twice, thanks to a "visited" list.</p><p><b>Dijkstra: O((V + E) log V).</b> The same idea, but a heap always picks the closest unvisited node, and each heap operation costs log V.</p>`));
+EX('sorting','Sorting puts items in order (smallest to biggest, A to Z). Different methods do very different amounts of work.','Sorted data makes searching, grouping and finding duplicates far easier, and "sort by price" is everywhere.',[['Comparison','Checking which of two items is bigger'],['Swap','Exchanging two items\' positions'],['Stable','Equal items keep their original order']],
+  STEP(`<p><b>Bubble / selection / insertion: O(n²).</b> They compare items pair by pair. Roughly, for each item they scan through the others, so n × n.</p><p><b>Merge / quick sort: O(n log n).</b> They split the list in half again and again (log n levels), and each level does about n work. For 1,000 items that's ~10,000 steps instead of ~1,000,000.</p>`));
+EX('bsearch','Binary search finds an item in a sorted list by checking the middle, then throwing away the half it can\'t be in, and repeating.','It turns a million-item search into about 20 checks. That\'s the power of log n.',[['Sorted','Already in order (required!)'],['Middle','The item halfway between low and high'],['Halving','Cutting the search space in two each step']],
+  STEP(`<p><b>O(log n):</b> each check removes half of what's left: 1,000,000 → 500,000 → 250,000 → … → 1 takes only about 20 steps. Doubling the data adds just <b>one</b> more step.</p>`));
+EX('window','Two clever tricks for walking through a list once instead of many times: keep a "window" that slides along, or move two fingers toward each other.','They turn many slow O(n²) solutions into fast O(n) ones, and they\'re among the most common interview patterns.',[['Window','A range of neighbouring items'],['Slide','Add the new item on the right, drop the old one on the left'],['Two pointers','Two positions moving through the list']],
+  STEP(`<p><b>Why O(n):</b> instead of re-adding all k items in each window (k steps per window), we add 1 and subtract 1 (2 steps per window). Every item enters and leaves the window once, so about 2n steps in total.</p>`));
+EX('prefix','Prefix sums pre-calculate running totals once, so the total of any range can be answered with a single subtraction.','When you need many "sum between position L and R" answers, this turns each answer from slow to instant.',[['Running total','The sum of everything so far'],['Range','A stretch from position L to R'],['Query','A question you ask the data']],
+  STEP(`<p><b>Build once: O(n).</b> Walk the list one time, adding as you go.</p><p><b>Each answer: O(1).</b> total(L..R) = running[R+1] − running[L]: one subtraction, however long the range.</p>`));
+EX('backtrack','Backtracking tries every possibility by making a choice, exploring where it leads, and undoing it to try the next choice.','It\'s how you solve "list all combinations" problems, Sudoku and mazes.',[['Choice','A decision like "take this item or not"'],['Explore','Go deeper with that choice'],['Undo','Take the choice back and try another']],
+  STEP(`<p><b>Why it\'s slow: O(2ⁿ).</b> For subsets, each of the n items is either in or out, so there are 2 × 2 × … × 2 = 2ⁿ results to produce. With 20 items that's over a million. <b>Pruning</b> (skipping branches that can't work) keeps it practical.</p>`));
+EX('dp','Recursion means solving a problem using a smaller copy of itself. Dynamic programming means remembering answers you\'ve already worked out, so you never redo them.','It turns impossibly slow solutions (years) into instant ones, and it\'s the most feared interview topic. It\'s easier than it looks!',[['Recursion','A function calling itself on a smaller input'],['Base case','The tiny problem you can answer directly'],['Memoization','Writing answers down to reuse them']],
+  STEP(`<p><b>Naive Fibonacci: O(2ⁿ).</b> fib(n) calls fib(n−1) and fib(n−2), which call more… and the same numbers get recomputed again and again. The work doubles at every level.</p><p><b>With memory (DP): O(n).</b> Each fib(k) is computed once and then looked up. n different values means about n steps.</p>`));
+EX('cheat','A one-page summary of every data structure, its speeds, and which interview patterns to use when.','Perfect for a quick review before an interview.',[['Pattern','A reusable approach to a family of problems']]);
+
+/* ---------- System design ---------- */
+EX('recipe','System design is planning how all the parts of a big app fit together: the servers, databases, caches and so on. There\'s a repeatable 4-step recipe for doing it.','Every system design interview, and every real project, follows these steps. Learn the recipe once and use it for every case study.',[['Requirements','What the system must do'],['Estimation','Rough maths: how many users and how much data'],['Trade-off','Gaining one thing by giving up another']]);
+EX('journey','Follow one tap on your phone as it travels through all the pieces of a real system, and back.','Seeing the whole path first makes every individual building block easier to understand.',[['Server','A computer that answers requests'],['Database','Where data is permanently stored'],['Cache','A fast short-term copy of popular data']]);
+EX('lb','A load balancer spreads visitors across many identical servers, like a staff member directing shoppers to free checkout lanes.','One server can\'t handle millions of people. With a load balancer you can add servers, and survive when one breaks.',[['Server','A computer running your app'],['Traffic','The stream of incoming requests'],['Health check','Regularly asking "are you OK?"']]);
+EX('caching','A cache keeps copies of frequently used data somewhere super fast (memory), so you don\'t go to the slow database every time.','It\'s the #1 trick for making apps fast and taking load off databases.',[['Cache hit','Found in the cache (fast)'],['Cache miss','Not there, so go to the database (slow)'],['TTL','How long a copy stays before it expires']]);
+EX('cdn','A CDN stores copies of images, videos and files on servers in many cities, so each user downloads from somewhere close.','Distance means delay. A CDN makes websites load fast worldwide and protects them from traffic floods.',[['Edge server','A CDN server near users'],['Origin','Your main server, with the original files'],['Latency','Delay caused by distance']]);
+EX('queues','A message queue is a waiting line for jobs: one part of the system drops a job in, and another part picks it up when it\'s ready.','The user gets a fast response while slow work (emails, video processing) happens in the background, and nothing is lost during traffic spikes.',[['Producer','Puts jobs in the queue'],['Consumer / worker','Takes jobs out and does them'],['Pub/Sub','One message delivered to many listeners']]);
+EX('ratelimit','A rate limiter caps how many requests someone can make in a time window, like "5 password attempts per minute".','It stops abuse, bots and accidental floods from taking a system down.',[['Throttle','Slow down or block'],['429','The "too many requests" error code'],['Token bucket','A popular counting method']]);
+EX('hashing','Consistent hashing is a smart way to decide which server stores which piece of data, so adding or removing a server only moves a small amount of data.','Big databases and caches add servers all the time, and without it nearly everything would have to move.',[['Hash','A number calculated from a key'],['Ring','Servers and keys placed around a circle'],['Rebalance','Moving data when servers change']]);
+EX('reliability','Reliability means a system keeps working even when parts of it break, and at scale something is always breaking.','Users don\'t care why it\'s down, only that it is. These patterns keep things running.',[['Redundancy','Having spares'],['Failover','Switching to the spare automatically'],['Uptime','The % of time the system works']]);
+EX('whenuse','A cheat sheet that matches common needs (fast reads, file storage, search…) to the right tool, and says what to avoid.','In interviews and at work, choosing the right component is half the battle.',[['Component','One building block (cache, queue, database)']]);
+EX('cap','When data is copied to several machines and the network between them breaks, you must choose: give everyone the same correct answer (consistency), or keep answering everyone (availability).','It explains why banks say "try again later" while social apps happily show slightly old like counts.',[['Consistency','Everyone sees the same latest data'],['Availability','Always get an answer'],['Partition','The network splitting machines apart']]);
+EX('databases','A database is an organised, permanent store for an app\'s information, built to find things fast, handle many users at once and never lose data.','Almost every app has one. Knowing why they exist, and the two main families, is the foundation of system design.',[['SQL','Tables with rows and columns, and strict rules'],['NoSQL','Flexible storage that spreads easily across machines'],['Transaction','A group of changes that all happen or none do']]);
+EX('dbchoose','There are many kinds of databases, each great at one job. A few simple yes/no questions point to the right one.','Picking the wrong database is one of the most expensive mistakes to fix later.',[['Key–value','Look up a value by its name'],['Document','Flexible records, like JSON'],['Search engine','Built for full-text search']]);
+EX('dbscale','When one database gets too slow or too full: indexes make lookups fast, replicas make copies, and sharding splits the data across machines.','These three are how every big app\'s database survives growth.',[['Index','A shortcut for finding rows fast'],['Replica','A live copy of the database'],['Shard','One slice of the data on its own machine']]);
+EX('hldlld','High-level design (HLD) is the city map: which services and databases exist. Low-level design (LLD) is one building\'s floor plan: the classes and code inside a service.','Interviews ask for both, and real projects need both. They answer different questions.',[['Service','One program in a bigger system'],['Class','A blueprint for objects in code'],['Diagram','A picture of how parts connect']]);
+EX('oop','Object-oriented programming organises code as "objects": things that hold data and can do actions, built from blueprints called classes.','Most LLD interviews, and languages like Java, Python and C#, are built around it.',[['Class','The blueprint (a cookie cutter)'],['Object','One thing made from it (a cookie)'],['Method','An action an object can do']]);
+EX('solid','SOLID is five rules of thumb that keep code easy to change without breaking things.','Interviewers use them to judge your class design. They prevent messy "change one thing, break five" code.',[['Responsibility','One clear job for a class'],['Interface','A promise of which actions a class offers'],['Dependency','Something a class needs to work']]);
+EX('uml','UML is a standard way to draw software: boxes for classes, and special arrows for "is a", "has a" and "uses".','In an LLD interview you\'ll draw a class diagram. Knowing the symbols means others can read it instantly.',[['Class diagram','Boxes = classes, arrows = relationships'],['Sequence diagram','Who calls whom, in order'],['Inheritance','"Is a" (a Car is a Vehicle)']]);
+EX('structural','Structural patterns are proven ways to fit classes together: wrapping, adapting or simplifying them.','They solve common "these pieces don\'t fit" problems without rewriting code.',[['Wrapper','An object around another object'],['Interface','The shape other code expects'],['Adapter','A converter between two shapes']]);
+EX('behavioral','Behavioural patterns are proven ways for objects to talk to each other and share work: swap strategies, notify subscribers, change behaviour by state.','They replace long, messy if/else chains with clean, swappable pieces.',[['Strategy','A swappable way of doing something'],['Observer','Subscribers notified of changes'],['State','Behaviour that depends on the current status']]);
+EX('patterns','These are patterns for whole systems (not single classes): retries, circuit breakers, sagas, event sourcing and more.','They\'re how real distributed systems stay correct and reliable when networks and services fail.',[['Distributed system','Many machines working as one'],['Saga','A multi-step process with an "undo" for each step'],['Idempotent','Safe to repeat']]);
+EX('concurrency','Concurrency means many things happening at the same time, like thousands of users booking seats at once. Without care, they trip over each other.','Race conditions are the nastiest bugs: they only happen sometimes, and they cost real money (double bookings!).',[['Thread','One line of work running in a program'],['Race condition','Two things clashing at the same moment'],['Lock','"One at a time, please"']]);
+EX('creational','Creational patterns control how objects get made: one shared instance (Singleton), a "make me one of these" method (Factory), or step-by-step building (Builder).','They\'re the most-asked design patterns, and they keep creation logic in one tidy place.',[['Instance','One object made from a class'],['Constructor','The method that builds an object'],['Factory','A method whose job is creating objects']]);
+EX('lombok','Lombok is a Java tool that writes boring repetitive code (getters, setters, constructors, builders) for you, from short annotations like @Getter.','Real Java projects use it everywhere. It makes classes short and readable, and it maps directly to LLD patterns like Builder.',[['Annotation','A tag starting with @ that gives instructions'],['Boilerplate','Repetitive code you\'d rather not write'],['Compile time','When code is turned into a runnable program']]);
+EX('apis','An API is a menu of requests one program can make to another, plus the rules for asking. REST, GraphQL, gRPC and WebSockets are different styles of menu.','Every app talks to its servers through APIs, and each style suits different jobs.',[['Endpoint','One item on the menu, like /orders'],['Request / response','Asking, and getting an answer'],['JSON','The common text format for data']]);
+EX('errors','When something goes wrong, good systems say clearly what happened (a status code), whether to try again, and record it in logs at the right level.','Clear errors make bugs fast to fix, and stop apps retrying things that will never work.',[['Status code','A number: 200 OK, 404 Not Found, 500 Server Error'],['Retry','Trying the same request again'],['Log level','How serious a log message is: INFO, WARN, ERROR']]);
+EX('scale','Scaling means growing a system to handle more users, by adding the right building block at each stage instead of everything at once.','You don\'t build for 100 million users on day one. You fix each bottleneck as it appears.',[['Bottleneck','The part that slows everything down'],['Scale up','A bigger machine'],['Scale out','More machines']]);
+EX('numbers','Quick maths to estimate how big a system needs to be: requests per second, storage, bandwidth and number of servers.','"Do we need 1 server or 1,000?" changes the whole design. Interviewers expect these estimates.',[['QPS','Queries (requests) per second'],['Peak','The busiest time'],['Estimate','A rough but useful guess']]);
+EX('checklist','A checklist and time plan for system design interviews, and the most common mistakes.','Interviews are timed. A plan keeps you from getting lost in details.',[['HLD','The big-picture architecture']]);
+EX('lldsteps','A step-by-step method for low-level design interviews: turn the requirements into classes, relationships and code.','LLD interviews test structure and clarity, and a method keeps you organised.',[['Entity','A "thing" in the problem (a Car, a Ticket)'],['Noun → class','Things in the story become classes']]);
+EX('dictionary','Every system design term, explained in plain words with a real-life example.','Bookmark it for whenever a word is unfamiliar.',[['Glossary','A list of terms and their meanings']]);
+
+/* ---------- Problem patterns: shared intro ---------- */
+Object.keys(PATS).forEach(k => EX(k, `${PATS[k].n} is a family of interview problems that are all solved with the same core trick. Learn the trick once, and you can solve the whole family.`, 'Interviews reuse patterns. Recognising "this is a ' + PATS[k].n.toLowerCase() + ' problem" is often 80% of the solution.', [['Pattern','A reusable approach to similar problems'],['Template','A code skeleton you adapt for each problem'],['Easy / Medium / Hard','LeetCode\'s difficulty labels']]));
+
+function explainBlock(k){
+  const e = EXPLAIN[k]; if (!e) return '';
+  return `<section class="eli"><div class="eli-h">🧒 Explain it simply</div>
+    <div class="eli-g"><div><b>What is it?</b><p>${e.what}</p></div><div><b>Why should I care?</b><p>${e.why}</p></div></div>
+    ${e.words && e.words.length ? `<div class="eli-w"><b>📖 Words you'll see</b><dl>${e.words.map(([t,d]) => `<div><dt>${t}</dt><dd>${d}</dd></div>`).join('')}</dl></div>` : ''}</section>${e.how || ''}`;
 }
-
 
 /* ================= TWO SECTIONS: DSA + SYSTEM DESIGN ================= */
 let DONE;
@@ -4341,7 +4776,7 @@ const SECTIONS = {
   dsa:{n:'Data Structures & Algorithms', short:'DSA', icon:'🧮', color:'#7c3aed', blurb:'Start with how computers talk, then learn how data is stored and processed, then practise with the 150 classic interview problems.',
     chapters:[
       ['Network Fundamentals','🌐','#0891b2','How data travels: packets, IPs, DNS, TCP, HTTP and TLS.', ['internet','urljourney','osi','ip','nat','dns','tcpudp','http','tls','realtime','proxies','latency','security']],
-      ['Big O & Complexity','⏱️','#2563eb','How to measure whether code is fast or slow.', ['bigo']],
+      ['Big O & Complexity','⏱️','#2563eb','The most important idea in coding interviews: how to measure time (steps) and space (memory) as data grows.', ['bigo','tcomplex','scomplex','bcases','bigopractice']],
       ['Data Structures','📦','#059669','Where data lives: arrays to graphs, each one animated.', ['array','linked','stack','queue','hash','bst','traversal','heap','trie','graph']],
       ['Algorithms','⚙️','#d97706','Step-by-step recipes: sorting, searching, windows, recursion and DP.', ['sorting','bsearch','window','prefix','backtrack','dp']],
       ['Problem Patterns (LeetCode 150)','🧩','#db2777','150 interview problems grouped into 18 patterns, with templates, hints and checkboxes.', Object.keys(PATS)],
@@ -4425,7 +4860,8 @@ function topicPage(s, k){
     <div class="crumbs"><a href="#/">Home</a> › <a href="#/${s}">${S.n}</a> › <span>${pos.ci+1}. ${ch[0]}</span></div>
     <div class="thead" style="--c:${ch[2]}"><span class="num big">${pos.ci+1}.${pos.ti+1}</span><div><div class="kicker">Chapter ${pos.ci+1} · ${ch[0]}</div><h1>${title}</h1></div></div>
     ${ch[4].length > 1 ? `<div class="siblings">${ch[4].map((kk, ti) => `<a href="#/${s}/${kk}" class="${kk === k ? 'on' : ''}">${pos.ci+1}.${ti+1} ${topicInfo(kk).t}</a>`).join('')}</div>` : ''}
-    ${x.dsa ? dsaGlance(k) : ''}
+    ${x.case ? '' : explainBlock(k)}
+    ${x.dsa && DM[k].t !== '—' ? dsaGlance(k) : ''}
     ${x.case ? caseRender(x.case) : `<article class="lesson">${x.sec.body}</article>`}
     <nav class="pager">
       ${prev ? `<a href="#/${s}/${prev.k}"><small>← ${tnum(s, prev.k)}${prev.ci !== pos.ci ? ' · new chapter' : ''}</small><b>${topicInfo(prev.k).t}</b></a>` : '<span></span>'}
